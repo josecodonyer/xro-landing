@@ -52,8 +52,8 @@ export default function Home() {
             Ragnarok como<br /><em>debía sentirse</em>.
           </h1>
           <p className={styles.heroLede}>
-            Servidor Renewal x10 en español, con 4th jobs y sin pay-to-win.<br />
-            Un solo cliente, una sola progresión.
+            Renewal x10 en castellano, con 4th jobs desde el primer día.<br />
+            Cash points que se ganan jugando — nunca comprando.
           </p>
           <div className={styles.heroActions}>
             <div className={styles.downloadBlock}>
@@ -148,20 +148,20 @@ export default function Home() {
             <div className="eyebrow-line">El servidor</div>
             <h3 className={styles.bannerH3}>Renewal cuidado, <em>sin pay-to-win</em>.</h3>
             <ul className={styles.bannerList}>
-              <li><strong>4th Jobs</strong> completos desde el día uno.</li>
-              <li>Solo cosméticos en tienda. Cero ventajas de pago.</li>
-              <li>Episodios al día con kRO, ajustes mínimos.</li>
+              <li><strong>4th Jobs</strong> completos. Job Master en Prontera, sin requisitos de quest.</li>
+              <li>Cash points ganados jugando — 2 por minuto activo + 500 de bienvenida.</li>
+              <li>Cliente kRO 2025-07-16 actualizado. Sin GEPARD, sin restricciones de IP.</li>
             </ul>
           </div>
         </div>
         <div className={`${styles.banner} ${styles.bannerFlip}`}>
           <div className={styles.bannerBody}>
             <div className="eyebrow-line">Contenido</div>
-            <h3 className={styles.bannerH3}>WoE TE · BG · <em>instancias con matchmaking</em>.</h3>
+            <h3 className={styles.bannerH3}>WoE · instancias · <em>eventos cada semana</em>.</h3>
             <ul className={styles.bannerList}>
-              <li>War of Emperium Territory Edition los sábados.</li>
-              <li>Battlegrounds diario y party-finder integrado.</li>
-              <li>GMs activos · Soporte y tickets 24h.</li>
+              <li>War of Emperium FE + TE con horario fijo. Castillos activos cada semana.</li>
+              <li>Instancias: Endless Tower, Nydhogg&apos;s Nest, Orc&apos;s Memory, Sealed Shrine.</li>
+              <li>Eventos rotativos: Devil Square, MVP Ladder, Disguise Event.</li>
             </ul>
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -181,7 +181,7 @@ export default function Home() {
           </div>
           <div className={styles.discordBody}>
             <h3 className={styles.discordH3}>Únete a <em>nuestra comunidad</em>.</h3>
-            <p className={styles.discordP}>Soporte, mercado, party-finder y anuncios de parche — todo en un solo servidor.</p>
+            <p className={styles.discordP}>Soporte, party-finder, anuncios de parche y comunidad en español — todo en un solo servidor.</p>
           </div>
           <div className={styles.discordActions}>
             <a href="https://discord.gg/xro" className={styles.btnDiscord}>
@@ -203,7 +203,7 @@ export default function Home() {
           <h2 className={styles.bottomCtaH2}>Una temporada <em>te está esperando</em>.</h2>
           <div className={styles.bottomCtaActions}>
             <p className={styles.bottomCtaP}>
-              El launcher actualiza el cliente y verifica los archivos antes de cada inicio. Cero configuración manual.
+              El launcher descarga, actualiza y verifica el cliente automáticamente. Cero configuración manual.
             </p>
             <div className={styles.downloadBlock}>
               <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/launcher/xRO-Launcher-Setup.exe" className={styles.downloadMain}>
