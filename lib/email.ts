@@ -1,10 +1,16 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+function getResend(): Resend {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error('RESEND_API_KEY is not set');
+  _resend ??= new Resend(key);
+  return _resend;
+}
 const FROM = 'xRO <noreply@xro-server.es>';
 
 export async function sendVerificationCode(to: string, code: string) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from:    FROM,
     to,
     subject: `[xRO] Tu código de verificación: ${code}`,
@@ -20,7 +26,7 @@ export async function sendVerificationCode(to: string, code: string) {
 }
 
 export async function sendPasswordResetCode(to: string, code: string) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from:    FROM,
     to,
     subject: `[xRO] Código para cambiar contraseña: ${code}`,
@@ -36,7 +42,7 @@ export async function sendPasswordResetCode(to: string, code: string) {
 }
 
 export async function sendEmailChangeCode(to: string, code: string) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from:    FROM,
     to,
     subject: `[xRO] Código para cambiar email: ${code}`,
