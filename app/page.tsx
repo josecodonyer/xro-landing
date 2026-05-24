@@ -59,8 +59,8 @@ export default function Home() {
             Ragnarok como<br /><em>debía sentirse</em>.
           </h1>
           <p className={styles.heroLede}>
-            Servidor Renewal x10 con 4th jobs y sin pay-to-win.<br />
-            Comunidad hispana, servidor en Europa.
+            Renewal x10. 4th jobs. Sin pay-to-win.<br />
+            Para los que llevan tiempo buscando esto.
           </p>
           <div className={styles.heroActions}>
             <div className={styles.downloadBlock}>
@@ -210,10 +210,10 @@ export default function Home() {
         <img className={styles.bottomCtaImg} src="/art/illust-landscape.png" alt="" aria-hidden />
         <div className={styles.bottomCtaOverlay} aria-hidden />
         <div className={styles.bottomCtaContent}>
-          <h2 className={styles.bottomCtaH2}>Una temporada <em>te está esperando</em>.</h2>
+          <h2 className={styles.bottomCtaH2}>Empieza hoy. <em>En diez minutos estás en Prontera.</em></h2>
           <div className={styles.bottomCtaActions}>
             <p className={styles.bottomCtaP}>
-              El launcher descarga y actualiza el cliente automáticamente. Cero configuración manual.
+              Descarga el launcher, crea tu cuenta y en minutos estás jugando. El cliente se actualiza solo.
             </p>
             <div className={styles.downloadBlock}>
               <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/launcher/xRO-Launcher-Setup.exe" className={styles.downloadMain}>
