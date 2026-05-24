@@ -20,7 +20,7 @@
 /* ---- Hero ---- */
 .heroGrid {
   position: relative;
-  padding-top: 120px;
+  padding-top: 110px;
   padding-bottom: 80px;
   display: grid;
   grid-template-columns: 1.05fr 1fr;
@@ -537,6 +537,7 @@
   .shell { padding: 0 28px; }
   .gutterRule { left: 28px; }
   .gutterRuleRight { right: 28px; }
+  .heroGrid { padding-top: 90px; }
 
   .heroGrid { grid-template-columns: 1fr; gap: 32px; padding-top: 100px; }
   .heroRight { min-height: 360px; aspect-ratio: 16/10; }

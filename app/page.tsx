@@ -28,12 +28,8 @@ export default function Home() {
           <a href="#rates">Rates</a>
           <a href="#features">Servidor</a>
           <a href="#discord">Comunidad</a>
-          <a href="#descargar" className="btn-ghost">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-              <path d="M7 1 V 9 M3.5 6 L7 9.5 L10.5 6 M2 11 H 12 V 12.5 H 2 Z"
-                stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Descargar
+          <a href="#descargar" className="btn-header-cta">
+            ▶ Descargar
           </a>
         </nav>
       </header>

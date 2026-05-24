@@ -133,18 +133,23 @@ a:hover { color: #fff; }
 
 .topbar {
   position: fixed;
-  inset: 0 0 auto 0;
+  top: 16px;
+  left: 16px;
+  right: 16px;
   z-index: var(--z-chrome);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 28px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.35) 70%, transparent 100%);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  padding: 8px 8px 8px 20px;
+  background: rgba(14, 16, 20, 0.82);
+  backdrop-filter: var(--blur-dock);
+  -webkit-backdrop-filter: var(--blur-dock);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255,255,255,0.05);
 }
-.topbar-left  { display: flex; align-items: center; gap: 22px; }
-.topbar-right { display: flex; align-items: center; gap: 6px; }
+.topbar-left  { display: flex; align-items: center; gap: 18px; }
+.topbar-right { display: flex; align-items: center; gap: 4px; }
 
 .brand {
   display: inline-flex; align-items: baseline; gap: 0;
@@ -209,6 +214,22 @@ a:hover { color: #fff; }
   transition: all var(--dur-fast) var(--ease-out); text-decoration: none;
 }
 .btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: var(--line-heavy); color: var(--fg); }
+
+/* Header CTA — estilo JUGAR del launcher */
+.btn-header-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  background: var(--fg);
+  color: var(--black);
+  border: none;
+  border-radius: var(--r-xl);
+  font-size: var(--t-sm); font-weight: 700;
+  letter-spacing: var(--ls-button); text-transform: uppercase;
+  text-decoration: none;
+  transition: all var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+}
+.btn-header-cta:hover { background: var(--accent); color: var(--accent-ink); }
 
 .eyebrow-line {
   display: inline-flex; align-items: center; gap: 14px;
