@@ -17,6 +17,24 @@
 }
 .gutterRuleRight { left: auto; right: 56px; }
 
+/* ---- Brand logo del header ---- */
+.brandLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #0a0a0c;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.brandRo {
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0a0a0c;
+  line-height: 1;
+}
+
 /* ---- Hero full-viewport ---- */
 .heroFull {
   position: relative;

@@ -156,9 +156,9 @@ a:hover { color: #fff; }
 .topbar .brand            { color: #0a0a0c; }
 .topbar .brand .x         { color: #0a0a0c; }
 .topbar .brand .ro        { color: #0a0a0c; opacity: 0.55; }
-.topbar .brand .ro::after { background: var(--jade-500); }
+.topbar .brand .ro::after { background: var(--jade-500); transform: none; vertical-align: middle; }
 .topbar .divider-v        { background: rgba(10,10,12,0.14); }
-.topbar .mono-sub         { color: rgba(10,10,12,0.4); }
+.topbar .mono-sub         { color: rgba(10,10,12,0.4); white-space: nowrap; }
 .topbar .status-pill {
   background: rgba(10,10,12,0.05);
   border-color: rgba(10,10,12,0.1);
