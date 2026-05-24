@@ -16,6 +16,7 @@ export default async function CuentaPage() {
     <div className={styles.shell}>
       <div className={`${styles.card} ${styles.cardWide}`}>
         <div>
+          <Link href="/" className={styles.backLink}>← Volver</Link>
           <Link href="/" className={styles.logo}>
             <svg width="18" height="18" viewBox="0 0 600 600" fill="none" aria-hidden>
               <g transform="matrix(1.250966,1.250966,-1.250966,1.250966,195.474028,-418.223501)">

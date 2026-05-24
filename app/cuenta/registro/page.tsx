@@ -31,6 +31,7 @@ export default function RegistroPage() {
     return (
       <div className={styles.shell}>
         <div className={styles.card}>
+          <Link href="/" className={styles.backLink}>← Volver</Link>
           <Link href="/" className={styles.logo}>{SVG_LOGO}<span className={styles.logoRo}>RO</span></Link>
           <div className={styles.heading}>
             <h1 className={styles.title}>Cuenta creada.</h1>
@@ -46,6 +47,7 @@ export default function RegistroPage() {
     return (
       <div className={styles.shell}>
         <div className={styles.card}>
+          <Link href="/" className={styles.backLink}>← Volver</Link>
           <Link href="/" className={styles.logo}>{SVG_LOGO}<span className={styles.logoRo}>RO</span></Link>
           <div className={styles.heading}>
             <h1 className={styles.title}>Verifica tu email.</h1>
@@ -80,6 +82,7 @@ export default function RegistroPage() {
   return (
     <div className={styles.shell}>
       <div className={styles.card}>
+        <Link href="/" className={styles.backLink}>← Volver</Link>
         <Link href="/" className={styles.logo}>{SVG_LOGO}<span className={styles.logoRo}>RO</span></Link>
         <div className={styles.heading}>
           <h1 className={styles.title}>Crear cuenta.</h1>

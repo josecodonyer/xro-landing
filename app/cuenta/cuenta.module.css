@@ -45,6 +45,20 @@
   max-width: 640px;
 }
 
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(10,10,12,0.4);
+  font-size: 13px;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: color var(--dur-fast) var(--ease-out);
+  margin-bottom: -8px;
+}
+
+.backLink:hover { color: #0a0a0c; }
+
 .logo {
   display: flex;
   align-items: center;
