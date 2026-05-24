@@ -201,8 +201,8 @@
 
 .kpiK {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.28em;
+  font-size: 11px;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--fg-faint);
   display: block;
@@ -240,8 +240,8 @@
 }
 .ratesLabel {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.32em;
+  font-size: 12px;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--fg-faint);
 }
@@ -281,8 +281,8 @@
   align-items: baseline;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.28em;
+  font-size: 11px;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--fg-faint);
 }
@@ -311,7 +311,7 @@
 .rateTileFirst .rateBig { color: var(--accent-highlight); }
 
 .rateDesc {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--fg-dim);
   line-height: 1.5;
   max-width: 200px;
@@ -434,7 +434,7 @@
   display: flex; flex-direction: column; gap: 9px;
 }
 .bannerList li {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--fg-dim);
   line-height: 1.5;
   padding-left: 18px;
@@ -532,7 +532,7 @@
   color: var(--fg);
 }
 .discordH3 em { font-style: italic; font-weight: 300; color: #b3bcff; }
-.discordP { color: var(--fg-dim); font-size: 13px; margin: 0; }
+.discordP { color: var(--fg-dim); font-size: 15px; margin: 0; }
 .discordActions { flex-shrink: 0; }
 .btnDiscord {
   background: #5865f2;

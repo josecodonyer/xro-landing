@@ -1,6 +1,11 @@
+'use client';
+
+import { useServerStatus } from './components/ServerStatus';
 import styles from "./landing.module.css";
 
 export default function Home() {
+  const status = useServerStatus();
+
   return (
     <>
       {/* ── Top bar flotante ── */}
@@ -18,9 +23,13 @@ export default function Home() {
           <span className="mono-sub">Renewal · x10 · 4th Jobs</span>
           <span className="status-pill">
             <span className="dot" />
-            <span className="strong">Online</span>
-            <span className="sep">·</span>
-            <span>247 jugadores</span>
+            <span className="strong">{status.online ? 'Online' : 'Offline'}</span>
+            {status.players !== null && (
+              <>
+                <span className="sep">·</span>
+                <span>{status.players} jugadores</span>
+              </>
+            )}
           </span>
         </div>
         <nav className="topbar-right nav">
@@ -42,18 +51,16 @@ export default function Home() {
           <source src="/video/hero-bg.mp4" type="video/mp4" />
         </video>
 
-        {/* Overlay degradado */}
         <div className={styles.heroOverlay} aria-hidden />
 
-        {/* Contenido — bottom left */}
         <div className={styles.heroContent}>
-          <div className="eyebrow-line">Renewal x10 · 4th Jobs · En español</div>
+          <div className="eyebrow-line">Renewal x10 · 4th Jobs · EU</div>
           <h1 className={styles.heroH1}>
             Ragnarok como<br /><em>debía sentirse</em>.
           </h1>
           <p className={styles.heroLede}>
-            Renewal x10 en castellano, con 4th jobs desde el primer día.<br />
-            Cash points que se ganan jugando — nunca comprando.
+            Servidor Renewal x10 con 4th jobs y sin pay-to-win.<br />
+            Comunidad hispana, servidor en Europa.
           </p>
           <div className={styles.heroActions}>
             <div className={styles.downloadBlock}>
@@ -73,12 +80,15 @@ export default function Home() {
         <div className={styles.heroKpisBar}>
           <div className={styles.heroKpiItem}>
             <span className={styles.kpiK}>Estado</span>
-            <span className={styles.kpiV}><span className={styles.kpiDot} />Online</span>
+            <span className={styles.kpiV}>
+              <span className={styles.kpiDot} />
+              {status.online ? 'Online' : 'Offline'}
+            </span>
           </div>
           <span className={styles.heroKpiSep} />
           <div className={styles.heroKpiItem}>
             <span className={styles.kpiK}>Jugadores</span>
-            <span className={styles.kpiV}>247</span>
+            <span className={styles.kpiV}>{status.players ?? '—'}</span>
           </div>
           <span className={styles.heroKpiSep} />
           <div className={styles.heroKpiItem}>
@@ -100,7 +110,7 @@ export default function Home() {
         <section className={styles.ratesRow} id="rates">
           <div className={styles.ratesHead}>
             <div>
-              <span className={styles.ratesLabel}>02 — Rates oficiales</span>
+              <span className={styles.ratesLabel}>Rates oficiales</span>
             </div>
             <h2 className={styles.ratesH2}>
               Cinco números. <em>Cero sorpresas.</em>
@@ -110,7 +120,7 @@ export default function Home() {
             <div className={`${styles.rateTile} ${styles.rateTileFirst}`}>
               <div className={styles.rateTileTop}><span>Experiencia</span><span className={styles.rateTileOrd}>01</span></div>
               <div className={styles.rateBig}><span className={styles.rateX}>×</span>10</div>
-              <p className={styles.rateDesc}>Base &amp; Job, idéntico para todas las clases.</p>
+              <p className={styles.rateDesc}>Base &amp; Job, igual para todas las clases.</p>
             </div>
             <div className={styles.rateTile}>
               <div className={styles.rateTileTop}><span>Items</span><span className={styles.rateTileOrd}>02</span></div>
@@ -130,14 +140,14 @@ export default function Home() {
             <div className={styles.rateTile}>
               <div className={styles.rateTileTop}><span>MVP</span><span className={styles.rateTileOrd}>05</span></div>
               <div className={styles.rateBig}><span className={styles.rateX}>×</span>1</div>
-              <p className={styles.rateDesc}>Cards de MVP sin inflar.</p>
+              <p className={styles.rateDesc}>Cards de MVP sin modificar.</p>
             </div>
           </div>
         </section>
 
       </main>
 
-      {/* ── FEATURE BANNERS + contenido sección 3 — full width ── */}
+      {/* ── FEATURE BANNERS — full width ── */}
       <section className={styles.bannerSection} id="features">
         <div className={styles.banner}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -148,9 +158,9 @@ export default function Home() {
             <div className="eyebrow-line">El servidor</div>
             <h3 className={styles.bannerH3}>Renewal cuidado, <em>sin pay-to-win</em>.</h3>
             <ul className={styles.bannerList}>
-              <li><strong>4th Jobs</strong> completos. Job Master en Prontera, sin requisitos de quest.</li>
-              <li>Cash points ganados jugando — 2 por minuto activo + 500 de bienvenida.</li>
-              <li>Cliente kRO 2025-07-16 actualizado. Sin GEPARD, sin restricciones de IP.</li>
+              <li><strong>4th Jobs</strong> disponibles. Todas las clases hasta la cuarta promoción.</li>
+              <li>La tienda de cash solo vende cosméticos. Sin ventajas de pago.</li>
+              <li>Cliente kRO actualizado — Ragexe 2025-07-16. Sin modificaciones de gameplay.</li>
             </ul>
           </div>
         </div>
@@ -166,7 +176,7 @@ export default function Home() {
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <div className={styles.bannerImg}>
-            <img src="/art/illust-pecopeco.webp" alt="Pecopeco" />
+            <img src="/art/illust-pecopeco.webp" alt="Monturas Pecopeco en Ragnarok Online" />
           </div>
         </div>
       </section>
@@ -181,7 +191,7 @@ export default function Home() {
           </div>
           <div className={styles.discordBody}>
             <h3 className={styles.discordH3}>Únete a <em>nuestra comunidad</em>.</h3>
-            <p className={styles.discordP}>Soporte, party-finder, anuncios de parche y comunidad en español — todo en un solo servidor.</p>
+            <p className={styles.discordP}>Soporte, party-finder, anuncios de parche y comunidad en español — todo en un solo servidor de Discord.</p>
           </div>
           <div className={styles.discordActions}>
             <a href="https://discord.gg/xro" className={styles.btnDiscord}>
@@ -203,7 +213,7 @@ export default function Home() {
           <h2 className={styles.bottomCtaH2}>Una temporada <em>te está esperando</em>.</h2>
           <div className={styles.bottomCtaActions}>
             <p className={styles.bottomCtaP}>
-              El launcher descarga, actualiza y verifica el cliente automáticamente. Cero configuración manual.
+              El launcher descarga y actualiza el cliente automáticamente. Cero configuración manual.
             </p>
             <div className={styles.downloadBlock}>
               <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/launcher/xRO-Launcher-Setup.exe" className={styles.downloadMain}>
@@ -215,7 +225,7 @@ export default function Home() {
               </a>
               <a href="/cuenta#registro" className={styles.downloadAlt}>Crear cuenta →</a>
             </div>
-            <span className="mono-sub" style={{ fontSize: "10px" }}>
+            <span className="mono-sub">
               Windows 10 / 11 · Cliente 2025-07-16 · SHA256 verificado
             </span>
           </div>
@@ -234,9 +244,9 @@ export default function Home() {
               </svg>
               <span className={styles.footerBrandRo}>RO</span>
             </a>
-            <p style={{ color: "var(--fg-faint)", fontSize: "13px", lineHeight: "1.6", marginTop: "16px", maxWidth: "320px" }}>
+            <p style={{ color: "var(--fg-faint)", fontSize: "14px", lineHeight: "1.7", marginTop: "16px", maxWidth: "320px" }}>
               Servidor privado de Ragnarok Online para la comunidad hispana.
-              Sin afiliación oficial con Gravity Co. Ltd.
+              Sin afiliación oficial con Gravity Co., Ltd.
             </p>
           </div>
           <div>
