@@ -10,10 +10,21 @@ export async function GET() {
     if (!res.ok) throw new Error('upstream error');
     const data = await res.json();
     return NextResponse.json(
-      { online: !!data.online, players: data.players ?? null },
+      {
+        online:      !!data.online,
+        players:     data.players     ?? null,
+        episode:     data.episode     ?? null,
+        version:     data.version     ?? null,
+        hero_title:  data.hero_title  ?? null,
+        hero_accent: data.hero_accent ?? null,
+      },
       { headers: { 'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60' } },
     );
   } catch {
-    return NextResponse.json({ online: false, players: null });
+    return NextResponse.json({
+      online: false, players: null,
+      episode: null, version: null,
+      hero_title: null, hero_accent: null,
+    });
   }
 }
