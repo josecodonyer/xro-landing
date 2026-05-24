@@ -36,6 +36,25 @@
   line-height: 1;
 }
 
+/* ---- Brand logo del footer (mismo markup, colores claros) ---- */
+.footerBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--fg);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.footerBrand:hover { color: #fff; }
+.footerBrandRo {
+  font-weight: 900;
+  font-size: 19px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  line-height: 1;
+}
+
 /* ---- Hero full-viewport ---- */
 .heroFull {
   position: relative;
