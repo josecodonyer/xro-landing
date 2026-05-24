@@ -3,11 +3,7 @@ import styles from "./landing.module.css";
 export default function Home() {
   return (
     <>
-      {/* Vertical gutter rules */}
-      <span className={styles.gutterRule} aria-hidden />
-      <span className={`${styles.gutterRule} ${styles.gutterRuleRight}`} aria-hidden />
-
-      {/* ── Top bar ── */}
+      {/* ── Top bar flotante ── */}
       <header className="topbar">
         <div className="topbar-left">
           <a href="/" className="brand" aria-label="xRO">
@@ -34,75 +30,69 @@ export default function Home() {
         </nav>
       </header>
 
+      {/* ── HERO — full viewport, vídeo de fondo ── */}
+      <section className={styles.heroFull}>
+        <video
+          className={styles.heroBgVideo}
+          autoPlay muted loop playsInline
+          poster="/art/illust-fight.jpg"
+        >
+          <source src="/video/hero-bg.mp4" type="video/mp4" />
+        </video>
+
+        {/* Overlay degradado */}
+        <div className={styles.heroOverlay} aria-hidden />
+
+        {/* Contenido — bottom left */}
+        <div className={styles.heroContent}>
+          <div className="eyebrow-line">Renewal x10 · En español · Sin P2W</div>
+          <h1 className={styles.heroH1}>
+            Ragnarok como<br /><em>debía sentirse</em>.
+          </h1>
+          <p className={styles.heroLede}>
+            Un servidor Renewal x10, en español, sin pay-to-win.<br />
+            Una sola progresión. Un solo cliente.
+          </p>
+          <div className={styles.heroActions}>
+            <div className={styles.downloadBlock}>
+              <a href="https://cdn.xro-server.es/launcher/xRO-Launcher-Setup.exe" className={styles.downloadMain}>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <path d="M7 1 V 9 M3.5 6 L7 9.5 L10.5 6 M2 11 H 12 V 12.5 H 2 Z"
+                    stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Descargar launcher
+              </a>
+              <a href="/cuenta#registro" className={styles.downloadAlt}>Crear cuenta</a>
+            </div>
+          </div>
+        </div>
+
+        {/* KPI bar — bottom right */}
+        <div className={styles.heroKpisBar}>
+          <div className={styles.heroKpiItem}>
+            <span className={styles.kpiK}>Estado</span>
+            <span className={styles.kpiV}><span className={styles.kpiDot} />Online</span>
+          </div>
+          <span className={styles.heroKpiSep} />
+          <div className={styles.heroKpiItem}>
+            <span className={styles.kpiK}>Jugadores</span>
+            <span className={styles.kpiV}>1,284</span>
+          </div>
+          <span className={styles.heroKpiSep} />
+          <div className={styles.heroKpiItem}>
+            <span className={styles.kpiK}>Ping</span>
+            <span className={styles.kpiV}>38<span className={styles.kpiUnit}>ms</span></span>
+          </div>
+          <span className={styles.heroKpiSep} />
+          <div className={styles.heroKpiItem}>
+            <span className={styles.kpiK}>Uptime</span>
+            <span className={styles.kpiV}>99.94<span className={styles.kpiUnit}>%</span></span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Resto del contenido ── */}
       <main className={styles.shell}>
-
-        {/* ── HERO ── */}
-        <section className={styles.heroGrid}>
-          <div className={styles.heroLeft}>
-            <div>
-              <div className={styles.heroMeta}>
-                <span className={styles.heroMetaNum}>N.°&nbsp;001</span>
-                <span className={styles.heroMetaOrd}>/ Edición de temporada</span>
-                <span className={styles.heroMetaNum}>v7.14</span>
-                <span className={styles.heroMetaOrd}>/ Parche del 12·may</span>
-              </div>
-              <h1 className={styles.heroH1}>
-                Ragnarok como <em>debía sentirse</em>.
-              </h1>
-              <p className={styles.heroLede}>
-                Un servidor Renewal x10, en español, sin pay-to-win. Una sola progresión.
-                Un solo cliente. Cinco años de comunidad estable detrás de cada parche.
-              </p>
-
-              <div className={styles.heroActions}>
-                <div className={styles.downloadBlock}>
-                  <a href="https://cdn.xro-server.es/launcher/xRO-Launcher-Setup.exe" className={styles.downloadMain}>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                      <path d="M7 1 V 9 M3.5 6 L7 9.5 L10.5 6 M2 11 H 12 V 12.5 H 2 Z"
-                        stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    Descargar launcher
-                  </a>
-                  <a href="/cuenta#registro" className={styles.downloadAlt}>Crear cuenta</a>
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.heroKpis}>
-              <div className={styles.kpi}>
-                <span className={styles.kpiK}>Estado</span>
-                <span className={styles.kpiV}><span className={styles.kpiDot} />Online</span>
-              </div>
-              <div className={styles.kpi}>
-                <span className={styles.kpiK}>Jugadores</span>
-                <span className={styles.kpiV}>1,284</span>
-              </div>
-              <div className={styles.kpi}>
-                <span className={styles.kpiK}>Ping</span>
-                <span className={styles.kpiV}>38<span className={styles.kpiUnit}>ms</span></span>
-              </div>
-              <div className={styles.kpi}>
-                <span className={styles.kpiK}>Uptime</span>
-                <span className={styles.kpiV}>99.94<span className={styles.kpiUnit}>%</span></span>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.heroRight}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/art/illust-pecopeco.webp" alt="Ilustración Ragnarok Online" />
-            <div className={styles.liveChip}>
-              <span className={styles.liveChipDot} />
-              Hoy en línea
-            </div>
-            <div className={styles.heroRightTag}>
-              <div className="eyebrow-line">Parche 7.14</div>
-              <div className={styles.heroRightCity}>
-                Illusion of <em>Underwater</em>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ── RATES ── */}
         <section className={styles.ratesRow} id="rates">
@@ -114,13 +104,9 @@ export default function Home() {
               Cinco números. <em>Cero sorpresas.</em>
             </h2>
           </div>
-
           <div className={styles.ratesDisplay}>
             <div className={`${styles.rateTile} ${styles.rateTileFirst}`}>
-              <div className={styles.rateTileTop}>
-                <span>Experiencia</span>
-                <span className={styles.rateTileOrd}>01</span>
-              </div>
+              <div className={styles.rateTileTop}><span>Experiencia</span><span className={styles.rateTileOrd}>01</span></div>
               <div className={styles.rateBig}><span className={styles.rateX}>×</span>10</div>
               <p className={styles.rateDesc}>Base &amp; Job, idéntico para todas las clases. Sin boosts de evento permanentes.</p>
             </div>
@@ -151,15 +137,12 @@ export default function Home() {
         <section className={styles.indexRow} id="features">
           <div className={styles.indexLeft}>
             <span className="mono-sub" style={{ color: "var(--fg-faint)" }}>03 — El servidor</span>
-            <h2 className={styles.indexH2}>
-              Renewal cuidado, <em>no renewal crudo</em>.
-            </h2>
+            <h2 className={styles.indexH2}>Renewal cuidado, <em>no renewal crudo</em>.</h2>
             <p className={styles.indexLead}>
               Episodios oficiales con ajustes mínimos. Lo demás se queda exactamente
               como recuerdas: sin gear de tienda, sin auto-loot premium, sin warpers gratis.
             </p>
           </div>
-
           <div className={styles.indexList}>
             {[
               { n: "/ 01", title: <><em>Al día</em> con kRO.</>, desc: "Parches mensuales. Illusion of Underwater · Vampire." },
@@ -208,9 +191,7 @@ export default function Home() {
             <div className={styles.discordBody}>
               <div className="eyebrow-line" style={{ color: "#b3bcff" }}>Discord oficial</div>
               <h3 className={styles.discordH3}>Únete a <em>nuestra comunidad</em>.</h3>
-              <p className={styles.discordP}>
-                Soporte, mercado, party-finder y anuncios de parche — todo en un solo servidor.
-              </p>
+              <p className={styles.discordP}>Soporte, mercado, party-finder y anuncios de parche — todo en un solo servidor.</p>
             </div>
             <div className={styles.discordActions}>
               <a href="https://discord.gg/xro" className={styles.btnDiscord}>
@@ -228,9 +209,7 @@ export default function Home() {
 
         {/* ── BOTTOM CTA ── */}
         <section className={styles.bottomCta} id="descargar">
-          <h2 className={styles.bottomCtaH2}>
-            Una temporada <em>te está esperando</em>.
-          </h2>
+          <h2 className={styles.bottomCtaH2}>Una temporada <em>te está esperando</em>.</h2>
           <div className={styles.bottomCtaRight}>
             <p className={styles.bottomCtaP}>
               El launcher actualiza el cliente automáticamente y verifica los archivos
