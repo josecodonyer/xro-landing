@@ -1,0 +1,104 @@
+.main {
+  max-width: 1100px; margin: 0 auto;
+  padding: 120px 32px 80px; min-height: 100vh;
+}
+.notFound {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 60vh; gap: 16px; color: var(--fg-muted);
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: var(--t-2xs);
+  letter-spacing: var(--ls-mono); text-transform: uppercase;
+  color: var(--fg-faint); margin-bottom: 32px;
+}
+.breadcrumb a { color: var(--fg-faint); transition: color var(--dur-fast); }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span:not(a) { opacity: 0.4; }
+
+/* Hero */
+.hero {
+  display: flex; align-items: center; gap: 28px;
+  padding: 28px 32px;
+  background: var(--bg-elev-1); border: 1px solid var(--border);
+  border-radius: var(--r-2xl); margin-bottom: 8px;
+}
+.heroIcon {
+  width: 72px; height: 72px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-elev-2); border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+}
+.heroIcon img { image-rendering: pixelated; }
+.heroInfo { flex: 1; }
+.heroMeta { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.heroId { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--fg-faint); letter-spacing: var(--ls-mono); }
+.heroAegis { font-family: var(--font-mono); font-size: var(--t-2xs); color: var(--fg-faint); opacity: 0.6; text-transform: uppercase; letter-spacing: var(--ls-mono); }
+.heroName { font-size: 28px; font-weight: 700; letter-spacing: var(--ls-tight); margin-bottom: 10px; }
+.heroBadges { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge {
+  display: inline-flex; align-items: center; padding: 3px 10px;
+  border: 1px solid var(--border); border-radius: var(--r-pill);
+  font-family: var(--font-mono); font-size: var(--t-2xs);
+  letter-spacing: var(--ls-mono); text-transform: uppercase; color: var(--fg-muted);
+}
+.heroPrices {
+  display: flex; flex-direction: column; gap: 10px;
+  padding-left: 28px; border-left: 1px solid var(--border); flex-shrink: 0;
+}
+.priceItem { display: flex; flex-direction: column; gap: 1px; }
+.priceLabel { font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--fg-faint); }
+.priceVal { font-size: 15px; font-weight: 700; color: var(--accent); }
+
+/* Grid */
+.grid {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px; margin-bottom: 8px;
+}
+.card {
+  padding: 22px 26px;
+  background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-2xl);
+}
+.cardTitle {
+  font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase; color: var(--fg-faint); font-weight: 500;
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+}
+.cardHint { margin-left: auto; font-size: 9px; color: var(--fg-faint); letter-spacing: 0.06em; font-weight: 400; text-transform: none; opacity: 0.6; }
+.empty { color: var(--fg-faint); font-size: var(--t-sm); }
+
+/* Mob drop list */
+.mobList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.mobRow {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 8px; border-radius: var(--r-sm);
+  text-decoration: none; transition: background var(--dur-fast);
+}
+.mobRow:hover { background: var(--bg-elev-2); }
+.mobRowSprite { image-rendering: pixelated; width: 32px; height: 32px; flex-shrink: 0; }
+.mobRowName { flex: 1; font-size: var(--t-sm); color: var(--fg); }
+.mobRowLv { font-family: var(--font-mono); font-size: 10px; color: var(--fg-faint); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+.dropRates { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; flex-shrink: 0; min-width: 52px; }
+.dropBase { font-size: 10px; color: var(--fg-faint); text-decoration: line-through; opacity: 0.6; font-family: var(--font-mono); }
+
+/* Shop list */
+.shopList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.shopRow {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; background: var(--bg-elev-2);
+  border-radius: var(--r-md); border: 1px solid var(--border);
+}
+.shopNpc { flex: 1; }
+.shopNpcName { display: block; font-size: var(--t-sm); font-weight: 600; color: var(--fg); text-decoration: none; transition: color var(--dur-fast); }
+.shopNpcName:hover { color: var(--accent); }
+.shopNpcMapRow { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.shopNpcMap { font-size: var(--t-xs); color: var(--fg-muted); text-decoration: none; transition: color var(--dur-fast); }
+.shopNpcMap:hover { color: var(--fg); }
+.shopCoords { font-family: var(--font-mono); font-size: 10px; color: var(--fg-faint); }
+.shopPrice { font-size: 14px; font-weight: 700; color: var(--accent); flex-shrink: 0; font-family: var(--font-mono); white-space: nowrap; }
+
+@media (max-width: 768px) {
+  .main { padding: 100px 16px 60px; }
+  .hero { flex-wrap: wrap; }
+  .heroPrices { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 12px; flex-direction: row; gap: 24px; }
+  .grid { grid-template-columns: 1fr; }
+}

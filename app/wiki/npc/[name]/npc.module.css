@@ -1,0 +1,34 @@
+.main { max-width: 900px; margin: 0 auto; padding: 120px 32px 80px; min-height: 100vh; }
+.notFound { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh; gap: 16px; color: var(--fg-muted); }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-mono); text-transform: uppercase; color: var(--fg-faint); margin-bottom: 32px; }
+.breadcrumb a { color: var(--fg-faint); transition: color var(--dur-fast); }
+.breadcrumb a:hover { color: var(--fg); }
+.breadcrumb span:not(a) { opacity: 0.4; }
+
+.hero { display: flex; align-items: flex-start; gap: 24px; padding: 28px 32px; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-2xl); margin-bottom: 1px; }
+.heroIcon { font-size: 48px; flex-shrink: 0; line-height: 1; }
+.heroInfo { flex: 1; }
+.heroName { font-size: 28px; font-weight: 700; letter-spacing: var(--ls-tight); margin-bottom: 8px; }
+.heroBadges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.badge { display: inline-flex; align-items: center; padding: 3px 10px; border: 1px solid var(--border); border-radius: var(--r-pill); font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-mono); text-transform: uppercase; color: var(--fg-muted); }
+.heroLocations { display: flex; flex-wrap: wrap; gap: 6px; }
+.locChip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 8px 6px 6px; background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: var(--r-lg); transition: border-color var(--dur-fast); }
+.locChip:hover { border-color: var(--border-strong); }
+.locChipLink { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.locMapThumb { width: 36px; height: 36px; border-radius: var(--r-sm); object-fit: cover; flex-shrink: 0; }
+.locText { display: flex; flex-direction: column; gap: 1px; }
+.locMapName { font-size: var(--t-xs); font-weight: 600; color: var(--fg); }
+.locCoords { font-family: var(--font-mono); font-size: 10px; color: var(--fg-faint); }
+
+.card { padding: 22px 26px; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: 0 0 var(--r-2xl) var(--r-2xl); }
+.cardTitle { font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--fg-faint); font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.cardHint { margin-left: auto; font-size: 9px; color: var(--fg-faint); letter-spacing: 0.06em; font-weight: 400; text-transform: none; opacity: 0.6; }
+
+.shopGrid { display: flex; flex-direction: column; gap: 4px; }
+.shopItem { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: var(--r-md); text-decoration: none; transition: background var(--dur-fast); }
+.shopItem:hover { background: var(--bg-elev-2); }
+.itemIcon { image-rendering: pixelated; width: 32px; height: 32px; flex-shrink: 0; }
+.itemInfo { flex: 1; }
+.itemName { display: block; font-size: var(--t-sm); color: var(--fg); }
+.itemType { display: block; font-size: 10px; color: var(--fg-faint); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 1px; }
+.itemPrice { font-size: 13px; font-weight: 700; color: var(--accent); flex-shrink: 0; font-family: var(--font-mono); }

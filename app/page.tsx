@@ -35,7 +35,8 @@ export default function Home() {
         <nav className="topbar-right nav">
           <a href="#rates">Rates</a>
           <a href="#features">Servidor</a>
-          <a href="#discord">Comunidad</a>
+          <a href="/exp">EXP Scaler</a>
+          <a href="/wiki">Wiki</a>
           <a href="#descargar" className="btn-header-cta">
             ▶ Descargar
           </a>
