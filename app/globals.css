@@ -140,16 +140,34 @@ a:hover { color: #fff; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 8px 8px 20px;
-  background: rgba(14, 16, 20, 0.82);
-  backdrop-filter: var(--blur-dock);
-  -webkit-backdrop-filter: var(--blur-dock);
-  border: 1px solid var(--line-strong);
+  padding: 12px 12px 12px 22px;
+  background: rgba(250, 250, 247, 0.97);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(10,10,12,0.09);
   border-radius: var(--r-2xl);
-  box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255,255,255,0.05);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.6);
+  color: #0a0a0c;
 }
-.topbar-left  { display: flex; align-items: center; gap: 18px; }
+.topbar-left  { display: flex; align-items: center; gap: 16px; }
 .topbar-right { display: flex; align-items: center; gap: 4px; }
+
+/* ── Inversión de paleta dentro del topbar blanco ── */
+.topbar .brand            { color: #0a0a0c; }
+.topbar .brand .x         { color: #0a0a0c; }
+.topbar .brand .ro        { color: #0a0a0c; opacity: 0.55; }
+.topbar .brand .ro::after { background: var(--jade-500); }
+.topbar .divider-v        { background: rgba(10,10,12,0.14); }
+.topbar .mono-sub         { color: rgba(10,10,12,0.4); }
+.topbar .status-pill {
+  background: rgba(10,10,12,0.05);
+  border-color: rgba(10,10,12,0.1);
+  color: rgba(10,10,12,0.55);
+}
+.topbar .status-pill .strong { color: #0a0a0c; }
+.topbar .status-pill .sep    { color: rgba(10,10,12,0.25); }
+.topbar .nav a               { color: rgba(10,10,12,0.5); }
+.topbar .nav a:hover         { color: #0a0a0c; background: rgba(10,10,12,0.05); }
 
 .brand {
   display: inline-flex; align-items: baseline; gap: 0;
@@ -215,21 +233,22 @@ a:hover { color: #fff; }
 }
 .btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: var(--line-heavy); color: var(--fg); }
 
-/* Header CTA — estilo JUGAR del launcher */
+/* Header CTA — estilo JUGAR del launcher: oscuro sobre fondo blanco */
 .btn-header-cta {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 10px 20px;
-  background: var(--fg);
-  color: var(--black);
+  padding: 12px 26px;
+  background: #14161a;
+  color: #ffffff;
   border: none;
   border-radius: var(--r-xl);
   font-size: var(--t-sm); font-weight: 700;
   letter-spacing: var(--ls-button); text-transform: uppercase;
   text-decoration: none;
+  box-shadow: 0 12px 32px rgba(10,10,12,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
   transition: all var(--dur-fast) var(--ease-out);
   white-space: nowrap;
 }
-.btn-header-cta:hover { background: var(--accent); color: var(--accent-ink); }
+.btn-header-cta:hover { background: #23262e; color: #ffffff; transform: translateY(-1px); }
 
 .eyebrow-line {
   display: inline-flex; align-items: center; gap: 14px;
