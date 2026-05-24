@@ -17,9 +17,9 @@
   --line-strong:  rgba(255,255,255,0.16);
   --line-heavy:   rgba(255,255,255,0.28);
 
-  --black:    #000000;
-  --void:     #07080d;
-  --shadow-bg: #0e1014;
+  --black:    #1e1e22;
+  --void:     #141418;
+  --shadow-bg: #1c1c21;
 
   --amber-500:  #e6c574;
   --amber-400:  #f3d68c;
@@ -33,9 +33,9 @@
   --crimson-500: #f37b6a;
 
   --bg:           var(--black);
-  --bg-elev-1:    #0e1014;
-  --bg-elev-2:    #14161a;
-  --bg-elev-3:    #23262e;
+  --bg-elev-1:    #26262b;
+  --bg-elev-2:    #2d2d34;
+  --bg-elev-3:    #38383e;
 
   --fg:           var(--ink-50);
   --fg-dim:       var(--ink-200);
@@ -160,14 +160,16 @@ a:hover { color: #fff; }
 .topbar .divider-v        { background: rgba(10,10,12,0.14); }
 .topbar .mono-sub         { color: rgba(10,10,12,0.4); white-space: nowrap; }
 .topbar .status-pill {
-  background: rgba(10,10,12,0.05);
-  border-color: rgba(10,10,12,0.1);
+  background: rgba(10,10,12,0.06);
+  border-color: transparent;
   color: rgba(10,10,12,0.55);
 }
 .topbar .status-pill .strong { color: #0a0a0c; }
 .topbar .status-pill .sep    { color: rgba(10,10,12,0.25); }
 .topbar .nav a               { color: rgba(10,10,12,0.5); }
 .topbar .nav a:hover         { color: #0a0a0c; background: rgba(10,10,12,0.05); }
+.topbar .nav a.btn-header-cta       { color: #ffffff; background: #14161a; }
+.topbar .nav a.btn-header-cta:hover { color: #ffffff; background: #23262e; }
 
 .brand {
   display: inline-flex; align-items: baseline; gap: 0;
@@ -219,7 +221,9 @@ a:hover { color: #fff; }
 .nav { display: flex; align-items: center; gap: 4px; }
 .nav a {
   position: relative; display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 14px; font-size: var(--t-sm); color: var(--fg-dim);
+  padding: 8px 14px; font-size: var(--t-eyebrow); color: var(--fg-dim);
+  letter-spacing: var(--ls-eyebrow); text-transform: uppercase; font-weight: 500;
+  font-family: var(--font-mono);
   border-radius: var(--r-md); transition: all var(--dur-fast) var(--ease-out);
 }
 .nav a:hover { color: var(--fg); background: rgba(255,255,255,0.04); }
@@ -261,7 +265,7 @@ a:hover { color: #fff; }
 }
 
 .footer {
-  padding: 56px 28px 32px;
+  padding: 80px 80px 48px;
   border-top: 1px solid var(--line);
   background: var(--black);
   color: var(--fg-dim);

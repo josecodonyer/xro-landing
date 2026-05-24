@@ -26,8 +26,9 @@
   text-decoration: none;
   flex-shrink: 0;
 }
+.brandLogo:hover { color: #0a0a0c; }
 .brandRo {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 19px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -68,14 +69,14 @@
 /* Contenido alineado bottom-left */
 .heroContent {
   position: absolute;
-  bottom: 80px;
-  left: 56px;
-  right: 56px;
+  bottom: 100px;
+  left: 80px;
+  right: 80px;
   z-index: 2;
   max-width: 760px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .heroH1 {
@@ -154,8 +155,8 @@
 /* KPI bar — esquina inferior derecha del hero */
 .heroKpisBar {
   position: absolute;
-  bottom: 80px;
-  right: 56px;
+  bottom: 100px;
+  right: 80px;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -208,17 +209,15 @@
 
 /* ---- Rates ---- */
 .ratesRow {
-  padding: 100px 0 120px;
+  padding: 160px 0 180px;
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  margin-top: 40px;
 }
 .ratesHead {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 56px;
-  margin-bottom: 64px;
-  align-items: baseline;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 72px;
 }
 .ratesLabel {
   font-family: var(--font-mono);
@@ -229,10 +228,11 @@
 }
 .ratesH2 {
   font-weight: 200;
-  font-size: clamp(40px, 4.5vw, 64px);
+  font-size: clamp(36px, 3.8vw, 56px);
   letter-spacing: -0.04em;
   line-height: 1;
   margin: 0;
+  text-align: right;
   text-wrap: balance;
   color: var(--fg);
 }
@@ -244,15 +244,19 @@
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  overflow: hidden;
 }
 .rateTile {
-  background: var(--bg);
-  padding: 32px 28px;
+  background: var(--bg-elev-1);
+  padding: 40px 36px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 220px;
+  min-height: 240px;
+  transition: background var(--dur-fast) var(--ease-out);
 }
+.rateTile:hover { background: var(--bg-elev-2); }
 .rateTileTop {
   display: flex;
   align-items: baseline;
@@ -281,6 +285,10 @@
   vertical-align: 26px;
   margin-right: -2px;
 }
+.rateTileFirst {
+  background: rgba(230, 197, 116, 0.05);
+}
+.rateTileFirst:hover { background: rgba(230, 197, 116, 0.09); }
 .rateTileFirst .rateBig { color: var(--accent-highlight); }
 
 .rateDesc {
@@ -301,7 +309,7 @@
 .indexLeft { }
 .indexH2 {
   font-weight: 200;
-  font-size: 56px;
+  font-size: clamp(40px, 4vw, 56px);
   letter-spacing: -0.04em;
   line-height: 1;
   margin: 14px 0 0;
@@ -319,136 +327,198 @@
 .indexList { display: flex; flex-direction: column; }
 .indexItem {
   display: grid;
-  grid-template-columns: 60px 1fr 220px;
-  gap: 32px;
-  align-items: center;
-  padding: 28px 0;
+  grid-template-columns: 56px 1fr;
+  gap: 28px;
+  align-items: baseline;
+  padding: 26px 0;
   border-top: 1px solid var(--line);
-  transition: padding-left var(--dur-fast) var(--ease-out);
+  transition: all var(--dur-fast) var(--ease-out);
   cursor: default;
 }
 .indexItem:last-child { border-bottom: 1px solid var(--line); }
-.indexItem:hover { padding-left: 10px; }
+.indexItem:hover { padding-left: 8px; border-top-color: var(--line-strong); }
 
 .indexNum {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--fg-faint);
+  letter-spacing: 0.18em;
+  color: var(--accent-highlight);
+  opacity: 0.65;
 }
+.indexItem:hover .indexNum { opacity: 1; }
 .indexTitle {
   font-weight: 300;
-  font-size: 26px;
+  font-size: 24px;
   letter-spacing: -0.02em;
   color: var(--fg);
-  line-height: 1.2;
+  line-height: 1.25;
 }
 .indexTitle em { font-style: italic; color: var(--accent-highlight); font-weight: 400; }
 .indexDesc {
-  font-size: 12px;
+  display: none;
+}
+
+/* ---- Feature Banners — full width ---- */
+.bannerSection {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+.banner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 540px;
+  border-bottom: 1px solid var(--line);
+}
+.banner:last-child { border-bottom: none; }
+.bannerImg {
+  position: relative;
+  overflow: hidden;
+}
+.bannerImg img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 900ms var(--ease-out);
+}
+.banner:hover .bannerImg img { transform: scale(1.03); }
+.bannerBody {
+  padding: 72px 96px;
+  background: var(--bg-elev-1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+.bannerFlip .bannerBody { order: -1; }
+.bannerH3 {
+  font-weight: 200;
+  font-size: clamp(22px, 2.2vw, 32px);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--fg);
+}
+.bannerH3 em { font-style: italic; font-weight: 300; color: var(--accent-highlight); }
+.bannerP {
+  font-size: 14px;
+  color: var(--fg-dim);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 380px;
+}
+.bannerList {
+  list-style: none;
+  padding: 0; margin: 4px 0 0;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.bannerList li {
+  font-size: 13px;
   color: var(--fg-dim);
   line-height: 1.5;
-  text-align: right;
+  padding-left: 18px;
+  position: relative;
+}
+.bannerList li::before {
+  content: "—";
+  position: absolute; left: 0;
+  color: var(--accent-highlight); opacity: 0.55;
+  font-size: 11px;
 }
 
 /* ---- Showcase ---- */
 .showcase {
-  padding: 0 0 120px;
+  padding: 0 0 128px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 12px;
 }
 .showcaseTile {
   position: relative;
-  border-radius: var(--r-lg);
+  border-radius: var(--r-xl);
   overflow: hidden;
   border: 1px solid var(--line);
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/10;
 }
 .showcaseTile img {
   width: 100%; height: 100%;
   object-fit: cover;
-  transition: transform 800ms var(--ease-out);
+  transition: transform 900ms var(--ease-out);
 }
-.showcaseTile:hover img { transform: scale(1.03); }
+.showcaseTile:hover img { transform: scale(1.04); }
 .showcaseTile::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.85) 100%);
+  background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.82) 100%);
 }
 .showcaseBody {
   position: absolute;
-  left: 24px; right: 24px; bottom: 22px;
+  left: 28px; right: 28px; bottom: 24px;
   z-index: 2;
   color: var(--fg);
 }
 .showcaseH4 {
   font-weight: 200;
-  font-size: 28px;
+  font-size: 26px;
   letter-spacing: -0.02em;
   line-height: 1.1;
   margin: 8px 0 0;
 }
 .showcaseH4 em { font-style: italic; font-weight: 300; color: var(--accent-highlight); }
 
-/* ---- Discord ---- */
-.discordRow {
-  padding: 80px 0 120px;
+/* ---- Discord — full width ---- */
+.discordFull {
   border-top: 1px solid var(--line);
-}
-.discordCard {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 32px;
-  align-items: center;
-  padding: 40px 44px;
-  border: 1px solid var(--line);
-  background: linear-gradient(120deg, rgba(88,101,242,0.10) 0%, rgba(8,10,14,0) 60%);
-  border-radius: var(--r-lg);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-elev-1);
   position: relative;
   overflow: hidden;
 }
-.discordCard::before {
+.discordFull::after {
   content: "";
   position: absolute;
-  top: -40%; right: -10%;
-  width: 360px; height: 360px;
-  background: radial-gradient(circle, rgba(88,101,242,0.18) 0%, transparent 60%);
+  inset: 0;
+  background: linear-gradient(105deg, rgba(88,101,242,0.07) 0%, transparent 55%);
   pointer-events: none;
 }
+.discordInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 108px 80px;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  position: relative;
+  z-index: 1;
+}
 .discordMark {
-  width: 64px; height: 64px;
+  width: 56px; height: 56px;
   border-radius: var(--r-lg);
   background: #5865f2;
   display: grid;
   place-items: center;
   color: #fff;
-  flex: 0 0 64px;
+  flex-shrink: 0;
 }
-.discordBody { z-index: 2; }
+.discordBody { flex: 1; }
 .discordH3 {
   font-weight: 200;
-  font-size: 36px;
+  font-size: clamp(22px, 2.4vw, 34px);
   letter-spacing: -0.03em;
-  line-height: 1;
-  margin: 10px 0 8px;
+  line-height: 1.05;
+  margin: 0 0 6px;
   color: var(--fg);
 }
 .discordH3 em { font-style: italic; font-weight: 300; color: #b3bcff; }
 .discordP { color: var(--fg-dim); font-size: 13px; margin: 0; }
-
-.discordActions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: flex-end;
-  z-index: 2;
-}
+.discordActions { flex-shrink: 0; }
 .btnDiscord {
   background: #5865f2;
   color: #fff;
-  padding: 14px 26px;
+  padding: 14px 28px;
   border-radius: var(--r-md);
   font-weight: 600;
   font-size: 12px;
@@ -460,60 +530,66 @@
   gap: 10px;
   border: 1px solid rgba(255,255,255,0.16);
   transition: all var(--dur-fast);
+  white-space: nowrap;
 }
 .btnDiscord:hover { background: #6772f4; color: #fff; }
 
-.discordPresence {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--fg-faint);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.discordDot {
-  width: 7px; height: 7px;
-  background: var(--accent-dot);
-  border-radius: 50%;
-  display: inline-block;
-  animation: ro-pulse 2.2s infinite;
-}
-
-/* ---- Bottom CTA ---- */
+/* ---- Bottom CTA — full width, imagen de fondo ---- */
 .bottomCta {
-  padding: 140px 0 160px;
+  position: relative;
+  overflow: hidden;
   border-top: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 80px;
-  align-items: end;
+}
+.bottomCtaImg {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+.bottomCtaOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(20,20,24,0.78) 0%, rgba(20,20,24,0.35) 50%, rgba(20,20,24,0.05) 100%),
+    linear-gradient(to top, rgba(20,20,24,0.3) 0%, transparent 35%);
+}
+.bottomCtaContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 180px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  text-align: center;
 }
 .bottomCtaH2 {
   font-weight: 200;
-  font-size: clamp(64px, 8vw, 128px);
+  font-size: clamp(48px, 5.5vw, 88px);
   letter-spacing: -0.05em;
   line-height: 0.92;
   margin: 0;
   text-wrap: balance;
   color: var(--fg);
+  text-shadow: 0 4px 32px rgba(0,0,0,0.4);
 }
 .bottomCtaH2 em { font-style: italic; font-weight: 300; color: var(--accent-highlight); }
-.bottomCtaRight {
+.bottomCtaActions {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  padding-bottom: 14px;
+  gap: 16px;
 }
-.bottomCtaP { color: var(--fg-dim); font-size: 14px; line-height: 1.6; margin: 0; }
+.bottomCtaP { color: var(--ink-200); font-size: 13px; line-height: 1.65; margin: 0; }
 
 /* ---- Responsive ---- */
 @media (max-width: 1100px) {
   .shell { padding: 0 28px; }
   .gutterRule { left: 28px; }
   .gutterRuleRight { right: 28px; }
-  .heroContent { left: 28px; right: 28px; bottom: 160px; }
+  .heroContent { left: 28px; right: 28px; bottom: 140px; }
   .heroKpisBar { right: 28px; bottom: 32px; }
   .heroH1 { font-size: clamp(48px, 10vw, 80px); }
 
@@ -526,8 +602,10 @@
 
   .indexRow { grid-template-columns: 1fr; gap: 32px; padding: 80px 0; }
   .indexItem { grid-template-columns: 40px 1fr; }
-  .indexDesc { display: none; }
 
+  .banner { grid-template-columns: 1fr; min-height: auto; }
+  .bannerFlip .bannerBody { order: 0; }
+  .bannerBody { padding: 56px 40px; }
   .showcase { grid-template-columns: 1fr; }
 
   .discordCard { grid-template-columns: 1fr; gap: 18px; }
@@ -545,4 +623,5 @@
   .rateTileFirst { grid-column: auto; }
   .gutterRule { display: none; }
   .bottomCtaH2 { font-size: clamp(48px, 14vw, 80px); }
+  .bannerImg { min-height: 260px; }
 }
