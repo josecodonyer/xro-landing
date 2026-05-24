@@ -56,7 +56,7 @@ export default function Home() {
         <div className={styles.heroContent}>
           <div className="eyebrow-line">Renewal x10 · 4th Jobs · EU</div>
           <h1 className={styles.heroH1}>
-            Prontera.<br /><em>Por fin.</em>
+            Servidor Ragnarok Online<br /><em>Renewal fresh</em>.
           </h1>
           <p className={styles.heroLede}>
             Renewal x10. 4th jobs. Sin pay-to-win.<br />
