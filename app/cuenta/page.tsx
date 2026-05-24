@@ -1,20 +1,16 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getSession } from '@/lib/session';
-import { query } from '@/lib/db';
+import { charactersGet } from '@/lib/api';
 import { logoutAction } from './actions';
 import styles from './cuenta.module.css';
-
-interface CharRow { name: string; class: number; base_level: number; }
 
 export default async function CuentaPage() {
   const session = await getSession();
   if (!session.accountId) redirect('/cuenta/login');
 
-  const chars = await query<CharRow>(
-    'SELECT name, class, base_level FROM `char` WHERE account_id=? ORDER BY char_id LIMIT 9',
-    [session.accountId]
-  );
+  const res = await charactersGet({ account_id: session.accountId });
+  const chars = res.ok ? res.data.characters : [];
 
   return (
     <div className={styles.shell}>
