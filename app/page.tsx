@@ -63,7 +63,7 @@ export default function Home() {
           </p>
           <div className={styles.heroActions}>
             <div className={styles.downloadBlock}>
-              <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/launcher/xRO-Launcher-Setup.exe" className={styles.downloadMain}>
+              <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/xro-launcher.exe" className={styles.downloadMain}>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                   <path d="M7 1 V 9 M3.5 6 L7 9.5 L10.5 6 M2 11 H 12 V 12.5 H 2 Z"
                     stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -215,7 +215,7 @@ export default function Home() {
               Descarga el launcher, crea tu cuenta y en minutos estás jugando. El cliente se actualiza solo.
             </p>
             <div className={styles.downloadBlock}>
-              <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/launcher/xRO-Launcher-Setup.exe" className={styles.downloadMain}>
+              <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/xro-launcher.exe" className={styles.downloadMain}>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                   <path d="M7 1 V 9 M3.5 6 L7 9.5 L10.5 6 M2 11 H 12 V 12.5 H 2 Z"
                     stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
