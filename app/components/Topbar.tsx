@@ -22,6 +22,14 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
           {XRO_LOGO}
           <span className={styles.brandRo}>RO</span>
         </a>
+        <NavDrawer
+          items={[
+            { href: '/', label: 'Inicio' },
+            { href: '/exp', label: 'EXP Scaler' },
+            { href: '/wiki', label: 'Wiki' },
+          ]}
+          cta={{ href: '/cuenta/registro', label: 'Crear cuenta' }}
+        />
         {subtitle && (
           <>
             <span className="divider-v" />
@@ -39,14 +47,6 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
         <a href="/exp" className={active === 'exp' ? styles.navActive : ''}>EXP Scaler</a>
         <a href="/wiki" className={active === 'wiki' ? styles.navActive : ''}>Wiki</a>
         <a href="/cuenta/registro" className="btn-header-cta">Crear cuenta</a>
-        <NavDrawer
-          items={[
-            { href: '/', label: 'Inicio' },
-            { href: '/exp', label: 'EXP Scaler' },
-            { href: '/wiki', label: 'Wiki' },
-          ]}
-          cta={{ href: '/cuenta/registro', label: 'Crear cuenta' }}
-        />
       </nav>
     </header>
   );

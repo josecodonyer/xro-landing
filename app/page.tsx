@@ -20,6 +20,15 @@ export default function Home() {
             </svg>
             <span className={styles.brandRo}>RO</span>
           </a>
+          <NavDrawer
+            items={[
+              { href: '#rates', label: 'Rates' },
+              { href: '#features', label: 'Servidor' },
+              { href: '/exp', label: 'EXP Scaler' },
+              { href: '/wiki', label: 'Wiki' },
+            ]}
+            cta={{ href: '#descargar', label: '▶ Descargar' }}
+          />
           <span className="divider-v" />
           <span className="mono-sub">Renewal · x10 · 4th Jobs</span>
           <span className="status-pill">
@@ -39,15 +48,6 @@ export default function Home() {
           <a href="/exp">EXP Scaler</a>
           <a href="/wiki">Wiki</a>
           <a href="#descargar" className="btn-header-cta">▶ Descargar</a>
-          <NavDrawer
-            items={[
-              { href: '#rates', label: 'Rates' },
-              { href: '#features', label: 'Servidor' },
-              { href: '/exp', label: 'EXP Scaler' },
-              { href: '/wiki', label: 'Wiki' },
-            ]}
-            cta={{ href: '#descargar', label: '▶ Descargar' }}
-          />
         </nav>
       </header>
 
