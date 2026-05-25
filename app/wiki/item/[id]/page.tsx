@@ -3,7 +3,6 @@ import Link from 'next/link';
 import wikiRaw from '../../../../public/wiki_data.json';
 import mobFullRaw from '../../../../public/mob_full.json';
 import mobDetailRaw from '../../../../public/mob_detail.json';
-import Topbar from '../../../components/Topbar';
 import SafeImg from '../../../components/SafeImg';
 import CopyNavi from '../../../components/CopyNavi';
 import styles from './item.module.css';
@@ -72,10 +71,7 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
   const iconUrl = `https://static.divine-pride.net/images/items/item/${item.id}.png`;
 
   return (
-    <>
-      <Topbar active="wiki" subtitle="Wiki" />
-
-      <main className={styles.main}>
+    <main className={styles.main}>
         {/* Breadcrumb */}
         <nav className={styles.breadcrumb}>
           <Link href="/">Inicio</Link>
@@ -186,6 +182,5 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
           </section>
         </div>
       </main>
-    </>
   );
 }

@@ -86,8 +86,30 @@
   --dur-fast:  120ms;
   --dur-normal: 200ms;
 
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.25);
+  --shadow-md:  0 8px 24px rgba(0,0,0,0.35);
+  --shadow-lg:  0 24px 64px rgba(0,0,0,0.45);
   --shadow-cta: 0 12px 32px rgba(10,10,12,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
   --z-chrome: 50;
+
+  /* Spacing scale (8-pt grid) */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* Named semantic colors */
+  --discord:       #5865f2;
+  --cta-bg:        #14161a;
+  --cta-bg-hover:  #23262e;
 }
 
 html, body {
