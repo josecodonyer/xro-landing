@@ -45,10 +45,57 @@
 .heroPrices {
   display: flex; flex-direction: column; gap: 10px;
   padding-left: 28px; border-left: 1px solid var(--border); flex-shrink: 0;
+  max-height: 260px; overflow-y: auto;
 }
 .priceItem { display: flex; flex-direction: column; gap: 1px; }
 .priceLabel { font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--fg-faint); }
 .priceVal { font-size: 15px; font-weight: 700; color: var(--accent); }
+
+/* Equip bar — location + jobs */
+.equipBar {
+  display: flex; gap: 0; margin-bottom: 8px;
+  background: var(--bg-elev-1); border: 1px solid var(--border);
+  border-radius: var(--r-xl); overflow: hidden;
+}
+.equipBarItem {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 10px 18px; flex: 1;
+  border-right: 1px solid var(--border);
+}
+.equipBarItem:last-child { border-right: none; }
+.equipBarLabel {
+  font-family: var(--font-mono); font-size: var(--t-2xs);
+  letter-spacing: var(--ls-eyebrow); text-transform: uppercase;
+  color: var(--fg-faint);
+}
+.equipBarVal { font-size: var(--t-sm); color: var(--fg); font-weight: 500; }
+
+/* Description card */
+.descCard {
+  padding: 22px 26px; margin-bottom: 8px;
+  background: var(--bg-elev-1); border: 1px solid var(--border);
+  border-radius: var(--r-2xl);
+}
+.descTitle {
+  font-family: var(--font-mono); font-size: var(--t-2xs);
+  letter-spacing: var(--ls-eyebrow); text-transform: uppercase;
+  color: var(--fg-faint); font-weight: 500; margin-bottom: 14px;
+}
+.descLines { display: flex; flex-direction: column; gap: 4px; }
+.descLine {
+  font-size: var(--t-sm); color: var(--fg-dim);
+  line-height: 1.65; margin: 0;
+}
+
+/* Colored element badge */
+.badgeElement {
+  display: inline-flex; align-items: center; padding: 3px 10px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono); font-size: var(--t-2xs);
+  letter-spacing: var(--ls-mono); text-transform: uppercase;
+  background: rgba(122,167,255,0.12); border: 1px solid rgba(122,167,255,0.3);
+  color: var(--cobalt-500);
+}
 
 /* Grid */
 .grid {
@@ -99,7 +146,8 @@
 @media (max-width: 768px) {
   .main { padding: 88px 16px 60px; }
   .hero { flex-wrap: wrap; }
-  .heroPrices { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 12px; flex-direction: row; gap: 24px; }
+  .heroPrices { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 12px; flex-direction: row; flex-wrap: wrap; gap: 16px; max-height: none; }
+  .equipBar { flex-wrap: wrap; }
   .grid { grid-template-columns: 1fr; gap: 8px; }
 }
 
@@ -107,5 +155,6 @@
   .main { padding: 80px 12px 52px; }
   .hero { padding: 20px 16px; gap: 16px; }
   .heroName { font-size: 22px; }
-  .heroPrices { flex-wrap: wrap; gap: 16px; }
+  .equipBarItem { padding: 8px 14px; }
+  .descCard { padding: 16px 18px; }
 }
