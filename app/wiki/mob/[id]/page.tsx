@@ -3,7 +3,6 @@ import Link from 'next/link';
 import mobFullRaw from '../../../../public/mob_full.json';
 import mobFull2Raw from '../../../../public/mob_full2.json';
 import mobDetailRaw from '../../../../public/mob_detail.json';
-import Topbar from '../../../components/Topbar';
 import SafeImg from '../../../components/SafeImg';
 import CopyNavi from '../../../components/CopyNavi';
 import styles from './mob.module.css';
@@ -115,10 +114,7 @@ export default async function MobPage({ params }: { params: Promise<{ id: string
   const attacksPerMin = mob.attackDelay > 0 ? Math.round(60000 / mob.attackDelay * 10) / 10 : 0;
 
   return (
-    <>
-      <Topbar active="wiki" subtitle="Wiki" />
-
-      <main className={styles.main}>
+    <main className={styles.main}>
         <nav className={styles.breadcrumb}>
           <Link href="/">Inicio</Link><span>/</span>
           <Link href="/wiki">Wiki</Link><span>/</span>
@@ -304,6 +300,5 @@ export default async function MobPage({ params }: { params: Promise<{ id: string
           )}
         </section>
       </main>
-    </>
   );
 }

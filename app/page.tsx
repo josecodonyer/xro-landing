@@ -2,7 +2,31 @@
 
 import { useServerStatus } from './components/ServerStatus';
 import NavDrawer from './components/NavDrawer';
+import XroLogo from './components/XroLogo';
 import styles from "./landing.module.css";
+
+const LAUNCHER_URL = 'https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/xro-launcher.exe';
+
+function DownloadSvg() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path d="M7 1 V 9 M3.5 6 L7 9.5 L10.5 6 M2 11 H 12 V 12.5 H 2 Z"
+        stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function DownloadBlock() {
+  return (
+    <div className={styles.downloadBlock}>
+      <a href={LAUNCHER_URL} className={styles.downloadMain}>
+        <DownloadSvg />
+        Descargar launcher
+      </a>
+      <a href="/cuenta/registro" className={styles.downloadAlt}>Crear cuenta</a>
+    </div>
+  );
+}
 
 export default function Home() {
   const status = useServerStatus();
@@ -22,11 +46,7 @@ export default function Home() {
             cta={{ href: '#descargar', label: '▶ Descargar' }}
           />
           <a href="/" className={styles.brandLogo} aria-label="xRO">
-            <svg width="22" height="22" viewBox="0 0 600 600" fill="none" aria-hidden>
-              <g transform="matrix(1.250966,1.250966,-1.250966,1.250966,195.474028,-418.223501)">
-                <path d="M272.867,300.283L143.742,300.283C143.585,300.283 143.459,300.156 143.459,300L143.459,190.579C143.459,190.423 143.585,190.296 143.742,190.296L272.867,190.296L272.867,61.171C272.867,61.015 272.993,60.888 273.149,60.888L382.571,60.888C382.727,60.888 382.853,61.015 382.853,61.171L382.853,190.296L511.978,190.296C512.135,190.296 512.261,190.423 512.261,190.579L512.261,300C512.261,300.156 512.135,300.283 511.978,300.283L382.853,300.283L382.853,429.408C382.853,429.564 382.727,429.69 382.571,429.69L273.149,429.69C272.993,429.69 272.867,429.564 272.867,429.408L272.867,300.283Z" fill="currentColor"/>
-              </g>
-            </svg>
+            <XroLogo size={22} />
             <span className={styles.brandRo}>RO</span>
           </a>
           <span className="divider-v" />
@@ -71,16 +91,7 @@ export default function Home() {
             Renewal x10. 4th jobs. Sin pay-to-win.
           </p>
           <div className={styles.heroActions}>
-            <div className={styles.downloadBlock}>
-              <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/xro-launcher.exe" className={styles.downloadMain}>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M7 1 V 9 M3.5 6 L7 9.5 L10.5 6 M2 11 H 12 V 12.5 H 2 Z"
-                    stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Descargar launcher
-              </a>
-              <a href="/cuenta#registro" className={styles.downloadAlt}>Crear cuenta</a>
-            </div>
+            <DownloadBlock />
           </div>
         </div>
 
@@ -223,16 +234,7 @@ export default function Home() {
             <p className={styles.bottomCtaP}>
               Descarga el launcher, crea tu cuenta y en minutos estás jugando. El cliente se actualiza solo.
             </p>
-            <div className={styles.downloadBlock}>
-              <a href="https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/xro-launcher.exe" className={styles.downloadMain}>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M7 1 V 9 M3.5 6 L7 9.5 L10.5 6 M2 11 H 12 V 12.5 H 2 Z"
-                    stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Descargar launcher
-              </a>
-              <a href="/cuenta#registro" className={styles.downloadAlt}>Crear cuenta →</a>
-            </div>
+            <DownloadBlock />
             <span className="mono-sub">
               Windows 10 / 11 · Cliente 2025-07-16 · SHA256 verificado
             </span>
@@ -245,11 +247,7 @@ export default function Home() {
         <div className="footer-inner">
           <div>
             <a href="/" className={styles.footerBrand} aria-label="xRO">
-              <svg width="22" height="22" viewBox="0 0 600 600" fill="none" aria-hidden>
-                <g transform="matrix(1.250966,1.250966,-1.250966,1.250966,195.474028,-418.223501)">
-                  <path d="M272.867,300.283L143.742,300.283C143.585,300.283 143.459,300.156 143.459,300L143.459,190.579C143.459,190.423 143.585,190.296 143.742,190.296L272.867,190.296L272.867,61.171C272.867,61.015 272.993,60.888 273.149,60.888L382.571,60.888C382.727,60.888 382.853,61.015 382.853,61.171L382.853,190.296L511.978,190.296C512.135,190.296 512.261,190.423 512.261,190.579L512.261,300C512.261,300.156 512.135,300.283 511.978,300.283L382.853,300.283L382.853,429.408C382.853,429.564 382.727,429.69 382.571,429.69L273.149,429.69C272.993,429.69 272.867,429.564 272.867,429.408L272.867,300.283Z" fill="currentColor"/>
-                </g>
-              </svg>
+              <XroLogo size={22} />
               <span className={styles.footerBrandRo}>RO</span>
             </a>
             <p style={{ color: "var(--fg-faint)", fontSize: "14px", lineHeight: "1.7", marginTop: "16px", maxWidth: "320px" }}>

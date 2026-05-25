@@ -1,17 +1,10 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { registerAction, verifyRegistrationAction } from '../actions';
+import XroLogo from '../../components/XroLogo';
 import styles from '../cuenta.module.css';
-
-const SVG_LOGO = (
-  <svg width="18" height="18" viewBox="0 0 600 600" fill="none" aria-hidden>
-    <g transform="matrix(1.250966,1.250966,-1.250966,1.250966,195.474028,-418.223501)">
-      <path d="M272.867,300.283L143.742,300.283C143.585,300.283 143.459,300.156 143.459,300L143.459,190.579C143.459,190.423 143.585,190.296 143.742,190.296L272.867,190.296L272.867,61.171C272.867,61.015 272.993,60.888 273.149,60.888L382.571,60.888C382.727,60.888 382.853,61.015 382.853,61.171L382.853,190.296L511.978,190.296C512.135,190.296 512.261,190.423 512.261,190.579L512.261,300C512.261,300.156 512.135,300.283 511.978,300.283L382.853,300.283L382.853,429.408C382.853,429.564 382.727,429.69 382.571,429.69L273.149,429.69C272.993,429.69 272.867,429.564 272.867,429.408L272.867,300.283Z" fill="currentColor"/>
-    </g>
-  </svg>
-);
 
 export default function RegistroPage() {
   const [step, setStep] = useState<'form' | 'verify'>('form');
@@ -22,17 +15,19 @@ export default function RegistroPage() {
   const [regState, regAction, regPending] = useActionState(registerAction, null);
   const [verState, verAction, verPending] = useActionState(verifyRegistrationAction, null);
 
-  if (regState?.success && step === 'form') {
-    setPendingEmail(regState.email!);
-    setStep('verify');
-  }
+  useEffect(() => {
+    if (regState?.success && step === 'form') {
+      setPendingEmail(regState.email!);
+      setStep('verify');
+    }
+  }, [regState, step]);
 
   if (verState?.success) {
     return (
       <div className={styles.shell}>
         <div className={styles.card}>
           <Link href="/" className={styles.backLink}>← Volver</Link>
-          <Link href="/" className={styles.logo}>{SVG_LOGO}<span className={styles.logoRo}>RO</span></Link>
+          <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
           <div className={styles.heading}>
             <h1 className={styles.title}>Cuenta creada.</h1>
             <p className={styles.subtitle}>Ya puedes iniciar sesión y conectarte al servidor.</p>
@@ -48,7 +43,7 @@ export default function RegistroPage() {
       <div className={styles.shell}>
         <div className={styles.card}>
           <Link href="/" className={styles.backLink}>← Volver</Link>
-          <Link href="/" className={styles.logo}>{SVG_LOGO}<span className={styles.logoRo}>RO</span></Link>
+          <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
           <div className={styles.heading}>
             <h1 className={styles.title}>Verifica tu email.</h1>
             <p className={styles.subtitle}>Hemos enviado un código de 6 dígitos a <strong>{pendingEmail}</strong>.</p>
@@ -83,7 +78,7 @@ export default function RegistroPage() {
     <div className={styles.shell}>
       <div className={styles.card}>
         <Link href="/" className={styles.backLink}>← Volver</Link>
-        <Link href="/" className={styles.logo}>{SVG_LOGO}<span className={styles.logoRo}>RO</span></Link>
+        <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
         <div className={styles.heading}>
           <h1 className={styles.title}>Crear cuenta.</h1>
           <p className={styles.subtitle}>El usuario y contraseña son los que usarás para entrar al juego.</p>

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import wikiRaw from '../../../../public/wiki_data.json';
 import npcSpritesRaw from '../../../../public/npc_sprites.json';
-import Topbar from '../../../components/Topbar';
 import SafeImg from '../../../components/SafeImg';
 import CopyNavi from '../../../components/CopyNavi';
 import styles from './npc.module.css';
@@ -69,10 +68,7 @@ export default async function NpcPage({ params }: { params: Promise<{ name: stri
   const locations = Array.from(locationMap.values());
 
   return (
-    <>
-      <Topbar active="wiki" subtitle="Wiki" />
-
-      <main className={styles.main}>
+    <main className={styles.main}>
         <nav className={styles.breadcrumb}>
           <Link href="/">Inicio</Link><span>/</span>
           <Link href="/wiki">Wiki</Link><span>/</span>
@@ -144,6 +140,5 @@ export default async function NpcPage({ params }: { params: Promise<{ name: stri
           </div>
         </section>
       </main>
-    </>
   );
 }

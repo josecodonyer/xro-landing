@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useCallback, Fragment } from 'react';
 import styles from './exp.module.css';
-import Topbar from '../components/Topbar';
 import mobRaw from '../../public/mob_full.json';
 import mobDetailRaw from '../../public/mob_detail.json';
 
@@ -299,9 +298,7 @@ export default function ExpScaler() {
 
   return (
     <>
-      <Topbar active="exp" subtitle="EXP Scaler" />
-
-      <main className={styles.main}>
+    <main className={styles.main}>
         <div className={styles.head}>
           <div className="eyebrow-line">Herramientas · xRO Renewal</div>
           <h1 className={styles.h1}>EXP Scaler</h1>
@@ -531,7 +528,6 @@ export default function ExpScaler() {
           <a href="/" style={{ color: 'var(--fg-muted)', fontSize: '13px' }}>← Inicio</a>
         </div>
       </footer>
-
     </>
   );
 }

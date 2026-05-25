@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { requestPasswordChangeAction, confirmPasswordChangeAction } from '../actions';
 import styles from '../cuenta.module.css';
@@ -12,10 +12,12 @@ export default function CambiarPasswordPage() {
   const [reqState, reqAction, reqPending] = useActionState(requestPasswordChangeAction, null);
   const [confState, confAction, confPending] = useActionState(confirmPasswordChangeAction, null);
 
-  if (reqState?.success && step === 'form') {
-    setNewPass(reqState.newPass!);
-    setStep('verify');
-  }
+  useEffect(() => {
+    if (reqState?.success && step === 'form') {
+      setNewPass(reqState.newPass!);
+      setStep('verify');
+    }
+  }, [reqState, step]);
 
   if (confState?.success) {
     return (

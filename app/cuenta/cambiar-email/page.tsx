@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { requestEmailChangeAction, confirmEmailChangeAction } from '../actions';
 import styles from '../cuenta.module.css';
@@ -11,7 +11,9 @@ export default function CambiarEmailPage() {
   const [reqState, reqAction, reqPending] = useActionState(requestEmailChangeAction, null);
   const [confState, confAction, confPending] = useActionState(confirmEmailChangeAction, null);
 
-  if (reqState?.success && step === 'form') setStep('verify');
+  useEffect(() => {
+    if (reqState?.success && step === 'form') setStep('verify');
+  }, [reqState, step]);
 
   if (confState?.success) {
     return (

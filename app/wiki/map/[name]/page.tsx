@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import mapIndexRaw from '../../../../public/map_index.json';
 import npcSpritesRaw from '../../../../public/npc_sprites.json';
-import Topbar from '../../../components/Topbar';
 import SafeImg from '../../../components/SafeImg';
 import CopyNavi from '../../../components/CopyNavi';
 import styles from './map.module.css';
@@ -51,10 +50,7 @@ export default async function MapPage({ params }: { params: Promise<{ name: stri
   const minimapUrl = `https://www.divine-pride.net/img/map/original/${name}`;
 
   return (
-    <>
-      <Topbar active="wiki" subtitle="Wiki" />
-
-      <main className={styles.main}>
+    <main className={styles.main}>
         <nav className={styles.breadcrumb}>
           <Link href="/">Inicio</Link><span>/</span>
           <Link href="/wiki">Wiki</Link><span>/</span>
@@ -152,6 +148,5 @@ export default async function MapPage({ params }: { params: Promise<{ name: stri
           </section>
         </div>
       </main>
-    </>
   );
 }

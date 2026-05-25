@@ -3,7 +3,6 @@
 import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import Topbar from '../components/Topbar';
 import mobFullRaw from '../../public/mob_full.json';
 import wikiRaw from '../../public/wiki_data.json';
 import styles from './wiki.module.css';
@@ -111,10 +110,7 @@ function WikiIndexInner() {
   }
 
   return (
-    <>
-      <Topbar active="wiki" />
-
-      <main className={styles.main}>
+    <main className={styles.main}>
         {/* Hero search */}
         <section className={styles.heroSearch}>
           <div className="eyebrow-line">Base de datos del servidor</div>
@@ -242,7 +238,6 @@ function WikiIndexInner() {
           <p className={styles.noResults}>No se encontraron resultados para &ldquo;{query}&rdquo;</p>
         )}
       </main>
-    </>
   );
 }
 
