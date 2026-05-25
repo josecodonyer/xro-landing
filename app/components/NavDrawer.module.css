@@ -1,0 +1,159 @@
+/* Hamburger — hidden on desktop, visible ≤480px */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--r-md);
+  flex-shrink: 0;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.hamburger:hover { background: rgba(10,10,12,0.07); }
+
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: #0a0a0c;
+  border-radius: 2px;
+}
+
+@media (max-width: 480px) {
+  .hamburger { display: flex; }
+}
+
+/* ── Backdrop — covers entire viewport ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: 998;
+  animation: backdropIn 200ms ease both;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Drawer panel ── */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  max-width: 85vw;
+  background: #ffffff;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 8px 0 40px rgba(0, 0, 0, 0.18);
+  animation: drawerIn 240ms var(--ease-out) both;
+}
+
+@keyframes drawerIn {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+/* Header row: logo + close btn */
+.drawerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 16px 20px 20px;
+  border-bottom: 1px solid rgba(10,10,12,0.08);
+  flex-shrink: 0;
+}
+
+.drawerLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0a0a0c;
+  text-decoration: none;
+}
+.drawerLogo:hover { color: #0a0a0c; }
+
+.drawerLogoText {
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0a0a0c;
+  line-height: 1;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  color: rgba(10,10,12,0.35);
+  cursor: pointer;
+  border-radius: var(--r-md);
+  flex-shrink: 0;
+  transition: color var(--dur-fast), background var(--dur-fast);
+}
+.closeBtn:hover { color: #0a0a0c; background: rgba(10,10,12,0.06); }
+
+/* Nav links */
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.drawerLink {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 12px;
+  font-size: 17px;
+  font-weight: 500;
+  color: rgba(10,10,12,0.60);
+  text-decoration: none;
+  border-radius: var(--r-lg);
+  letter-spacing: -0.01em;
+  transition: color var(--dur-fast), background var(--dur-fast);
+}
+.drawerLink:hover { color: #0a0a0c; background: rgba(10,10,12,0.05); }
+
+/* Footer: CTA */
+.drawerFooter {
+  padding: 16px 20px 40px;
+  border-top: 1px solid rgba(10,10,12,0.08);
+  flex-shrink: 0;
+}
+
+.drawerCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px;
+  background: #14161a;
+  color: #ffffff;
+  border-radius: var(--r-xl);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background var(--dur-fast);
+}
+.drawerCta:hover { background: #23262e; color: #ffffff; }

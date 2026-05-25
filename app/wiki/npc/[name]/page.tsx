@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import wikiRaw from '../../../../public/wiki_data.json';
+import npcSpritesRaw from '../../../../public/npc_sprites.json';
 import Topbar from '../../../components/Topbar';
 import SafeImg from '../../../components/SafeImg';
 import CopyNavi from '../../../components/CopyNavi';
@@ -9,7 +10,8 @@ import styles from './npc.module.css';
 type ItemData  = { id: number; name: string; type: string };
 type ShopEntry = { npc: string; map: string; x: number; y: number; price: number };
 
-const wikiData = wikiRaw as unknown as { items: Record<string, ItemData>; shops: Record<string, ShopEntry[]> };
+const wikiData   = wikiRaw       as unknown as { items: Record<string, ItemData>; shops: Record<string, ShopEntry[]> };
+const npcSprites = npcSpritesRaw as unknown as Record<string, { id: number; url: string }>;
 
 function formatMapName(raw: string) {
   return raw.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
@@ -79,7 +81,21 @@ export default async function NpcPage({ params }: { params: Promise<{ name: stri
         </nav>
 
         <section className={styles.hero}>
-          <div className={styles.heroIcon}>🏪</div>
+          <div className={styles.heroIcon}>
+            {npcSprites[npcName] ? (
+              <SafeImg
+                src={npcSprites[npcName].url}
+                alt={npcName}
+                width={52} height={52}
+                className={styles.heroSprite}
+              />
+            ) : (
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <circle cx="14" cy="9" r="4.5" stroke="currentColor" strokeWidth="1.6"/>
+                <path d="M4 26c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+              </svg>
+            )}
+          </div>
           <div className={styles.heroInfo}>
             <h1 className={styles.heroName}>{npcName}</h1>
             <div className={styles.heroBadges}>

@@ -52,7 +52,7 @@
 
 /* Grid */
 .grid {
-  display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px; margin-bottom: 8px;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; margin-bottom: 12px;
 }
 .card {
   padding: 22px 26px;
@@ -67,10 +67,10 @@
 .empty { color: var(--fg-faint); font-size: var(--t-sm); }
 
 /* Mob drop list */
-.mobList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.mobList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1px; }
 .mobRow {
   display: flex; align-items: center; gap: 10px;
-  padding: 6px 8px; border-radius: var(--r-sm);
+  padding: 7px 8px; border-radius: var(--r-sm);
   text-decoration: none; transition: background var(--dur-fast);
 }
 .mobRow:hover { background: var(--bg-elev-2); }
@@ -81,10 +81,10 @@
 .dropBase { font-size: 10px; color: var(--fg-faint); text-decoration: line-through; opacity: 0.6; font-family: var(--font-mono); }
 
 /* Shop list */
-.shopList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.shopList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .shopRow {
   display: flex; align-items: center; gap: 12px;
-  padding: 10px 12px; background: var(--bg-elev-2);
+  padding: 12px 14px; background: var(--bg-elev-2);
   border-radius: var(--r-md); border: 1px solid var(--border);
 }
 .shopNpc { flex: 1; }
@@ -97,14 +97,14 @@
 .shopPrice { font-size: 14px; font-weight: 700; color: var(--accent); flex-shrink: 0; font-family: var(--font-mono); white-space: nowrap; }
 
 @media (max-width: 768px) {
-  .main { padding: 100px 16px 60px; }
+  .main { padding: 88px 16px 60px; }
   .hero { flex-wrap: wrap; }
   .heroPrices { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 12px; flex-direction: row; gap: 24px; }
-  .grid { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; gap: 8px; }
 }
 
 @media (max-width: 480px) {
-  .main { padding: 80px 12px 48px; }
+  .main { padding: 80px 12px 52px; }
   .hero { padding: 20px 16px; gap: 16px; }
   .heroName { font-size: 22px; }
   .heroPrices { flex-wrap: wrap; gap: 16px; }

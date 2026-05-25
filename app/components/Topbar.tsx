@@ -2,6 +2,7 @@
 
 import styles from './Topbar.module.css';
 import WikiSearch from './WikiSearch';
+import NavDrawer from './NavDrawer';
 
 const XRO_LOGO = (
   <svg width="22" height="22" viewBox="0 0 600 600" fill="none" aria-hidden>
@@ -17,6 +18,14 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
   return (
     <header className="topbar">
       <div className="topbar-left">
+        <NavDrawer
+          items={[
+            { href: '/', label: 'Inicio' },
+            { href: '/exp', label: 'EXP Scaler' },
+            { href: '/wiki', label: 'Wiki' },
+          ]}
+          cta={{ href: '/cuenta/registro', label: 'Crear cuenta' }}
+        />
         <a href="/" className={styles.brand} aria-label="xRO">
           {XRO_LOGO}
           <span className={styles.brandRo}>RO</span>

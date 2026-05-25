@@ -1,6 +1,7 @@
 'use client';
 
 import { useServerStatus } from './components/ServerStatus';
+import NavDrawer from './components/NavDrawer';
 import styles from "./landing.module.css";
 
 export default function Home() {
@@ -11,6 +12,15 @@ export default function Home() {
       {/* ── Top bar flotante ── */}
       <header className="topbar">
         <div className="topbar-left">
+          <NavDrawer
+            items={[
+              { href: '#rates', label: 'Rates' },
+              { href: '#features', label: 'Servidor' },
+              { href: '/exp', label: 'EXP Scaler' },
+              { href: '/wiki', label: 'Wiki' },
+            ]}
+            cta={{ href: '#descargar', label: '▶ Descargar' }}
+          />
           <a href="/" className={styles.brandLogo} aria-label="xRO">
             <svg width="22" height="22" viewBox="0 0 600 600" fill="none" aria-hidden>
               <g transform="matrix(1.250966,1.250966,-1.250966,1.250966,195.474028,-418.223501)">
@@ -37,9 +47,7 @@ export default function Home() {
           <a href="#features">Servidor</a>
           <a href="/exp">EXP Scaler</a>
           <a href="/wiki">Wiki</a>
-          <a href="#descargar" className="btn-header-cta">
-            ▶ Descargar
-          </a>
+          <a href="#descargar" className="btn-header-cta">▶ Descargar</a>
         </nav>
       </header>
 

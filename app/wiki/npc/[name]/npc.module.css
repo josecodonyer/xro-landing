@@ -6,7 +6,14 @@
 .breadcrumb span:not(a) { opacity: 0.4; }
 
 .hero { display: flex; align-items: flex-start; gap: 24px; padding: 28px 32px; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-2xl); margin-bottom: 1px; }
-.heroIcon { font-size: 48px; flex-shrink: 0; line-height: 1; }
+.heroIcon {
+  width: 64px; height: 64px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-elev-2); border-radius: var(--r-xl);
+  border: 1px solid var(--border); color: var(--fg-faint);
+  overflow: hidden;
+}
+.heroSprite { image-rendering: pixelated; width: 52px; height: 52px; object-fit: contain; }
 .heroInfo { flex: 1; }
 .heroName { font-size: 28px; font-weight: 700; letter-spacing: var(--ls-tight); margin-bottom: 8px; }
 .heroBadges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -20,15 +27,32 @@
 .locMapName { font-size: var(--t-xs); font-weight: 600; color: var(--fg); }
 .locCoords { font-family: var(--font-mono); font-size: 10px; color: var(--fg-faint); }
 
-.card { padding: 22px 26px; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: 0 0 var(--r-2xl) var(--r-2xl); }
-.cardTitle { font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--fg-faint); font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.card { padding: 24px 28px; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: 0 0 var(--r-2xl) var(--r-2xl); }
+.cardTitle { font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: var(--fg-faint); font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
 .cardHint { margin-left: auto; font-size: 9px; color: var(--fg-faint); letter-spacing: 0.06em; font-weight: 400; text-transform: none; opacity: 0.6; }
 
-.shopGrid { display: flex; flex-direction: column; gap: 4px; }
-.shopItem { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: var(--r-md); text-decoration: none; transition: background var(--dur-fast); }
+.shopGrid { display: flex; flex-direction: column; gap: 2px; }
+.shopItem { display: flex; align-items: center; gap: 12px; padding: 10px 10px; border-radius: var(--r-md); text-decoration: none; transition: background var(--dur-fast); }
 .shopItem:hover { background: var(--bg-elev-2); }
 .itemIcon { image-rendering: pixelated; width: 32px; height: 32px; flex-shrink: 0; }
 .itemInfo { flex: 1; }
 .itemName { display: block; font-size: var(--t-sm); color: var(--fg); }
 .itemType { display: block; font-size: 10px; color: var(--fg-faint); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 1px; }
 .itemPrice { font-size: 13px; font-weight: 700; color: var(--accent); flex-shrink: 0; font-family: var(--font-mono); }
+
+@media (max-width: 768px) {
+  .main { padding: 88px 16px 56px; }
+  .hero { padding: 20px; gap: 16px; }
+  .heroName { font-size: 22px; }
+}
+
+@media (max-width: 540px) {
+  .main { padding: 80px 12px 52px; }
+  .hero { padding: 16px; gap: 14px; }
+  .heroIcon { width: 48px; height: 48px; }
+  .heroName { font-size: 18px; }
+  .heroLocations { gap: 6px; }
+  .locChip { flex-direction: column; align-items: flex-start; }
+  .card { padding: 18px; border-radius: var(--r-2xl); }
+  .shopItem { gap: 10px; padding: 9px 6px; }
+}
