@@ -70,33 +70,6 @@
 }
 .equipBarVal { font-size: var(--t-sm); color: var(--fg); font-weight: 500; }
 
-/* Description card */
-.descCard {
-  padding: 22px 26px; margin-bottom: 8px;
-  background: var(--bg-elev-1); border: 1px solid var(--border);
-  border-radius: var(--r-2xl);
-}
-.descTitle {
-  font-family: var(--font-mono); font-size: var(--t-2xs);
-  letter-spacing: var(--ls-eyebrow); text-transform: uppercase;
-  color: var(--fg-faint); font-weight: 500; margin-bottom: 14px;
-}
-.descLines { display: flex; flex-direction: column; gap: 4px; }
-.descLine {
-  font-size: var(--t-sm); color: var(--fg-dim);
-  line-height: 1.65; margin: 0;
-}
-
-/* Colored element badge */
-.badgeElement {
-  display: inline-flex; align-items: center; padding: 3px 10px;
-  border-radius: var(--r-pill);
-  font-family: var(--font-mono); font-size: var(--t-2xs);
-  letter-spacing: var(--ls-mono); text-transform: uppercase;
-  background: rgba(122,167,255,0.12); border: 1px solid rgba(122,167,255,0.3);
-  color: var(--cobalt-500);
-}
-
 /* Grid */
 .grid {
   display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; margin-bottom: 12px;
@@ -143,6 +116,22 @@
 .shopCoords { font-family: var(--font-mono); font-size: 10px; color: var(--fg-faint); }
 .shopPrice { font-size: 14px; font-weight: 700; color: var(--accent); flex-shrink: 0; font-family: var(--font-mono); white-space: nowrap; }
 
+/* Effects card */
+.effectsCard {
+  padding: 22px 26px; margin-bottom: 8px;
+  background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-2xl);
+}
+.effectsTitle {
+  font-family: var(--font-mono); font-size: var(--t-2xs); letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase; color: var(--fg-faint); font-weight: 500; margin-bottom: 14px;
+}
+.effectsList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.effectLine {
+  font-size: var(--t-sm); color: var(--fg);
+  padding: 7px 12px; background: var(--bg-elev-2);
+  border-radius: var(--r-md); border: 1px solid var(--border);
+}
+
 @media (max-width: 768px) {
   .main { padding: 88px 16px 60px; }
   .hero { flex-wrap: wrap; }
@@ -156,5 +145,5 @@
   .hero { padding: 20px 16px; gap: 16px; }
   .heroName { font-size: 22px; }
   .equipBarItem { padding: 8px 14px; }
-  .descCard { padding: 16px 18px; }
+  .effectsCard { padding: 16px 18px; }
 }
