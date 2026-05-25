@@ -290,6 +290,15 @@ a:hover { color: #fff; }
 }
 
 @media (max-width: 768px) {
+  .footer { padding: 56px 24px 40px; }
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .topbar { padding: 10px 12px; gap: 8px; }
+  .topbar .nav a:not(.btn-header-cta) { display: none; }
+  .topbar .divider-v { display: none; }
+  .topbar .mono-sub { display: none; }
+  .topbar .status-pill { display: none; }
 }

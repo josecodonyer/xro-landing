@@ -723,3 +723,38 @@
   padding: 4px 0;
   font-style: italic;
 }
+
+/* ── Responsive ── */
+
+@media (max-width: 900px) {
+  .main { padding: 100px 20px 80px; }
+
+  .controlsPanel { grid-template-columns: 1fr 1fr; }
+  .controlCellSearch { grid-column: span 2; border-top: 1px solid var(--border-strong); }
+
+  .accordionInner { grid-template-columns: 80px 1fr 1fr; }
+  .accStats { grid-row: 1; }
+  .accMaps { grid-row: 2; grid-column: 2; border-right: none; border-top: 1px solid var(--border); padding: 12px 0 0; }
+  .accDrops { grid-row: 2; grid-column: 3; padding: 12px 0 0 20px; border-top: 1px solid var(--border); }
+  .accSprite { grid-row: 1; }
+}
+
+@media (max-width: 640px) {
+  .main { padding: 80px 16px 64px; }
+
+  .controlsPanel { grid-template-columns: 1fr 1fr; }
+  .controlCellSearch { grid-column: span 2; }
+
+  .filtersBar { padding: 10px 12px; }
+  .filterGroup { gap: 6px; }
+  .filterGroupLabel { min-width: 44px; font-size: 9px; }
+
+  .accordionInner { grid-template-columns: 1fr; gap: 0; }
+  .accSprite { display: none; }
+  .accStats { padding: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 12px; }
+  .accMaps { padding: 0 0 12px; border-right: none; border-top: none; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .accDrops { padding: 0; border-top: none; }
+
+  .pagination { gap: 4px; }
+  .pageBtn { padding: 6px 10px; font-size: 12px; }
+}

@@ -318,4 +318,15 @@
   .heroExp { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 16px; flex-direction: row; gap: 32px; }
   .grid { grid-template-columns: 1fr; }
   .attrGrid { grid-template-columns: repeat(3, 1fr); }
+  .elemGrid { grid-template-columns: repeat(5, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .main { padding: 80px 12px 48px; }
+  .hero { padding: 20px 16px; gap: 16px; }
+  .heroName { font-size: 24px; }
+  .elemGrid { grid-template-columns: repeat(3, 1fr); }
+  .miscGrid { grid-template-columns: 1fr 1fr 1fr; }
+  .mapGrid { grid-template-columns: 1fr; }
+  .heroExp { flex-wrap: wrap; gap: 20px; }
 }

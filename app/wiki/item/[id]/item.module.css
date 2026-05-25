@@ -102,3 +102,10 @@
   .heroPrices { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 12px; flex-direction: row; gap: 24px; }
   .grid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 480px) {
+  .main { padding: 80px 12px 48px; }
+  .hero { padding: 20px 16px; gap: 16px; }
+  .heroName { font-size: 22px; }
+  .heroPrices { flex-wrap: wrap; gap: 16px; }
+}

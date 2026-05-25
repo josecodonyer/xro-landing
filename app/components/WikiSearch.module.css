@@ -3,6 +3,10 @@
   width: 320px;
 }
 
+@media (max-width: 640px) {
+  .wrap { width: 100%; }
+}
+
 .inputWrap {
   display: flex;
   align-items: center;
