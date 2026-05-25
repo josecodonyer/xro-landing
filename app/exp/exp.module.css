@@ -740,9 +740,10 @@
 }
 
 @media (max-width: 640px) {
-  .main { padding: 80px 16px 64px; }
+  .main { padding: 72px 12px 56px; }
 
   .controlsPanel { grid-template-columns: 1fr 1fr; }
+  .controlsPanel > *:nth-child(3) { grid-column: span 2; }
   .controlCellSearch { grid-column: span 2; }
 
   .filtersBar { padding: 10px 12px; }

@@ -79,7 +79,12 @@ export default async function NpcPage({ params }: { params: Promise<{ name: stri
         </nav>
 
         <section className={styles.hero}>
-          <div className={styles.heroIcon}>🏪</div>
+          <div className={styles.heroIcon}>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <circle cx="14" cy="9" r="4.5" stroke="currentColor" strokeWidth="1.6"/>
+              <path d="M4 26c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+          </div>
           <div className={styles.heroInfo}>
             <h1 className={styles.heroName}>{npcName}</h1>
             <div className={styles.heroBadges}>

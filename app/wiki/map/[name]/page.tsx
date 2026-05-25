@@ -121,7 +121,12 @@ export default async function MapPage({ params }: { params: Promise<{ name: stri
               <ul className={styles.npcList}>
                 {data.npcs.map((npc, i) => (
                   <li key={i} className={styles.npcRow}>
-                    <div className={styles.npcIcon}>🏪</div>
+                    <div className={styles.npcIcon}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <circle cx="8" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.3"/>
+                        <path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                      </svg>
+                    </div>
                     <div className={styles.npcInfo}>
                       <Link href={`/wiki/npc/${encodeURIComponent(npc.name)}`} className={styles.npcName}>
                         {npc.name}

@@ -33,7 +33,12 @@
 .npcList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
 .npcRow { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--bg-elev-2); border-radius: var(--r-md); border: 1px solid var(--border); transition: border-color var(--dur-fast); }
 .npcRow:hover { border-color: var(--border-strong); }
-.npcIcon { font-size: 18px; flex-shrink: 0; }
+.npcIcon {
+  width: 32px; height: 32px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-elev-3); border-radius: var(--r-sm);
+  border: 1px solid var(--border); color: var(--fg-faint);
+}
 .npcInfo { flex: 1; display: flex; align-items: center; gap: 8px; }
 .npcName { font-size: var(--t-sm); font-weight: 600; color: var(--fg); text-decoration: none; transition: color var(--dur-fast); }
 .npcName:hover { color: var(--accent); }
@@ -41,6 +46,20 @@
 .npcArrow { color: var(--fg-faint); flex-shrink: 0; }
 
 @media (max-width: 768px) {
-  .main { padding: 100px 16px 60px; }
+  .main { padding: 88px 16px 56px; }
   .grid { grid-template-columns: 1fr; }
+  .hero { gap: 20px; padding: 20px; }
+  .heroName { font-size: 22px; }
+}
+
+@media (max-width: 540px) {
+  .main { padding: 80px 12px 48px; }
+  .hero { flex-direction: column; padding: 16px; gap: 14px; }
+  .heroMap { width: 100%; height: 160px; }
+  .minimap { width: 100%; height: 160px; object-fit: cover; }
+  .heroName { font-size: 20px; }
+  .heroMeta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card { padding: 16px; }
+  .mobRow { gap: 8px; }
+  .mobLv { display: none; }
 }
