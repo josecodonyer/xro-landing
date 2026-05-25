@@ -18,10 +18,6 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
   return (
     <header className="topbar">
       <div className="topbar-left">
-        <a href="/" className={styles.brand} aria-label="xRO">
-          {XRO_LOGO}
-          <span className={styles.brandRo}>RO</span>
-        </a>
         <NavDrawer
           items={[
             { href: '/', label: 'Inicio' },
@@ -30,6 +26,10 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
           ]}
           cta={{ href: '/cuenta/registro', label: 'Crear cuenta' }}
         />
+        <a href="/" className={styles.brand} aria-label="xRO">
+          {XRO_LOGO}
+          <span className={styles.brandRo}>RO</span>
+        </a>
         {subtitle && (
           <>
             <span className="divider-v" />
