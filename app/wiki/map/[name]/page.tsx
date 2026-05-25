@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import mapIndexRaw from '../../../../public/map_index.json';
+import npcSpritesRaw from '../../../../public/npc_sprites.json';
 import Topbar from '../../../components/Topbar';
 import SafeImg from '../../../components/SafeImg';
 import CopyNavi from '../../../components/CopyNavi';
@@ -9,8 +10,10 @@ import styles from './map.module.css';
 type MobEntry  = { id: number; name: string; level: number; element: string; elementLevel: number; count: number };
 type NpcEntry  = { name: string; x: number; y: number };
 type MapData   = { mobs: MobEntry[]; npcs: NpcEntry[] };
+type NpcSprite = { id: number; url: string };
 
-const mapIndex = mapIndexRaw as unknown as Record<string, MapData>;
+const mapIndex   = mapIndexRaw   as unknown as Record<string, MapData>;
+const npcSprites = npcSpritesRaw as unknown as Record<string, NpcSprite>;
 
 export async function generateStaticParams() {
   return Object.keys(mapIndex).map(name => ({ name }));
@@ -122,10 +125,19 @@ export default async function MapPage({ params }: { params: Promise<{ name: stri
                 {data.npcs.map((npc, i) => (
                   <li key={i} className={styles.npcRow}>
                     <div className={styles.npcIcon}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <circle cx="8" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.3"/>
-                        <path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
-                      </svg>
+                      {npcSprites[npc.name] ? (
+                        <SafeImg
+                          src={npcSprites[npc.name].url}
+                          alt={npc.name}
+                          width={28} height={28}
+                          className={styles.npcSprite}
+                        />
+                      ) : (
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                          <circle cx="8" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.3"/>
+                          <path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                        </svg>
+                      )}
                     </div>
                     <div className={styles.npcInfo}>
                       <Link href={`/wiki/npc/${encodeURIComponent(npc.name)}`} className={styles.npcName}>
