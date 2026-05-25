@@ -33,6 +33,12 @@ const JOB: Record<number, { label: string; color: string; abbr: string }> = {
   25:   { label: 'Ninja',           color: '#475569', abbr: 'NNJ' },
   // ── Trans ────────────────────────────────────────────────────────
   4001: { label: 'High Novice',     color: '#9ca3af', abbr: 'HNV' },
+  4002: { label: 'Swordman High',   color: '#ef4444', abbr: 'SWH' },
+  4003: { label: 'Mage High',       color: '#818cf8', abbr: 'MGH' },
+  4004: { label: 'Archer High',     color: '#4ade80', abbr: 'ARH' },
+  4005: { label: 'Acolyte High',    color: '#fbbf24', abbr: 'ACH' },
+  4006: { label: 'Merchant High',   color: '#fb923c', abbr: 'MEH' },
+  4007: { label: 'Thief High',      color: '#a78bfa', abbr: 'THH' },
   4008: { label: 'Lord Knight',     color: '#dc2626', abbr: 'LK'  },
   4009: { label: 'High Priest',     color: '#d97706', abbr: 'HP'  },
   4010: { label: 'High Wizard',     color: '#6366f1', abbr: 'HW'  },
