@@ -148,18 +148,18 @@ export default function Home() {
             </div>
             <div className={styles.rateTile}>
               <div className={styles.rateTileTop}><span>Equipo</span><span className={styles.rateTileOrd}>03</span></div>
-              <div className={styles.rateBig}><span className={styles.rateX}>×</span>2</div>
+              <div className={styles.rateBig}><span className={styles.rateX}>×</span>8</div>
               <p className={styles.rateDesc}>Armas y armaduras de mob.</p>
             </div>
             <div className={styles.rateTile}>
               <div className={styles.rateTileTop}><span>Cartas</span><span className={styles.rateTileOrd}>04</span></div>
-              <div className={styles.rateBig}><span className={styles.rateX}>×</span>2</div>
-              <p className={styles.rateDesc}>Drop universal de cards.</p>
+              <div className={styles.rateBig}><span className={styles.rateX}>×</span>13</div>
+              <p className={styles.rateDesc}>~750 mobs por carta.</p>
             </div>
             <div className={styles.rateTile}>
               <div className={styles.rateTileTop}><span>MVP</span><span className={styles.rateTileOrd}>05</span></div>
-              <div className={styles.rateBig}><span className={styles.rateX}>×</span>1</div>
-              <p className={styles.rateDesc}>Cards de MVP sin modificar.</p>
+              <div className={styles.rateBig}><span className={styles.rateX}>×</span>5</div>
+              <p className={styles.rateDesc}>Cards de boss y MVP, ×5 del rate de cartas.</p>
             </div>
           </div>
         </section>
