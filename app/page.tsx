@@ -153,13 +153,13 @@ export default function Home() {
             </div>
             <div className={styles.rateTile}>
               <div className={styles.rateTileTop}><span>Cartas</span><span className={styles.rateTileOrd}>04</span></div>
-              <div className={styles.rateBig}><span className={styles.rateX}>×</span>13</div>
-              <p className={styles.rateDesc}>~750 mobs por carta.</p>
+              <div className={styles.rateBig}><span className={styles.rateX}>×</span>10</div>
+              <p className={styles.rateDesc}>Drop universal de cards.</p>
             </div>
             <div className={styles.rateTile}>
               <div className={styles.rateTileTop}><span>MVP</span><span className={styles.rateTileOrd}>05</span></div>
-              <div className={styles.rateBig}><span className={styles.rateX}>×</span>5</div>
-              <p className={styles.rateDesc}>Cards de boss y MVP, ×5 del rate de cartas.</p>
+              <div className={styles.rateBig}><span className={styles.rateX}>×</span>10</div>
+              <p className={styles.rateDesc}>Cards de boss y MVP, mismo rate que normales.</p>
             </div>
           </div>
         </section>

@@ -14,8 +14,8 @@ const fs   = require('fs');
 const path = require('path');
 
 const EQUIP_MULT      = 800  / 100;   // 8
-const CARD_MULT       = 1330 / 100;   // 13.3
-const CARD_BOSS_MULT  = 6650 / 100;   // 66.5
+const CARD_MULT       = 1000 / 100;   // 10
+const CARD_BOSS_MULT  = 1000 / 100;   // 10
 const COMMON_MULT     = 800  / 100;   // 8 (unchanged, just for clarity)
 
 const EQUIP_TYPES = new Set(['Weapon', 'Armor', 'Ammo']);
