@@ -5,7 +5,6 @@ import mobFullRaw from '../../../../public/mob_full.json';
 import mobDetailRaw from '../../../../public/mob_detail.json';
 import SafeImg from '../../../components/SafeImg';
 import CopyNavi from '../../../components/CopyNavi';
-import { parseItemScript } from '../../../../lib/parse-script';
 import styles from './item.module.css';
 
 /* ── Types ── */
@@ -110,9 +109,9 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
   const isEquip  = ['Weapon', 'Armor', 'ShadowGear'].includes(item.type);
   const isWeapon = item.type === 'Weapon';
 
-  const scriptLines = parseItemScript(detail?.script ?? '');
-  const equipLines  = parseItemScript(detail?.equipScript ?? '');
-  const hasEffects  = scriptLines.length > 0 || equipLines.length > 0;
+  const scriptRaw   = detail?.script?.trim() ?? '';
+  const equipRaw    = detail?.equipScript?.trim() ?? '';
+  const hasEffects  = scriptRaw.length > 0 || equipRaw.length > 0;
 
   const locStr  = detail?.location ? formatLocation(detail.location) : '';
   const jobsStr = detail?.jobs     ? formatJobs(detail.jobs) : '';
@@ -216,15 +215,9 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
       {/* Effects card — full width above grid */}
       {hasEffects && (
         <section className={styles.effectsCard}>
-          <h2 className={styles.effectsTitle}>Effects</h2>
-          <ul className={styles.effectsList}>
-            {scriptLines.map((line, i) => (
-              <li key={i} className={styles.effectLine}>{line}</li>
-            ))}
-            {equipLines.map((line, i) => (
-              <li key={`eq-${i}`} className={styles.effectLine}>{line}</li>
-            ))}
-          </ul>
+          <h2 className={styles.effectsTitle}>Script</h2>
+          {scriptRaw && <pre className={styles.scriptPre}>{scriptRaw}</pre>}
+          {equipRaw  && <pre className={styles.scriptPre}>{equipRaw}</pre>}
         </section>
       )}
 
