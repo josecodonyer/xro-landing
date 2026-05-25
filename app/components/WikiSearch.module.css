@@ -5,6 +5,7 @@
 
 @media (max-width: 640px) {
   .wrap { width: 100%; }
+  .input::placeholder { color: transparent; }
 }
 
 .inputWrap {
