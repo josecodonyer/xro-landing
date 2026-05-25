@@ -1,0 +1,130 @@
+/* Hamburger — hidden on desktop, visible on mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--r-md);
+  flex-shrink: 0;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.hamburger:hover { background: rgba(10,10,12,0.07); }
+
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: #0a0a0c;
+  border-radius: 2px;
+}
+
+@media (max-width: 480px) {
+  .hamburger { display: flex; }
+}
+
+/* Backdrop */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  z-index: 95;
+  animation: backdropIn 160ms ease both;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Drawer panel */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: calc(100vw - 48px);
+  background: rgba(250, 250, 247, 0.99);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(10,10,12,0.10);
+  z-index: 100;
+  padding: 20px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -16px 0 48px rgba(0,0,0,0.20);
+  animation: drawerIn 200ms var(--ease-out) both;
+}
+
+@keyframes drawerIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+.closeBtn {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  color: rgba(10,10,12,0.4);
+  cursor: pointer;
+  border-radius: var(--r-md);
+  transition: color var(--dur-fast), background var(--dur-fast);
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover { color: #0a0a0c; background: rgba(10,10,12,0.06); }
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.drawerLink {
+  display: block;
+  padding: 13px 12px;
+  font-size: 17px;
+  font-weight: 400;
+  color: rgba(10,10,12,0.60);
+  text-decoration: none;
+  border-radius: var(--r-lg);
+  letter-spacing: -0.01em;
+  transition: color var(--dur-fast), background var(--dur-fast);
+}
+
+.drawerLink:hover { color: #0a0a0c; background: rgba(10,10,12,0.05); }
+
+.drawerCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: #14161a;
+  color: #fff;
+  border-radius: var(--r-xl);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 8px;
+  transition: background var(--dur-fast);
+  flex-shrink: 0;
+}
+
+.drawerCta:hover { background: #23262e; color: #fff; }

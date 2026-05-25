@@ -1,6 +1,7 @@
 'use client';
 
 import { useServerStatus } from './components/ServerStatus';
+import NavDrawer from './components/NavDrawer';
 import styles from "./landing.module.css";
 
 export default function Home() {
@@ -37,9 +38,16 @@ export default function Home() {
           <a href="#features">Servidor</a>
           <a href="/exp">EXP Scaler</a>
           <a href="/wiki">Wiki</a>
-          <a href="#descargar" className="btn-header-cta">
-            ▶ Descargar
-          </a>
+          <a href="#descargar" className="btn-header-cta">▶ Descargar</a>
+          <NavDrawer
+            items={[
+              { href: '#rates', label: 'Rates' },
+              { href: '#features', label: 'Servidor' },
+              { href: '/exp', label: 'EXP Scaler' },
+              { href: '/wiki', label: 'Wiki' },
+            ]}
+            cta={{ href: '#descargar', label: '▶ Descargar' }}
+          />
         </nav>
       </header>
 

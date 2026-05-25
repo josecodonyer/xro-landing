@@ -296,8 +296,8 @@ a:hover { color: #fff; }
 }
 
 @media (max-width: 480px) {
-  .topbar { padding: 10px 12px; gap: 8px; }
-  .topbar .nav a:not(.btn-header-cta) { display: none; }
+  .topbar { padding: 10px 12px; }
+  .topbar .nav a { display: none; }
   .topbar .divider-v { display: none; }
   .topbar .mono-sub { display: none; }
   .topbar .status-pill { display: none; }
