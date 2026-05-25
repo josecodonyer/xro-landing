@@ -301,4 +301,6 @@ a:hover { color: #fff; }
   .topbar .divider-v { display: none; }
   .topbar .mono-sub { display: none; }
   .topbar .status-pill { display: none; }
+  .footer { padding: 48px 20px 36px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
 }

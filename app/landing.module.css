@@ -648,10 +648,10 @@
   .rateTile { min-height: 180px; padding: 28px 24px; }
   .rateBig { font-size: 72px; }
   .gutterRule { display: none; }
-  .indexRow { padding: 64px 0; }
-  .bannerBody { padding: 40px 24px; }
+  .indexRow { padding: 72px 0; }
+  .bannerBody { padding: 44px 24px; }
   .bannerImg { min-height: 240px; }
-  .discordInner { padding: 56px 24px; flex-direction: column; gap: 24px; }
+  .discordInner { padding: 60px 24px; flex-direction: column; gap: 28px; }
   .discordActions { width: 100%; }
   .btnDiscord { width: 100%; justify-content: center; }
   .bottomCtaContent { padding: 100px 24px; }

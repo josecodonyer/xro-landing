@@ -87,8 +87,8 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 /* Card */
@@ -148,10 +148,10 @@
 .attrVal { font-size: 15px; font-weight: 700; color: var(--fg); }
 
 /* Drops */
-.dropList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.dropList { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1px; }
 .dropItem {
   display: flex; align-items: center; gap: 10px;
-  padding: 6px 8px;
+  padding: 7px 8px;
   border-radius: var(--r-sm);
   transition: background var(--dur-fast);
 }
@@ -181,7 +181,7 @@
 .mapGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 6px;
+  gap: 8px;
 }
 .mapCard {
   display: flex; align-items: center; gap: 8px;
@@ -313,16 +313,16 @@
 .backLink:hover { color: var(--fg); border-color: var(--border-strong); }
 
 @media (max-width: 768px) {
-  .main { padding: 100px 16px 60px; }
+  .main { padding: 88px 16px 60px; }
   .hero { flex-direction: column; align-items: flex-start; gap: 20px; }
   .heroExp { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 16px; flex-direction: row; gap: 32px; }
-  .grid { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; gap: 8px; }
   .attrGrid { grid-template-columns: repeat(3, 1fr); }
   .elemGrid { grid-template-columns: repeat(5, 1fr); }
 }
 
 @media (max-width: 480px) {
-  .main { padding: 80px 12px 48px; }
+  .main { padding: 80px 12px 52px; }
   .hero { padding: 20px 16px; gap: 16px; }
   .heroName { font-size: 24px; }
   .elemGrid { grid-template-columns: repeat(3, 1fr); }

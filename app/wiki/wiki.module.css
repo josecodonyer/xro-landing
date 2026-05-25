@@ -135,7 +135,7 @@
 .mobGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 8px;
+  gap: 10px;
 }
 .mobCard {
   display: flex; flex-direction: column; align-items: center;
@@ -160,7 +160,7 @@
 .itemGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 6px;
+  gap: 8px;
 }
 .itemCard {
   display: flex; align-items: center; gap: 12px;
@@ -179,6 +179,8 @@
 
 @media (max-width: 768px) {
   .main { padding: 80px 16px 60px; }
+  .heroSearch { padding: 36px 0 28px; }
+  .heroSub { margin: 0 0 24px; }
   .mobGrid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
   .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding-bottom: 2px; }
   .tab { flex-shrink: 0; padding: 10px 14px; }
@@ -186,7 +188,15 @@
 }
 
 @media (max-width: 480px) {
-  .heroSearch { padding: 32px 0 24px; }
-  .heroTitle { font-size: clamp(28px, 9vw, 48px); }
+  .heroSearch { padding: 24px 0 18px; }
+  .heroTitle { font-size: clamp(26px, 9vw, 44px); }
+  .heroSub { font-size: 13px; margin: 0 0 16px; }
+  .searchInput { padding: 11px 38px 11px 38px; font-size: 15px; }
+  .searchInput::placeholder { color: transparent; }
+  .statsRow { margin-top: 8px; gap: 6px; }
+  .statChip { padding: 3px 10px; font-size: 11px; }
   .itemGrid { grid-template-columns: 1fr; }
+  .tabs { margin-bottom: 16px; }
+  .categorySection { margin-bottom: 16px; }
+  .noResults { padding: 32px 0; }
 }
