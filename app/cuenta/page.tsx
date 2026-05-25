@@ -4,6 +4,7 @@ import { getSession } from '@/lib/session';
 import { charactersGet } from '@/lib/api';
 import { logoutAction } from './actions';
 import XroLogo from '../components/XroLogo';
+import CharCard from './CharCard';
 import styles from './cuenta.module.css';
 
 export default async function CuentaPage() {
@@ -33,13 +34,8 @@ export default async function CuentaPage() {
         {chars.length > 0 && (
           <div>
             <p className={styles.label} style={{ marginBottom: 12 }}>Personajes</p>
-            <div className={styles.dashGrid}>
-              {chars.map(c => (
-                <div key={c.name} className={styles.dashTile}>
-                  <span className={styles.dashTileLabel}>Lv {c.base_level}</span>
-                  <span className={styles.dashTileValue}>{c.name}</span>
-                </div>
-              ))}
+            <div className={styles.charGrid}>
+              {chars.map(c => <CharCard key={c.name} c={c} />)}
             </div>
           </div>
         )}

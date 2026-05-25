@@ -89,28 +89,21 @@ def parse_item_db(path: Path) -> dict:
 def main():
     items: dict = {}
 
-    # Re: Renewal databases (primary)
-    for fname in ["item_db.yml", "item_db2.yml"]:
-        p = DB_RE / fname
-        if p.exists():
-            print(f"  Loading {p} …", file=sys.stderr)
-            chunk = parse_item_db(p)
-            items.update(chunk)
-            print(f"    {len(chunk)} items", file=sys.stderr)
-        else:
-            print(f"  Skipping {p} (not found)", file=sys.stderr)
+    # Renewal databases — glob all item_db*.yml (equip, etc, usable, etc.)
+    for p in sorted(DB_RE.glob("item_db*.yml")):
+        print(f"  Loading {p} …", file=sys.stderr)
+        chunk = parse_item_db(p)
+        items.update(chunk)
+        print(f"    {len(chunk)} items", file=sys.stderr)
 
-    # Pre-re database (some servers keep extra items there)
-    for fname in ["item_db.yml", "item_db2.yml"]:
-        p = DB_GLOB / fname
-        if p.exists():
-            print(f"  Loading {p} …", file=sys.stderr)
-            chunk = parse_item_db(p)
-            # Don't overwrite Re entries
-            for k, v in chunk.items():
-                if k not in items:
-                    items[k] = v
-            print(f"    {len(chunk)} items (extras)", file=sys.stderr)
+    # Pre-re / global database (extras, don't overwrite Re entries)
+    for p in sorted(DB_GLOB.glob("item_db*.yml")):
+        print(f"  Loading {p} …", file=sys.stderr)
+        chunk = parse_item_db(p)
+        for k, v in chunk.items():
+            if k not in items:
+                items[k] = v
+        print(f"    {len(chunk)} items (extras)", file=sys.stderr)
 
     # Write output
     output = json.dumps(items, ensure_ascii=False, separators=(",", ":"))

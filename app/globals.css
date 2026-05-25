@@ -326,3 +326,85 @@ a:hover { color: #fff; }
   .footer { padding: 48px 20px 36px; }
   .footer-inner { grid-template-columns: 1fr; gap: 28px; }
 }
+
+/* ── Character card (cuenta panel) ── */
+.charCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(10,10,12,0.03);
+  border: 1px solid rgba(10,10,12,0.10);
+  border-left: 3px solid var(--job-color, #9ca3af);
+  border-radius: 12px;
+  padding: 14px 16px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.charCard:hover {
+  border-color: rgba(10,10,12,0.20);
+  border-left-color: var(--job-color, #9ca3af);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.charAvatar {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: var(--job-color, #9ca3af);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.92;
+}
+.charAbbr {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.charSex {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  font-size: 10px;
+  background: #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.charInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.charJob {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--job-color, #9ca3af);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.charName {
+  font-size: 15px;
+  font-weight: 500;
+  color: #0a0a0c;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.charLv {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(10,10,12,0.4);
+}
