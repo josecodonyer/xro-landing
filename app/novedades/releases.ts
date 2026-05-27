@@ -68,6 +68,17 @@ export const RELEASES: Release[] = [
           'Para que Alchemist, Creator y Geneticist puedan usar su homúnculo sin fricción.',
         ],
       },
+      {
+        kind: 'mejora',
+        title: 'Launcher renovado',
+        lead:
+          'El launcher de xRO estrena imagen y atajos, y mantiene tu cliente al día sin que te preocupes.',
+        bullets: [
+          'Acceso directo a estas Novedades, al Discord, a la web y al registro desde el propio launcher.',
+          'Estado del servidor en vivo: si está online y cuántos jugáis en ese momento.',
+          'Actualiza el cliente solo (incluida la nueva IA del homúnculo). Y si personalizas la configuración de la IA, ya no te la sobrescribe al parchear.',
+        ],
+      },
     ],
   },
   {
