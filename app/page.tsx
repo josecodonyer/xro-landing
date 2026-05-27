@@ -28,6 +28,20 @@ function DownloadBlock() {
   );
 }
 
+function HeroTitle({ heroTitle, heroAccent }: { heroTitle: string | null; heroAccent: string | null }) {
+  // Sin datos del API: título por defecto de la landing.
+  if (!heroTitle) {
+    return <>Ragnarok Online<br /><em>Renewal fresh</em>.</>;
+  }
+  // Con datos del API: resalta la palabra-accent en <em>; los \n se respetan
+  // por el white-space: pre-line del <h1>.
+  if (heroAccent && heroTitle.includes(heroAccent)) {
+    const i = heroTitle.indexOf(heroAccent);
+    return <>{heroTitle.slice(0, i)}<em>{heroAccent}</em>{heroTitle.slice(i + heroAccent.length)}</>;
+  }
+  return <>{heroTitle}</>;
+}
+
 export default function Home() {
   const status = useServerStatus();
 
@@ -86,8 +100,8 @@ export default function Home() {
 
         <div className={styles.heroContent}>
           <div className="eyebrow-line">Renewal x10 · 4th Jobs · EU</div>
-          <h1 className={styles.heroH1}>
-            Ragnarok Online<br /><em>Renewal fresh</em>.
+          <h1 className={styles.heroH1} style={{ whiteSpace: 'pre-line' }}>
+            <HeroTitle heroTitle={status.heroTitle} heroAccent={status.heroAccent} />
           </h1>
           <p className={styles.heroLede}>
             Renewal x10. 4th jobs. Sin pay-to-win.
@@ -114,7 +128,7 @@ export default function Home() {
           <span className={styles.heroKpiSep} />
           <div className={styles.heroKpiItem}>
             <span className={styles.kpiK}>Episodio</span>
-            <span className={styles.kpiV}>4th Jobs</span>
+            <span className={styles.kpiV}>{status.episode ?? '4th Jobs'}</span>
           </div>
           <span className={styles.heroKpiSep} />
           <div className={styles.heroKpiItem}>
