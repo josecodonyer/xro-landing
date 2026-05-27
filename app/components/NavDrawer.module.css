@@ -1,4 +1,5 @@
-/* Hamburger — hidden on desktop, visible ≤480px */
+/* Hamburger — hidden on desktop, visible ≤768px (coincide con el colapso
+   del nav de escritorio en globals.css) */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -28,7 +29,7 @@
   border-radius: 2px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .hamburger { display: flex; }
 }
 

@@ -740,7 +740,7 @@
 }
 
 @media (max-width: 640px) {
-  .main { padding: 72px 12px 56px; }
+  .main { padding: 90px 12px 56px; }
 
   .controlsPanel { grid-template-columns: 1fr 1fr; }
   .controlsPanel > *:nth-child(3) { grid-column: span 2; }

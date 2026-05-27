@@ -40,6 +40,7 @@ export default function Home() {
             items={[
               { href: '#rates', label: 'Rates' },
               { href: '#features', label: 'Servidor' },
+              { href: '/novedades', label: 'Novedades' },
               { href: '/exp', label: 'EXP Scaler' },
               { href: '/wiki', label: 'Wiki' },
             ]}
@@ -65,6 +66,7 @@ export default function Home() {
         <nav className="topbar-right nav">
           <a href="#rates">Rates</a>
           <a href="#features">Servidor</a>
+          <a href="/novedades">Novedades</a>
           <a href="/exp">EXP Scaler</a>
           <a href="/wiki">Wiki</a>
           <a href="#descargar" className="btn-header-cta">▶ Descargar</a>
@@ -260,6 +262,7 @@ export default function Home() {
             <ul>
               <li><a href="#descargar">Descargar launcher</a></li>
               <li><a href="/cuenta#registro">Crear cuenta</a></li>
+              <li><a href="/novedades">Novedades</a></li>
               <li><a href="#rates">Rates &amp; servidor</a></li>
             </ul>
           </div>

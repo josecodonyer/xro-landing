@@ -5,7 +5,7 @@ import WikiSearch from './WikiSearch';
 import NavDrawer from './NavDrawer';
 import XroLogo from './XroLogo';
 
-type Page = 'home' | 'exp' | 'wiki' | 'account';
+type Page = 'home' | 'exp' | 'wiki' | 'account' | 'novedades';
 
 export default function Topbar({ active, subtitle }: { active?: Page; subtitle?: string }) {
   return (
@@ -14,6 +14,7 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
         <NavDrawer
           items={[
             { href: '/', label: 'Inicio' },
+            { href: '/novedades', label: 'Novedades' },
             { href: '/exp', label: 'EXP Scaler' },
             { href: '/wiki', label: 'Wiki' },
           ]}
@@ -37,6 +38,7 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
       )}
       <nav className="topbar-right nav">
         <a href="/" className={active === 'home' ? styles.navActive : ''}>Inicio</a>
+        <a href="/novedades" className={active === 'novedades' ? styles.navActive : ''}>Novedades</a>
         <a href="/exp" className={active === 'exp' ? styles.navActive : ''}>EXP Scaler</a>
         <a href="/wiki" className={active === 'wiki' ? styles.navActive : ''}>Wiki</a>
         <a href="/cuenta/registro" className="btn-header-cta">Crear cuenta</a>
