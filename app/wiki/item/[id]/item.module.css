@@ -141,7 +141,7 @@
 }
 
 @media (max-width: 480px) {
-  .main { padding: 80px 12px 52px; }
+  .main { padding: 90px 12px 52px; }
   .hero { padding: 20px 16px; gap: 16px; }
   .heroName { font-size: 22px; }
   .equipBarItem { padding: 8px 14px; }

@@ -47,7 +47,7 @@
 }
 
 @media (max-width: 540px) {
-  .main { padding: 80px 12px 52px; }
+  .main { padding: 90px 12px 52px; }
   .hero { padding: 16px; gap: 14px; }
   .heroIcon { width: 48px; height: 48px; }
   .heroName { font-size: 18px; }

@@ -312,17 +312,20 @@ a:hover { color: #fff; }
 }
 
 @media (max-width: 768px) {
+  /* Colapsa la barra flotante en tablet/móvil: oculta el nav de escritorio
+     (que desbordaba) y deja paso al hamburger del NavDrawer (≤768px). */
+  .topbar { padding: 10px 12px; }
+  .topbar .nav a { display: none; }
+  .topbar .divider-v { display: none; }
+  .topbar .mono-sub { display: none; }
+  .topbar .status-pill { display: none; }
+
   .footer { padding: 56px 24px 40px; }
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
 
 @media (max-width: 480px) {
-  .topbar { padding: 10px 12px; }
-  .topbar .nav a { display: none; }
-  .topbar .divider-v { display: none; }
-  .topbar .mono-sub { display: none; }
-  .topbar .status-pill { display: none; }
   .footer { padding: 48px 20px 36px; }
   .footer-inner { grid-template-columns: 1fr; gap: 28px; }
 }
