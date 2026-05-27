@@ -34,6 +34,43 @@ export const KIND_META: Record<EntryKind, { label: string; color: string }> = {
 
 export const RELEASES: Release[] = [
   {
+    slug: 'homunculos-ia',
+    version: 'Homúnculos',
+    date: '2026-05-27',
+    title: 'Homúnculos con IA mejorada, autoloot y skills de quest libres',
+    summary:
+      'Tu homúnculo ahora pelea, castea y te sigue por su cuenta con una IA mucho más lista, recoge el loot por ti, y las skills de quest (como Bioethics) se aprenden libremente. Se instala solo: actualiza desde el launcher.',
+    entries: [
+      {
+        kind: 'novedad',
+        title: 'IA de homúnculo mejorada',
+        lead:
+          'Se acabó microgestionar al homúnculo: ahora actúa por su cuenta de forma mucho más inteligente.',
+        bullets: [
+          'Ataca lo que atacas, lanza sus propias skills y te sigue sin que tengas que estar encima.',
+          'Compatible con todos los homúnculos, incluidos los Homunculus S.',
+          'Actívala en el juego con el comando /hoai y re-invoca tu homúnculo (vaporizar y volver a llamar) para que cargue.',
+          'Se instala sola: el launcher la descarga al actualizar el cliente, no tienes que hacer nada.',
+        ],
+      },
+      {
+        kind: 'mejora',
+        title: 'Autoloot del homúnculo',
+        bullets: [
+          'Lo que mate tu homúnculo te entrega el loot directamente a tu inventario, sin que tengas que recogerlo.',
+        ],
+      },
+      {
+        kind: 'calidad-de-vida',
+        title: 'Skills de quest aprendibles',
+        bullets: [
+          'Las skills de quest (como Bioethics, necesaria para invocar al homúnculo) ahora se aprenden libremente, sin tener que hacer la quest.',
+          'Para que Alchemist, Creator y Geneticist puedan usar su homúnculo sin fricción.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'parche-inaugural',
     version: 'Parche inaugural',
     date: '2026-05-27',
