@@ -5,6 +5,9 @@ import * as api from '@/lib/api';
 import { getSession } from '@/lib/session';
 import { md5 } from '@/lib/password';
 import { generateCode, sendVerificationCode, sendPasswordResetCode, sendEmailChangeCode } from '@/lib/email';
+import { verifyCaptcha } from '@/lib/captcha';
+import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 function expiry(minutes: number) {
   return new Date(Date.now() + minutes * 60 * 1000)
@@ -18,6 +21,10 @@ export async function registerAction(_: unknown, fd: FormData) {
   const email  = (fd.get('email')  as string).trim().toLowerCase();
   const pass   = fd.get('password') as string;
   const sex    = (fd.get('sex') as string) === 'F' ? 'F' : 'M';
+
+  const captchaToken = fd.get('h-captcha-response') as string | null;
+  const captchaOk = await verifyCaptcha(captchaToken);
+  if (!captchaOk) return { error: 'Verificación CAPTCHA fallida. Inténtalo de nuevo.' };
 
   if (!userid || !email || !pass) return { error: 'Rellena todos los campos.' };
   if (userid.length < 4 || userid.length > 23) return { error: 'El usuario debe tener entre 4 y 23 caracteres.' };
@@ -182,5 +189,42 @@ export async function confirmEmailChangeAction(_: unknown, fd: FormData) {
   session.email = res.data.new_email;
   await session.save();
 
+  return { success: true };
+}
+
+// ── Avatar de perfil ──────────────────────────────────────────────────────────
+
+type CharSnapshot = {
+  charName: string; charClass: number; charSex: string;
+  hair: number; hairColor: number; clothesColor: number;
+  headTop: number; headMid: number; headBottom: number;
+  weapon: number; shield: number;
+};
+
+export async function selectAvatarAction(char: CharSnapshot) {
+  const session = await getSession();
+  if (!session.accountId || !session.userid) return { error: 'No autenticado.' };
+
+  const data = {
+    avatarCharName:    char.charName,
+    avatarCharClass:   char.charClass,
+    avatarCharSex:     char.charSex,
+    avatarHair:        char.hair,
+    avatarHairColor:   char.hairColor,
+    avatarClothesColor: char.clothesColor,
+    avatarHeadTop:     char.headTop,
+    avatarHeadMid:     char.headMid,
+    avatarHeadBottom:  char.headBottom,
+    avatarWeapon:      char.weapon,
+    avatarShield:      char.shield,
+  };
+
+  await db.userProfile.upsert({
+    where:  { userId: session.userid },
+    create: { userId: session.userid, ...data },
+    update: data,
+  });
+
+  revalidatePath('/cuenta');
   return { success: true };
 }

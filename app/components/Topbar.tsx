@@ -4,8 +4,9 @@ import styles from './Topbar.module.css';
 import WikiSearch from './WikiSearch';
 import NavDrawer from './NavDrawer';
 import XroLogo from './XroLogo';
+import UserAvatar from './UserAvatar';
 
-type Page = 'home' | 'exp' | 'wiki' | 'account' | 'novedades';
+type Page = 'home' | 'exp' | 'wiki' | 'account' | 'novedades' | 'soporte';
 
 export default function Topbar({ active, subtitle }: { active?: Page; subtitle?: string }) {
   return (
@@ -17,6 +18,7 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
             { href: '/novedades', label: 'Novedades' },
             { href: '/exp', label: 'EXP Scaler' },
             { href: '/wiki', label: 'Wiki' },
+            { href: '/soporte', label: 'Soporte' },
           ]}
           cta={{ href: '/cuenta/registro', label: 'Crear cuenta' }}
         />
@@ -41,6 +43,8 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
         <a href="/novedades" className={active === 'novedades' ? styles.navActive : ''}>Novedades</a>
         <a href="/exp" className={active === 'exp' ? styles.navActive : ''}>EXP Scaler</a>
         <a href="/wiki" className={active === 'wiki' ? styles.navActive : ''}>Wiki</a>
+        <a href="/soporte" className={active === 'soporte' ? styles.navActive : ''}>Soporte</a>
+        <UserAvatar />
         <a href="/cuenta/registro" className="btn-header-cta">Crear cuenta</a>
       </nav>
     </header>

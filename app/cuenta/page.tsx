@@ -2,16 +2,23 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getSession } from '@/lib/session';
 import { charactersGet } from '@/lib/api';
+import { isAdmin } from '@/lib/admin';
+import { getUserAvatar } from '@/lib/avatar';
 import { logoutAction } from './actions';
 import XroLogo from '../components/XroLogo';
 import CharCard from './CharCard';
+import AvatarPicker from './AvatarPicker';
 import styles from './cuenta.module.css';
 
 export default async function CuentaPage() {
   const session = await getSession();
   if (!session.accountId) redirect('/cuenta/login');
 
-  const res = await charactersGet({ account_id: session.accountId });
+  const [res, admin, avatar] = await Promise.all([
+    charactersGet({ account_id: session.accountId }),
+    isAdmin(session.userid!),
+    getUserAvatar(session.userid!),
+  ]);
   const chars = res.ok ? res.data.characters : [];
 
   return (
@@ -23,9 +30,23 @@ export default async function CuentaPage() {
             <XroLogo size={18} />
             <span className={styles.logoRo}>RO</span>
           </Link>
-          <div className={styles.heading} style={{ marginTop: 16 }}>
-            <h1 className={styles.title}>Hola, <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>{session.userid}</em>.</h1>
-            <p className={styles.subtitle}>{session.email}</p>
+
+          <div className={styles.profileHeader}>
+            <AvatarPicker
+              chars={chars}
+              currentCharName={avatar?.charName ?? null}
+            />
+            <div className={styles.heading} style={{ marginTop: 0 }}>
+              <h1 className={styles.title}>
+                Hola, <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>{session.userid}</em>.
+              </h1>
+              <p className={styles.subtitle}>{session.email}</p>
+              {admin && (
+                <Link href="/admin" className={styles.adminBadge}>
+                  ⚙ Panel Admin
+                </Link>
+              )}
+            </div>
           </div>
         </div>
 
@@ -46,6 +67,9 @@ export default async function CuentaPage() {
           </Link>
           <Link href="/cuenta/cambiar-email" className={styles.btnGhost}>
             Cambiar email
+          </Link>
+          <Link href="/soporte" className={styles.btnGhost}>
+            Mis tickets
           </Link>
         </div>
 

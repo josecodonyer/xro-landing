@@ -1,16 +1,21 @@
 'use client';
 
-import { useActionState, useState, useEffect } from 'react';
+import { useActionState, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { registerAction, verifyRegistrationAction } from '../actions';
 import XroLogo from '../../components/XroLogo';
 import styles from '../cuenta.module.css';
+
+const SITE_KEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ?? '10000000-ffff-ffff-ffff-000000000001';
 
 export default function RegistroPage() {
   const [step, setStep] = useState<'form' | 'verify'>('form');
   const [pendingEmail, setPendingEmail] = useState('');
   const [pendingPass, setPendingPass] = useState('');
   const [sex, setSex] = useState<'M' | 'F'>('M');
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const captchaRef = useRef<HCaptcha>(null);
 
   const [regState, regAction, regPending] = useActionState(registerAction, null);
   const [verState, verAction, verPending] = useActionState(verifyRegistrationAction, null);
@@ -19,6 +24,10 @@ export default function RegistroPage() {
     if (regState?.success && step === 'form') {
       setPendingEmail(regState.email!);
       setStep('verify');
+    }
+    if (regState?.error) {
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
     }
   }, [regState, step]);
 
@@ -85,6 +94,7 @@ export default function RegistroPage() {
         </div>
         <form action={(fd) => {
           fd.set('sex', sex);
+          if (captchaToken) fd.set('h-captcha-response', captchaToken);
           regAction(fd);
         }} className={styles.form}>
           <div className={styles.field}>
@@ -108,6 +118,13 @@ export default function RegistroPage() {
               <button type="button" className={`${styles.sexBtn} ${sex === 'F' ? styles.sexBtnActive : ''}`} onClick={() => setSex('F')}>Femenino</button>
             </div>
           </div>
+          <HCaptcha
+            ref={captchaRef}
+            sitekey={SITE_KEY}
+            onVerify={setCaptchaToken}
+            onExpire={() => setCaptchaToken(null)}
+            theme="light"
+          />
           {regState?.error && <div className={styles.error}>{regState.error}</div>}
           <button type="submit" className={styles.btnPrimary} disabled={regPending}>
             {regPending ? 'Enviando…' : 'Crear cuenta'}
