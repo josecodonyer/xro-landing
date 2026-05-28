@@ -1,17 +1,28 @@
+// Server-only avatar helpers (use only in Server Components / API routes).
+export { hairColorHex, jobSpriteUrl } from './avatar-shared';
 import { db } from './db';
 
-// divine-pride serves job sprite images at this path.
-// Falls back to the colored badge in the UI if the image 404s.
-export function jobSpriteUrl(charClass: number): string {
-  return `https://static.divine-pride.net/images/jobs/png/${charClass}.png`;
-}
+export type AvatarData = {
+  charName: string; charClass: number; charSex: string;
+  hair: number; hairColor: number; clothesColor: number;
+  headTop: number; headMid: number; headBottom: number;
+  weapon: number; shield: number;
+};
 
-export async function getUserAvatar(userId: string): Promise<{ charClass: number; charSex: string; charName: string } | null> {
-  const profile = await db.userProfile.findUnique({ where: { userId } });
-  if (!profile?.avatarCharClass) return null;
+export async function getUserAvatar(userId: string): Promise<AvatarData | null> {
+  const p = await db.userProfile.findUnique({ where: { userId } });
+  if (!p?.avatarCharClass) return null;
   return {
-    charClass: profile.avatarCharClass,
-    charSex: profile.avatarCharSex ?? 'M',
-    charName: profile.avatarCharName ?? '',
+    charName:     p.avatarCharName     ?? '',
+    charClass:    p.avatarCharClass,
+    charSex:      p.avatarCharSex      ?? 'M',
+    hair:         p.avatarHair         ?? 0,
+    hairColor:    p.avatarHairColor    ?? 9,
+    clothesColor: p.avatarClothesColor ?? 0,
+    headTop:      p.avatarHeadTop      ?? 0,
+    headMid:      p.avatarHeadMid      ?? 0,
+    headBottom:   p.avatarHeadBottom   ?? 0,
+    weapon:       p.avatarWeapon       ?? 0,
+    shield:       p.avatarShield       ?? 0,
   };
 }

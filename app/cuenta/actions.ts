@@ -194,23 +194,35 @@ export async function confirmEmailChangeAction(_: unknown, fd: FormData) {
 
 // ── Avatar de perfil ──────────────────────────────────────────────────────────
 
-export async function selectAvatarAction(charName: string, charClass: number, charSex: string) {
+type CharSnapshot = {
+  charName: string; charClass: number; charSex: string;
+  hair: number; hairColor: number; clothesColor: number;
+  headTop: number; headMid: number; headBottom: number;
+  weapon: number; shield: number;
+};
+
+export async function selectAvatarAction(char: CharSnapshot) {
   const session = await getSession();
   if (!session.accountId || !session.userid) return { error: 'No autenticado.' };
 
+  const data = {
+    avatarCharName:    char.charName,
+    avatarCharClass:   char.charClass,
+    avatarCharSex:     char.charSex,
+    avatarHair:        char.hair,
+    avatarHairColor:   char.hairColor,
+    avatarClothesColor: char.clothesColor,
+    avatarHeadTop:     char.headTop,
+    avatarHeadMid:     char.headMid,
+    avatarHeadBottom:  char.headBottom,
+    avatarWeapon:      char.weapon,
+    avatarShield:      char.shield,
+  };
+
   await db.userProfile.upsert({
-    where: { userId: session.userid },
-    create: {
-      userId: session.userid,
-      avatarCharName: charName,
-      avatarCharClass: charClass,
-      avatarCharSex: charSex,
-    },
-    update: {
-      avatarCharName: charName,
-      avatarCharClass: charClass,
-      avatarCharSex: charSex,
-    },
+    where:  { userId: session.userid },
+    create: { userId: session.userid, ...data },
+    update: data,
   });
 
   revalidatePath('/cuenta');

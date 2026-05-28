@@ -20,9 +20,9 @@ const STATUS_LABELS: Record<string, string> = {
   CLOSED: 'Cerrado',
 };
 
-async function getCharClass(userId: string): Promise<number | null> {
-  const profile = await db.userProfile.findUnique({ where: { userId } });
-  return profile?.avatarCharClass ?? null;
+async function getAvatarInfo(userId: string) {
+  const p = await db.userProfile.findUnique({ where: { userId } });
+  return { charClass: p?.avatarCharClass ?? null, hairColor: p?.avatarHairColor ?? null };
 }
 
 export default async function TicketDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -43,7 +43,7 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
 
   if (!ticket || ticket.userId !== session.userid) notFound();
 
-  const ownerClass = await getCharClass(ticket.userId);
+  const { charClass: ownerClass, hairColor: ownerHairColor } = await getAvatarInfo(ticket.userId);
   const canReply = ticket.status !== 'CLOSED';
 
   return (
@@ -71,7 +71,7 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
 
             <div className={styles.messageCard}>
               <div className={styles.messageAuthor}>
-                <MessageAvatar userId={ticket.userId} charClass={ownerClass} size={34} />
+                <MessageAvatar userId={ticket.userId} charClass={ownerClass} hairColor={ownerHairColor} size={34} />
                 <span className={styles.messageAuthorName}>{ticket.userId}</span>
                 <span className={styles.messageDate}>
                   {new Date(ticket.createdAt).toLocaleString('es-ES')}
@@ -110,6 +110,7 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
                     userId={reply.userId}
                     isAdmin={reply.isAdmin}
                     charClass={reply.isAdmin ? null : ownerClass}
+                    hairColor={reply.isAdmin ? null : ownerHairColor}
                     size={34}
                   />
                   <span className={styles.messageAuthorName}>

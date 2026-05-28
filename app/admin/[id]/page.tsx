@@ -21,9 +21,9 @@ const STATUS_LABELS: Record<string, string> = {
 
 export const dynamic = 'force-dynamic';
 
-async function getCharClass(userId: string): Promise<number | null> {
-  const profile = await db.userProfile.findUnique({ where: { userId } });
-  return profile?.avatarCharClass ?? null;
+async function getAvatarInfo(userId: string) {
+  const p = await db.userProfile.findUnique({ where: { userId } });
+  return { charClass: p?.avatarCharClass ?? null, hairColor: p?.avatarHairColor ?? null };
 }
 
 export default async function AdminTicketPage({ params }: { params: Promise<{ id: string }> }) {
@@ -41,7 +41,7 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
 
   if (!ticket) notFound();
 
-  const ownerClass = await getCharClass(ticket.userId);
+  const { charClass: ownerClass, hairColor: ownerHairColor } = await getAvatarInfo(ticket.userId);
 
   return (
     <main className={styles.shell}>
@@ -74,7 +74,7 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
 
             <div className={styles.messageCard}>
               <div className={styles.messageHeader}>
-                <MessageAvatar userId={ticket.userId} charClass={ownerClass} size={34} />
+                <MessageAvatar userId={ticket.userId} charClass={ownerClass} hairColor={ownerHairColor} size={34} />
                 <strong>{ticket.userId}</strong>
                 <span className={styles.messageTime}>
                   {new Date(ticket.createdAt).toLocaleString('es-ES')}
@@ -112,6 +112,7 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
                     userId={reply.userId}
                     isAdmin={reply.isAdmin}
                     charClass={reply.isAdmin ? null : ownerClass}
+                    hairColor={reply.isAdmin ? null : ownerHairColor}
                     size={34}
                   />
                   <strong>
@@ -139,7 +140,7 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
 
             <div className={styles.sidebarCard}>
               <div className={styles.sidebarUserInfo}>
-                <MessageAvatar userId={ticket.userId} charClass={ownerClass} size={44} />
+                <MessageAvatar userId={ticket.userId} charClass={ownerClass} hairColor={ownerHairColor} size={44} />
                 <div>
                   <div className={styles.sidebarUserName}>{ticket.userId}</div>
                   <div className={styles.sidebarUserEmail}>{ticket.userEmail}</div>

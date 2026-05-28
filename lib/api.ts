@@ -47,8 +47,10 @@ export const accountGet = (b: { account_id: number }) =>
 // ── Characters ────────────────────────────────────────────────────────────────
 export const charactersGet = (b: { account_id: number }) =>
   call<{ ok: true; characters: Array<{
-    name: string; class: number; base_level: number;
-    sex: 'M' | 'F'; head_top: number; head_mid: number; head_bottom: number;
+    char_id: number; name: string; class: number; base_level: number;
+    sex: 'M' | 'F';
+    hair: number; hair_color: number; clothes_color: number;
+    head_top: number; head_mid: number; head_bottom: number;
     weapon: number; shield: number;
   }> }>('/characters', b);
 

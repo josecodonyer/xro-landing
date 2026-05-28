@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getSession } from '@/lib/session';
-import { getUserAvatar, jobSpriteUrl } from '@/lib/avatar';
+import { getUserAvatar, jobSpriteUrl, hairColorHex } from '@/lib/avatar';
 
 export async function GET() {
   const session = await getSession();
@@ -14,9 +14,10 @@ export async function GET() {
     userid: session.userid,
     avatar: avatar ? {
       spriteUrl: jobSpriteUrl(avatar.charClass),
+      hairColor: hairColorHex(avatar.hairColor),
       charClass: avatar.charClass,
-      charSex: avatar.charSex,
-      charName: avatar.charName,
+      charSex:   avatar.charSex,
+      charName:  avatar.charName,
     } : null,
   });
 }

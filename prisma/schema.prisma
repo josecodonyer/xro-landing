@@ -49,10 +49,18 @@ model AdminUser {
 }
 
 model UserProfile {
-  id             Int      @id @default(autoincrement())
-  userId         String   @unique
-  avatarCharName String?
+  id              Int      @id @default(autoincrement())
+  userId          String   @unique
+  avatarCharName  String?
   avatarCharClass Int?
-  avatarCharSex  String?
-  updatedAt      DateTime @updatedAt
+  avatarCharSex   String?
+  avatarHair      Int?
+  avatarHairColor Int?
+  avatarClothesColor Int?
+  avatarHeadTop   Int?
+  avatarHeadMid   Int?
+  avatarHeadBottom Int?
+  avatarWeapon    Int?
+  avatarShield    Int?
+  updatedAt       DateTime @updatedAt
 }
