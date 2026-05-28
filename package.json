@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
-    "start": "prisma migrate deploy && next start",
+    "build": "prisma generate && prisma migrate deploy && next build",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -13,19 +13,20 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@hcaptcha/react-hcaptcha": "^2.0.2",
-    "@prisma/adapter-better-sqlite3": "^7.8.0",
+    "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
-    "better-sqlite3": "^12.10.0",
+    "@vercel/blob": "^0.27.0",
     "iron-session": "^8.0.4",
     "next": "^16.2.6",
+    "pg": "^8.21.0",
     "prisma": "^7.8.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "resend": "^6.12.3"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5"

@@ -84,13 +84,13 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
                   {ticket.attachments.map(att => (
                     <a
                       key={att.id}
-                      href={`/api/uploads/${att.storedAs}`}
+                      href={att.storedAs}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.attachmentLink}
                     >
                       <img
-                        src={`/api/uploads/${att.storedAs}`}
+                        src={att.storedAs}
                         alt={att.filename}
                         className={styles.attachmentThumb}
                       />
