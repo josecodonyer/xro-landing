@@ -4,6 +4,7 @@ import styles from './Topbar.module.css';
 import WikiSearch from './WikiSearch';
 import NavDrawer from './NavDrawer';
 import XroLogo from './XroLogo';
+import UserAvatar from './UserAvatar';
 
 type Page = 'home' | 'exp' | 'wiki' | 'account' | 'novedades' | 'soporte';
 
@@ -43,6 +44,7 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
         <a href="/exp" className={active === 'exp' ? styles.navActive : ''}>EXP Scaler</a>
         <a href="/wiki" className={active === 'wiki' ? styles.navActive : ''}>Wiki</a>
         <a href="/soporte" className={active === 'soporte' ? styles.navActive : ''}>Soporte</a>
+        <UserAvatar />
         <a href="/cuenta/registro" className="btn-header-cta">Crear cuenta</a>
       </nav>
     </header>

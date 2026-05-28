@@ -1,9 +1,9 @@
 import { redirect, notFound } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { getSession } from '@/lib/session';
 import { db } from '@/lib/db';
 import Topbar from '../../components/Topbar';
+import MessageAvatar from '../../components/MessageAvatar';
 import ReplyForm from './ReplyForm';
 import styles from '../soporte.module.css';
 
@@ -19,6 +19,11 @@ const STATUS_LABELS: Record<string, string> = {
   RESOLVED: 'Resuelto',
   CLOSED: 'Cerrado',
 };
+
+async function getCharClass(userId: string): Promise<number | null> {
+  const profile = await db.userProfile.findUnique({ where: { userId } });
+  return profile?.avatarCharClass ?? null;
+}
 
 export default async function TicketDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -38,6 +43,7 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
 
   if (!ticket || ticket.userId !== session.userid) notFound();
 
+  const ownerClass = await getCharClass(ticket.userId);
   const canReply = ticket.status !== 'CLOSED';
 
   return (
@@ -65,6 +71,7 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
 
             <div className={styles.messageCard}>
               <div className={styles.messageAuthor}>
+                <MessageAvatar userId={ticket.userId} charClass={ownerClass} size={34} />
                 <span className={styles.messageAuthorName}>{ticket.userId}</span>
                 <span className={styles.messageDate}>
                   {new Date(ticket.createdAt).toLocaleString('es-ES')}
@@ -99,8 +106,14 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
                 className={`${styles.messageCard} ${reply.isAdmin ? styles.messageCardAdmin : ''}`}
               >
                 <div className={styles.messageAuthor}>
+                  <MessageAvatar
+                    userId={reply.userId}
+                    isAdmin={reply.isAdmin}
+                    charClass={reply.isAdmin ? null : ownerClass}
+                    size={34}
+                  />
                   <span className={styles.messageAuthorName}>
-                    {reply.isAdmin ? '⚙ Soporte' : reply.userId}
+                    {reply.isAdmin ? 'Soporte' : reply.userId}
                   </span>
                   {reply.isAdmin && <span className={styles.adminBadge}>Staff</span>}
                   <span className={styles.messageDate}>

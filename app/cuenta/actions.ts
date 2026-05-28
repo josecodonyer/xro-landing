@@ -6,6 +6,8 @@ import { getSession } from '@/lib/session';
 import { md5 } from '@/lib/password';
 import { generateCode, sendVerificationCode, sendPasswordResetCode, sendEmailChangeCode } from '@/lib/email';
 import { verifyCaptcha } from '@/lib/captcha';
+import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 function expiry(minutes: number) {
   return new Date(Date.now() + minutes * 60 * 1000)
@@ -187,5 +189,30 @@ export async function confirmEmailChangeAction(_: unknown, fd: FormData) {
   session.email = res.data.new_email;
   await session.save();
 
+  return { success: true };
+}
+
+// ── Avatar de perfil ──────────────────────────────────────────────────────────
+
+export async function selectAvatarAction(charName: string, charClass: number, charSex: string) {
+  const session = await getSession();
+  if (!session.accountId || !session.userid) return { error: 'No autenticado.' };
+
+  await db.userProfile.upsert({
+    where: { userId: session.userid },
+    create: {
+      userId: session.userid,
+      avatarCharName: charName,
+      avatarCharClass: charClass,
+      avatarCharSex: charSex,
+    },
+    update: {
+      avatarCharName: charName,
+      avatarCharClass: charClass,
+      avatarCharSex: charSex,
+    },
+  });
+
+  revalidatePath('/cuenta');
   return { success: true };
 }

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { db } from '@/lib/db';
+import MessageAvatar from '../../components/MessageAvatar';
 import AdminReplyForm from './AdminReplyForm';
 import StatusSelector from './StatusSelector';
 import styles from '../admin.module.css';
@@ -20,6 +21,11 @@ const STATUS_LABELS: Record<string, string> = {
 
 export const dynamic = 'force-dynamic';
 
+async function getCharClass(userId: string): Promise<number | null> {
+  const profile = await db.userProfile.findUnique({ where: { userId } });
+  return profile?.avatarCharClass ?? null;
+}
+
 export default async function AdminTicketPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const ticketId = parseInt(id, 10);
@@ -34,6 +40,8 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
   });
 
   if (!ticket) notFound();
+
+  const ownerClass = await getCharClass(ticket.userId);
 
   return (
     <main className={styles.shell}>
@@ -66,6 +74,7 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
 
             <div className={styles.messageCard}>
               <div className={styles.messageHeader}>
+                <MessageAvatar userId={ticket.userId} charClass={ownerClass} size={34} />
                 <strong>{ticket.userId}</strong>
                 <span className={styles.messageTime}>
                   {new Date(ticket.createdAt).toLocaleString('es-ES')}
@@ -99,7 +108,15 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
                 className={`${styles.messageCard} ${reply.isAdmin ? styles.messageCardAdmin : ''}`}
               >
                 <div className={styles.messageHeader}>
-                  <strong>{reply.isAdmin ? `⚙ ${reply.userId} (Staff)` : reply.userId}</strong>
+                  <MessageAvatar
+                    userId={reply.userId}
+                    isAdmin={reply.isAdmin}
+                    charClass={reply.isAdmin ? null : ownerClass}
+                    size={34}
+                  />
+                  <strong>
+                    {reply.isAdmin ? `${reply.userId} (Staff)` : reply.userId}
+                  </strong>
                   <span className={styles.messageTime}>
                     {new Date(reply.createdAt).toLocaleString('es-ES')}
                   </span>
@@ -121,11 +138,19 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
             </div>
 
             <div className={styles.sidebarCard}>
+              <div className={styles.sidebarUserInfo}>
+                <MessageAvatar userId={ticket.userId} charClass={ownerClass} size={44} />
+                <div>
+                  <div className={styles.sidebarUserName}>{ticket.userId}</div>
+                  <div className={styles.sidebarUserEmail}>{ticket.userEmail}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.sidebarCard}>
               <h3 className={styles.sidebarTitle}>Detalles</h3>
               <dl className={styles.detailsList}>
                 <dt>ID</dt><dd>#{ticket.id}</dd>
-                <dt>Usuario</dt><dd>{ticket.userId}</dd>
-                <dt>Email</dt><dd>{ticket.userEmail}</dd>
                 <dt>Categoría</dt><dd>{CATEGORY_LABELS[ticket.category] ?? ticket.category}</dd>
                 <dt>Estado</dt><dd>{STATUS_LABELS[ticket.status] ?? ticket.status}</dd>
                 <dt>Adjuntos</dt><dd>{ticket.attachments.length}</dd>
