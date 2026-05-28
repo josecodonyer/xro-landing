@@ -2,13 +2,11 @@
 
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
-import path from 'path';
-import fs from 'fs/promises';
+import { put } from '@vercel/blob';
 import { getSession } from '@/lib/session';
 import { db } from '@/lib/db';
 import { verifyCaptcha } from '@/lib/captcha';
 
-const UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'tickets');
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 const VALID_CATEGORIES = ['BUG', 'SUGGESTION', 'SUPPORT'];
@@ -40,26 +38,26 @@ export async function createTicketAction(_: unknown, fd: FormData) {
     },
   });
 
-  // Handle file attachments
+  // Adjuntos → Vercel Blob. Si no hay store configurado, se omiten sin romper el ticket.
+  const canUpload = !!process.env.BLOB_READ_WRITE_TOKEN;
   const files = fd.getAll('attachments') as File[];
   for (const file of files) {
     if (!(file instanceof File) || file.size === 0) continue;
     if (file.size > MAX_FILE_SIZE) continue;
     if (!ALLOWED_TYPES.includes(file.type)) continue;
+    if (!canUpload) continue;
 
     const ext = file.name.split('.').pop() ?? 'bin';
-    const storedAs = `${crypto.randomUUID()}.${ext}`;
-    const filePath = path.join(UPLOAD_DIR, storedAs);
-
-    await fs.mkdir(UPLOAD_DIR, { recursive: true });
-    const buffer = Buffer.from(await file.arrayBuffer());
-    await fs.writeFile(filePath, buffer);
+    const blob = await put(`tickets/${ticket.id}/${crypto.randomUUID()}.${ext}`, file, {
+      access: 'public',
+      contentType: file.type,
+    });
 
     await db.ticketAttachment.create({
       data: {
         ticketId: ticket.id,
         filename: file.name,
-        storedAs,
+        storedAs: blob.url, // URL pública (sufijo aleatorio no adivinable)
         mimeType: file.type,
         size: file.size,
       },

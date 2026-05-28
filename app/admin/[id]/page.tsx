@@ -87,12 +87,12 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
                   {ticket.attachments.map(att => (
                     <a
                       key={att.id}
-                      href={`/api/uploads/${att.storedAs}`}
+                      href={att.storedAs}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <img
-                        src={`/api/uploads/${att.storedAs}`}
+                        src={att.storedAs}
                         alt={att.filename}
                         className={styles.attachmentThumb}
                       />
