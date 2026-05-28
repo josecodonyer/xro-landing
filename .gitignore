@@ -40,11 +40,16 @@ next-env.d.ts
 
 /lib/generated/prisma
 
-# Prisma database
+# Prisma database (created at project root by default config)
+/dev.db
+/dev.db-journal
 /prisma/dev.db
 /prisma/dev.db-journal
-/prisma/*.db
-/prisma/*.db-journal
+*.db
+*.db-journal
+
+# Prisma env (contains DATABASE_URL)
+.env
 
 # File uploads
 /uploads/
