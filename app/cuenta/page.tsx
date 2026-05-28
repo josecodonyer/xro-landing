@@ -16,8 +16,8 @@ export default async function CuentaPage() {
 
   const [res, admin, avatar] = await Promise.all([
     charactersGet({ account_id: session.accountId }),
-    isAdmin(session.userid!),
-    getUserAvatar(session.userid!),
+    isAdmin(session.userid!).catch(() => false),
+    getUserAvatar(session.userid!).catch(() => null),
   ]);
   const chars = res.ok ? res.data.characters : [];
 
