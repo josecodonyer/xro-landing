@@ -25,11 +25,13 @@ export default async function CuentaPage() {
     <div className={styles.shell}>
       <div className={`${styles.card} ${styles.cardWide}`}>
         <div>
-          <Link href="/" className={styles.backLink}>← Volver</Link>
-          <Link href="/" className={styles.logo}>
-            <XroLogo size={18} />
-            <span className={styles.logoRo}>RO</span>
-          </Link>
+          <div className={styles.cardTop}>
+            <Link href="/" className={styles.backLink}>← Volver</Link>
+            <Link href="/" className={styles.logo}>
+              <XroLogo size={18} />
+              <span className={styles.logoRo}>RO</span>
+            </Link>
+          </div>
 
           <div className={styles.profileHeader}>
             <AvatarPicker

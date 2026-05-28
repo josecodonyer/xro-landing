@@ -1,68 +1,67 @@
 'use client';
 
-import { useActionState, useRef, useState } from 'react';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { useActionState, useState } from 'react';
+import Script from 'next/script';
 import { createTicketAction } from '../actions';
+import { executeRecaptcha, RECAPTCHA_SITE_KEY } from '@/lib/recaptcha';
+import { Field, TextInput, TextArea, Select, SubmitButton, FormError, CaptchaNote } from '../../components/FormControls';
 import styles from '../soporte.module.css';
-
-const SITE_KEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ?? '10000000-ffff-ffff-ffff-000000000001';
 
 export default function TicketForm() {
   const [state, action, pending] = useActionState(createTicketAction, null);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const captchaRef = useRef<HCaptcha>(null);
   const [previews, setPreviews] = useState<string[]>([]);
 
   function handleFiles(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
-    const urls = files.map(f => URL.createObjectURL(f));
-    setPreviews(urls);
+    setPreviews(files.map(f => URL.createObjectURL(f)));
+  }
+
+  async function handleSubmit(fd: FormData) {
+    const token = await executeRecaptcha('ticket');
+    if (token) fd.set('captcha-token', token);
+    action(fd);
   }
 
   return (
-    <form
-      action={(fd) => {
-        if (captchaToken) fd.set('h-captcha-response', captchaToken);
-        action(fd);
-      }}
-      className={styles.form}
-    >
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="title">Título</label>
-        <input
+    <form action={handleSubmit} className={styles.form}>
+      {RECAPTCHA_SITE_KEY && (
+        <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+          strategy="lazyOnload"
+        />
+      )}
+
+      <Field label="Título" htmlFor="title">
+        <TextInput
           id="title"
           name="title"
           type="text"
-          className={styles.input}
           placeholder="Describe brevemente el problema"
           required
           minLength={5}
           maxLength={120}
           autoFocus
         />
-      </div>
+      </Field>
 
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="category">Categoría</label>
-        <select id="category" name="category" className={styles.input} required>
+      <Field label="Categoría" htmlFor="category">
+        <Select id="category" name="category" required>
           <option value="BUG">🐛 Bug</option>
           <option value="SUGGESTION">💡 Sugerencia</option>
           <option value="SUPPORT">🛟 Soporte</option>
-        </select>
-      </div>
+        </Select>
+      </Field>
 
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="message">Descripción</label>
-        <textarea
+      <Field label="Descripción" htmlFor="message">
+        <TextArea
           id="message"
           name="message"
-          className={`${styles.input} ${styles.textarea}`}
           placeholder="Describe el problema o sugerencia con el mayor detalle posible (mínimo 20 caracteres)"
           required
           minLength={20}
           rows={6}
         />
-      </div>
+      </Field>
 
       <div className={styles.field}>
         <label className={styles.label} htmlFor="attachments">Capturas (opcional)</label>
@@ -85,21 +84,17 @@ export default function TicketForm() {
         )}
       </div>
 
-      <div className={styles.captchaWrap}>
-        <HCaptcha
-          ref={captchaRef}
-          sitekey={SITE_KEY}
-          onVerify={setCaptchaToken}
-          onExpire={() => setCaptchaToken(null)}
-          theme="dark"
-        />
-      </div>
+      <FormError>{state?.error}</FormError>
 
-      {state?.error && <div className={styles.error}>{state.error}</div>}
+      <SubmitButton pending={pending} pendingLabel="Enviando…">Abrir ticket</SubmitButton>
 
-      <button type="submit" className={styles.btnPrimary} disabled={pending}>
-        {pending ? 'Enviando…' : 'Abrir ticket'}
-      </button>
+      <CaptchaNote>
+        Protegido por reCAPTCHA. Se aplican la{' '}
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de privacidad</a>{' '}
+        y los{' '}
+        <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Términos</a>{' '}
+        de Google.
+      </CaptchaNote>
     </form>
   );
 }

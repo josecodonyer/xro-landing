@@ -22,7 +22,7 @@ export async function registerAction(_: unknown, fd: FormData) {
   const pass   = fd.get('password') as string;
   const sex    = (fd.get('sex') as string) === 'F' ? 'F' : 'M';
 
-  const captchaToken = fd.get('h-captcha-response') as string | null;
+  const captchaToken = fd.get('captcha-token') as string | null;
   const captchaOk = await verifyCaptcha(captchaToken);
   if (!captchaOk) return { error: 'Verificación CAPTCHA fallida. Inténtalo de nuevo.' };
 

@@ -1,33 +1,34 @@
 'use client';
 
-import { useActionState, useState, useEffect, useRef } from 'react';
+import { useActionState, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
+import Script from 'next/script';
 import { registerAction, verifyRegistrationAction } from '../actions';
+import { executeRecaptcha, RECAPTCHA_SITE_KEY } from '@/lib/recaptcha';
 import XroLogo from '../../components/XroLogo';
+import { Field, TextInput, SubmitButton, FormError, CaptchaNote } from '../../components/FormControls';
 import styles from '../cuenta.module.css';
-
-const SITE_KEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ?? '10000000-ffff-ffff-ffff-000000000001';
 
 export default function RegistroPage() {
   const [step, setStep] = useState<'form' | 'verify'>('form');
   const [pendingEmail, setPendingEmail] = useState('');
   const [pendingPass, setPendingPass] = useState('');
   const [sex, setSex] = useState<'M' | 'F'>('M');
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const captchaRef = useRef<HCaptcha>(null);
 
   const [regState, regAction, regPending] = useActionState(registerAction, null);
   const [verState, verAction, verPending] = useActionState(verifyRegistrationAction, null);
+  const router = useRouter();
+
+  // Si ya hay sesión, no tiene sentido registrarse → al panel.
+  useEffect(() => {
+    fetch('/api/me').then(r => r.json()).then(d => { if (d.loggedIn) router.replace('/cuenta'); }).catch(() => {});
+  }, [router]);
 
   useEffect(() => {
     if (regState?.success && step === 'form') {
       setPendingEmail(regState.email!);
       setStep('verify');
-    }
-    if (regState?.error) {
-      captchaRef.current?.resetCaptcha();
-      setCaptchaToken(null);
     }
   }, [regState, step]);
 
@@ -35,8 +36,10 @@ export default function RegistroPage() {
     return (
       <div className={styles.shell}>
         <div className={styles.card}>
-          <Link href="/" className={styles.backLink}>← Volver</Link>
-          <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
+          <div className={styles.cardTop}>
+            <Link href="/" className={styles.backLink}>← Volver</Link>
+            <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
+          </div>
           <div className={styles.heading}>
             <h1 className={styles.title}>Cuenta creada.</h1>
             <p className={styles.subtitle}>Ya puedes iniciar sesión y conectarte al servidor.</p>
@@ -51,8 +54,10 @@ export default function RegistroPage() {
     return (
       <div className={styles.shell}>
         <div className={styles.card}>
-          <Link href="/" className={styles.backLink}>← Volver</Link>
-          <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
+          <div className={styles.cardTop}>
+            <Link href="/" className={styles.backLink}>← Volver</Link>
+            <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
+          </div>
           <div className={styles.heading}>
             <h1 className={styles.title}>Verifica tu email.</h1>
             <p className={styles.subtitle}>Hemos enviado un código de 6 dígitos a <strong>{pendingEmail}</strong>.</p>
@@ -60,23 +65,20 @@ export default function RegistroPage() {
           <form action={verAction} className={styles.form}>
             <input type="hidden" name="email" value={pendingEmail} />
             <input type="hidden" name="new_pass" value={pendingPass} />
-            <div className={styles.field}>
-              <label className={styles.label}>Código</label>
-              <input
+            <Field label="Código">
+              <TextInput
                 name="code"
                 type="text"
                 inputMode="numeric"
                 maxLength={6}
                 placeholder="000000"
-                className={`${styles.input} ${styles.codeInput}`}
+                className={styles.codeInput}
                 autoFocus
                 required
               />
-            </div>
-            {verState?.error && <div className={styles.error}>{verState.error}</div>}
-            <button type="submit" className={styles.btnPrimary} disabled={verPending}>
-              {verPending ? 'Verificando…' : 'Activar cuenta'}
-            </button>
+            </Field>
+            <FormError>{verState?.error}</FormError>
+            <SubmitButton pending={verPending} pendingLabel="Verificando…">Activar cuenta</SubmitButton>
           </form>
         </div>
       </div>
@@ -92,45 +94,44 @@ export default function RegistroPage() {
           <h1 className={styles.title}>Crear cuenta.</h1>
           <p className={styles.subtitle}>El usuario y contraseña son los que usarás para entrar al juego.</p>
         </div>
-        <form action={(fd) => {
+        {RECAPTCHA_SITE_KEY && (
+          <Script
+            src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+            strategy="lazyOnload"
+          />
+        )}
+        <form action={async (fd) => {
           fd.set('sex', sex);
-          if (captchaToken) fd.set('h-captcha-response', captchaToken);
+          const token = await executeRecaptcha('register');
+          if (token) fd.set('captcha-token', token);
           regAction(fd);
         }} className={styles.form}>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="userid">Usuario (en el juego)</label>
-            <input id="userid" name="userid" type="text" className={styles.input} placeholder="Ej: Yinx" required autoFocus />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" className={styles.input} placeholder="tu@email.com" required
+          <Field label="Usuario (en el juego)" htmlFor="userid">
+            <TextInput id="userid" name="userid" type="text" placeholder="Ej: Yinx" required autoFocus />
+          </Field>
+          <Field label="Email" htmlFor="email">
+            <TextInput id="email" name="email" type="email" placeholder="tu@email.com" required
               onChange={e => setPendingEmail(e.target.value)} />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="password">Contraseña</label>
-            <input id="password" name="password" type="password" className={styles.input} placeholder="Mínimo 6 caracteres" required
+          </Field>
+          <Field label="Contraseña" htmlFor="password">
+            <TextInput id="password" name="password" type="password" placeholder="Mínimo 6 caracteres" required
               onChange={e => setPendingPass(e.target.value)} />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Sexo del personaje</label>
+          </Field>
+          <Field label="Sexo del personaje">
             <div className={styles.sexRow}>
               <button type="button" className={`${styles.sexBtn} ${sex === 'M' ? styles.sexBtnActive : ''}`} onClick={() => setSex('M')}>Masculino</button>
               <button type="button" className={`${styles.sexBtn} ${sex === 'F' ? styles.sexBtnActive : ''}`} onClick={() => setSex('F')}>Femenino</button>
             </div>
-          </div>
-          <HCaptcha
-            ref={captchaRef}
-            sitekey={SITE_KEY}
-            onVerify={setCaptchaToken}
-            onExpire={() => setCaptchaToken(null)}
-            theme="light"
-          />
-          {regState?.error && <div className={styles.error}>{regState.error}</div>}
-          <button type="submit" className={styles.btnPrimary} disabled={regPending}>
-            {regPending ? 'Enviando…' : 'Crear cuenta'}
-          </button>
+          </Field>
+          <FormError>{regState?.error}</FormError>
+          <SubmitButton pending={regPending} pendingLabel="Enviando…">Crear cuenta</SubmitButton>
         </form>
         <p className={styles.footerNote}>¿Ya tienes cuenta? <Link href="/cuenta/login">Inicia sesión</Link></p>
+        <CaptchaNote>
+          Protegido por reCAPTCHA · Google{' '}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacidad</a>{' '}
+          y <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Términos</a>.
+        </CaptchaNote>
       </div>
     </div>
   );

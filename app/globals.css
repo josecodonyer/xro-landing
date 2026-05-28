@@ -411,3 +411,22 @@ a:hover { color: #fff; }
   font-size: 11px;
   color: rgba(10,10,12,0.4);
 }
+
+/* reCAPTCHA v3: ocultamos el badge flotante (mostramos el aviso legal en los forms). */
+.grecaptcha-badge { visibility: hidden; }
+
+/* Scroll interno reutilizable, scrollbar fino (pensado sobre fondo claro). */
+.scroll-y {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10,10,12,0.28) transparent;
+}
+.scroll-y::-webkit-scrollbar { width: 8px; }
+.scroll-y::-webkit-scrollbar-track { background: transparent; }
+.scroll-y::-webkit-scrollbar-thumb {
+  background: rgba(10,10,12,0.2);
+  border-radius: 99px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.scroll-y::-webkit-scrollbar-thumb:hover { background: rgba(10,10,12,0.4); background-clip: padding-box; }

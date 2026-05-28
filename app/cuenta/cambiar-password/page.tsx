@@ -3,6 +3,7 @@
 import { useActionState, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { requestPasswordChangeAction, confirmPasswordChangeAction } from '../actions';
+import { Field, TextInput, SubmitButton, FormError } from '../../components/FormControls';
 import styles from '../cuenta.module.css';
 
 export default function CambiarPasswordPage() {
@@ -43,15 +44,12 @@ export default function CambiarPasswordPage() {
           </div>
           <form action={confAction} className={styles.form}>
             <input type="hidden" name="new_password" value={newPass} />
-            <div className={styles.field}>
-              <label className={styles.label}>Código de verificación</label>
-              <input name="code" type="text" inputMode="numeric" maxLength={6} placeholder="000000"
-                className={`${styles.input} ${styles.codeInput}`} autoFocus required />
-            </div>
-            {confState?.error && <div className={styles.error}>{confState.error}</div>}
-            <button type="submit" className={styles.btnPrimary} disabled={confPending}>
-              {confPending ? 'Confirmando…' : 'Confirmar cambio'}
-            </button>
+            <Field label="Código de verificación">
+              <TextInput name="code" type="text" inputMode="numeric" maxLength={6} placeholder="000000"
+                className={styles.codeInput} autoFocus required />
+            </Field>
+            <FormError>{confState?.error}</FormError>
+            <SubmitButton pending={confPending} pendingLabel="Confirmando…">Confirmar cambio</SubmitButton>
           </form>
         </div>
       </div>
@@ -66,18 +64,14 @@ export default function CambiarPasswordPage() {
           <p className={styles.subtitle}>Te enviaremos un código a tu email para confirmar.</p>
         </div>
         <form action={reqAction} className={styles.form}>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="current_password">Contraseña actual</label>
-            <input id="current_password" name="current_password" type="password" className={styles.input} placeholder="••••••••" required />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="new_password">Nueva contraseña</label>
-            <input id="new_password" name="new_password" type="password" className={styles.input} placeholder="Mínimo 6 caracteres" required />
-          </div>
-          {reqState?.error && <div className={styles.error}>{reqState.error}</div>}
-          <button type="submit" className={styles.btnPrimary} disabled={reqPending}>
-            {reqPending ? 'Enviando código…' : 'Continuar'}
-          </button>
+          <Field label="Contraseña actual" htmlFor="current_password">
+            <TextInput id="current_password" name="current_password" type="password" placeholder="••••••••" required />
+          </Field>
+          <Field label="Nueva contraseña" htmlFor="new_password">
+            <TextInput id="new_password" name="new_password" type="password" placeholder="Mínimo 6 caracteres" required />
+          </Field>
+          <FormError>{reqState?.error}</FormError>
+          <SubmitButton pending={reqPending} pendingLabel="Enviando código…">Continuar</SubmitButton>
         </form>
         <Link href="/cuenta" className={styles.btnGhost}>Cancelar</Link>
       </div>

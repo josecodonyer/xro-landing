@@ -16,7 +16,7 @@ export async function createTicketAction(_: unknown, fd: FormData) {
   const session = await getSession();
   if (!session.accountId || !session.userid) return { error: 'Debes iniciar sesión.' };
 
-  const captchaToken = fd.get('h-captcha-response') as string | null;
+  const captchaToken = fd.get('captcha-token') as string | null;
   const captchaOk = await verifyCaptcha(captchaToken);
   if (!captchaOk) return { error: 'Verificación CAPTCHA fallida. Inténtalo de nuevo.' };
 
