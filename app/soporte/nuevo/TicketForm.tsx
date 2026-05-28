@@ -1,6 +1,7 @@
 'use client';
 
 import { useActionState, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { createTicketAction } from '../actions';
 import { executeRecaptcha, RECAPTCHA_SITE_KEY } from '@/lib/recaptcha';
@@ -11,10 +12,18 @@ export default function TicketForm() {
   const [state, action, pending] = useActionState(createTicketAction, null);
   const [previews, setPreviews] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
 
-  // "submitting" cubre desde el clic (incluido el tiempo del reCAPTCHA) hasta el
-  // redirect o el error, para que el botón muestre carga de inmediato.
-  useEffect(() => { if (state) setSubmitting(false); }, [state]);
+  // Al crear el ticket, redirigimos al detalle desde el cliente (el redirect del
+  // server action no se propaga al ir envuelto en el handler del reCAPTCHA).
+  // "submitting" cubre desde el clic hasta el redirect/error para mostrar carga.
+  useEffect(() => {
+    if (state?.success && state.ticketId) {
+      router.push(`/soporte/${state.ticketId}`);
+      return;
+    }
+    if (state) setSubmitting(false);
+  }, [state, router]);
   const busy = submitting || pending;
 
   function handleFiles(e: React.ChangeEvent<HTMLInputElement>) {

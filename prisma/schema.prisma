@@ -62,5 +62,6 @@ model UserProfile {
   avatarHeadBottom Int?
   avatarWeapon    Int?
   avatarShield    Int?
+  avatarImage     String?
   updatedAt       DateTime @updatedAt
 }

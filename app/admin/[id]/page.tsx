@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { db } from '@/lib/db';
 import MessageAvatar from '../../components/MessageAvatar';
 import AdminReplyForm from './AdminReplyForm';
+import RepliesList from './RepliesList';
 import StatusSelector from './StatusSelector';
 import styles from '../admin.module.css';
 
@@ -102,29 +103,11 @@ export default async function AdminTicketPage({ params }: { params: Promise<{ id
               )}
             </div>
 
-            {ticket.replies.map(reply => (
-              <div
-                key={reply.id}
-                className={`${styles.messageCard} ${reply.isAdmin ? styles.messageCardAdmin : ''}`}
-              >
-                <div className={styles.messageHeader}>
-                  <MessageAvatar
-                    userId={reply.userId}
-                    isAdmin={reply.isAdmin}
-                    charClass={reply.isAdmin ? null : ownerClass}
-                    hairColor={reply.isAdmin ? null : ownerHairColor}
-                    size={34}
-                  />
-                  <strong>
-                    {reply.isAdmin ? `${reply.userId} (Staff)` : reply.userId}
-                  </strong>
-                  <span className={styles.messageTime}>
-                    {new Date(reply.createdAt).toLocaleString('es-ES')}
-                  </span>
-                </div>
-                <p className={styles.messageBody}>{reply.message}</p>
-              </div>
-            ))}
+            <RepliesList
+              replies={ticket.replies}
+              ownerClass={ownerClass}
+              ownerHairColor={ownerHairColor}
+            />
 
             <div className={styles.replySection}>
               <h3 className={styles.replySectionTitle}>Responder como staff</h3>

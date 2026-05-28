@@ -1,111 +1,24 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { selectAvatarAction } from './actions';
-import CharAvatar from '../components/CharAvatar';
+import { selectAvatarImageAction } from './actions';
+import { PRESET_AVATARS, avatarSrc } from '@/lib/preset-avatars';
 import styles from './cuenta.module.css';
 
-type Char = {
-  char_id: number;
-  name: string;
-  class: number;
-  base_level: number;
-  sex: 'M' | 'F';
-  hair: number;
-  hair_color: number;
-  clothes_color: number;
-  head_top: number;
-  head_mid: number;
-  head_bottom: number;
-  weapon: number;
-  shield: number;
-};
-
-const JOB: Record<number, { label: string; color: string; abbr: string }> = {
-  0:    { label: 'Novice',           color: '#9ca3af', abbr: 'NOV' },
-  1:    { label: 'Swordman',         color: '#ef4444', abbr: 'SWD' },
-  2:    { label: 'Mage',             color: '#818cf8', abbr: 'MAG' },
-  3:    { label: 'Archer',           color: '#4ade80', abbr: 'ARC' },
-  4:    { label: 'Acolyte',          color: '#fbbf24', abbr: 'ACO' },
-  5:    { label: 'Merchant',         color: '#fb923c', abbr: 'MER' },
-  6:    { label: 'Thief',            color: '#a78bfa', abbr: 'THF' },
-  7:    { label: 'Knight',           color: '#ef4444', abbr: 'KNT' },
-  8:    { label: 'Priest',           color: '#fbbf24', abbr: 'PRI' },
-  9:    { label: 'Wizard',           color: '#818cf8', abbr: 'WIZ' },
-  10:   { label: 'Blacksmith',       color: '#fb923c', abbr: 'BS'  },
-  11:   { label: 'Hunter',           color: '#4ade80', abbr: 'HNT' },
-  12:   { label: 'Assassin',         color: '#a78bfa', abbr: 'ASN' },
-  14:   { label: 'Crusader',         color: '#ef4444', abbr: 'CRU' },
-  15:   { label: 'Monk',             color: '#fbbf24', abbr: 'MNK' },
-  16:   { label: 'Sage',             color: '#818cf8', abbr: 'SGE' },
-  17:   { label: 'Rogue',            color: '#a78bfa', abbr: 'RGE' },
-  18:   { label: 'Alchemist',        color: '#fb923c', abbr: 'ALC' },
-  19:   { label: 'Bard',             color: '#34d399', abbr: 'BRD' },
-  20:   { label: 'Dancer',           color: '#f472b6', abbr: 'DNC' },
-  4008: { label: 'Lord Knight',      color: '#dc2626', abbr: 'LK'  },
-  4009: { label: 'High Priest',      color: '#d97706', abbr: 'HP'  },
-  4010: { label: 'High Wizard',      color: '#6366f1', abbr: 'HW'  },
-  4011: { label: 'Whitesmith',       color: '#ea580c', abbr: 'WS'  },
-  4012: { label: 'Sniper',           color: '#16a34a', abbr: 'SN'  },
-  4013: { label: 'Assassin Cross',   color: '#7c3aed', abbr: 'SinX'},
-  4015: { label: 'Paladin',          color: '#dc2626', abbr: 'PAL' },
-  4016: { label: 'Champion',         color: '#d97706', abbr: 'CHP' },
-  4017: { label: 'Professor',        color: '#6366f1', abbr: 'PRF' },
-  4018: { label: 'Stalker',          color: '#7c3aed', abbr: 'STK' },
-  4054: { label: 'Rune Knight',      color: '#dc2626', abbr: 'RK'  },
-  4055: { label: 'Warlock',          color: '#6366f1', abbr: 'WL'  },
-  4056: { label: 'Ranger',           color: '#16a34a', abbr: 'RNG' },
-  4057: { label: 'Arch Bishop',      color: '#d97706', abbr: 'AB'  },
-  4058: { label: 'Mechanic',         color: '#ea580c', abbr: 'MC'  },
-  4059: { label: 'Guillotine Cross', color: '#7c3aed', abbr: 'GX'  },
-  4066: { label: 'Royal Guard',      color: '#dc2626', abbr: 'RG'  },
-  4067: { label: 'Sorcerer',         color: '#6366f1', abbr: 'SC'  },
-  4070: { label: 'Sura',             color: '#d97706', abbr: 'SUR' },
-  4071: { label: 'Genetic',          color: '#ea580c', abbr: 'GEN' },
-  4252: { label: 'Dragon Knight',    color: '#991b1b', abbr: 'DK'  },
-  4253: { label: 'Meister',          color: '#9a3412', abbr: 'MST' },
-  4254: { label: 'Shadow Cross',     color: '#581c87', abbr: 'SX'  },
-  4255: { label: 'Arch Mage',        color: '#3730a3', abbr: 'AM'  },
-  4256: { label: 'Cardinal',         color: '#92400e', abbr: 'CDL' },
-  4257: { label: 'Windhawk',         color: '#14532d', abbr: 'WH'  },
-};
-
-function getJob(cls: number) {
-  return JOB[cls] ?? { label: `Class ${cls}`, color: '#6b7280', abbr: '???' };
-}
-
-export default function AvatarPicker({
-  chars,
-  currentCharName,
-}: {
-  chars: Char[];
-  currentCharName: string | null;
-}) {
+export default function AvatarPicker({ currentImage }: { currentImage: string | null }) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(currentCharName);
+  const [selected, setSelected] = useState<string | null>(currentImage);
   const [isPending, startTransition] = useTransition();
 
-  function handleSelect(char: Char) {
-    setSelected(char.name);
+  function handleSelect(id: string) {
+    setSelected(id);
     startTransition(async () => {
-      await selectAvatarAction({
-        charName:     char.name,
-        charClass:    char.class,
-        charSex:      char.sex,
-        hair:         char.hair,
-        hairColor:    char.hair_color,
-        clothesColor: char.clothes_color,
-        headTop:      char.head_top,
-        headMid:      char.head_mid,
-        headBottom:   char.head_bottom,
-        weapon:       char.weapon,
-        shield:       char.shield,
-      });
+      await selectAvatarImageAction(id);
       setOpen(false);
     });
   }
 
-  const selectedChar = chars.find(c => c.name === selected) ?? null;
+  const currentSrc = avatarSrc(selected);
 
   return (
     <>
@@ -115,8 +28,8 @@ export default function AvatarPicker({
         onClick={() => setOpen(true)}
         aria-label="Cambiar avatar"
       >
-        {selectedChar ? (
-          <CharAvatar charClass={selectedChar.class} hairColor={selectedChar.hair_color} size={72} />
+        {currentSrc ? (
+          <img src={currentSrc} alt="Avatar" className={styles.avatarImg} />
         ) : (
           <div className={styles.avatarEmpty}>
             <span className={styles.avatarPlus}>+</span>
@@ -132,37 +45,23 @@ export default function AvatarPicker({
               <h2 className={styles.modalTitle}>Elige tu avatar</h2>
               <button className={styles.modalClose} onClick={() => setOpen(false)} aria-label="Cerrar">✕</button>
             </div>
-            <p className={styles.modalSubtitle}>
-              Selecciona el personaje cuyo sprite usarás como foto de perfil. El punto de color indica el color del pelo.
-            </p>
+            <p className={styles.modalSubtitle}>Elige una de las ilustraciones de clase.</p>
 
-            {chars.length === 0 ? (
-              <p className={styles.modalEmpty}>No tienes personajes creados todavía.</p>
-            ) : (
-              <div className={styles.charPickerGrid}>
-                {chars.map(char => {
-                  const job = getJob(char.class);
-                  const isSelected = char.name === selected;
-                  return (
-                    <button
-                      key={char.char_id}
-                      type="button"
-                      className={`${styles.charPickerCard} ${isSelected ? styles.charPickerCardActive : ''}`}
-                      onClick={() => handleSelect(char)}
-                      disabled={isPending}
-                    >
-                      <CharAvatar charClass={char.class} hairColor={char.hair_color} size={52} />
-                      <div className={styles.charPickerInfo}>
-                        <span className={styles.charPickerName}>{char.name}</span>
-                        <span className={styles.charPickerJob} style={{ color: job.color }}>{job.label}</span>
-                        <span className={styles.charPickerLv}>Lv {char.base_level} · {char.sex === 'F' ? '♀' : '♂'}</span>
-                      </div>
-                      {isSelected && <span className={styles.charPickerCheck}>✓</span>}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+            <div className={styles.avatarGrid}>
+              {PRESET_AVATARS.map(av => (
+                <button
+                  key={av.id}
+                  type="button"
+                  className={`${styles.avatarOption} ${selected === av.id ? styles.avatarOptionActive : ''}`}
+                  onClick={() => handleSelect(av.id)}
+                  disabled={isPending}
+                  title={av.label}
+                  aria-label={av.label}
+                >
+                  <img src={`/avatars/${av.id}.png`} alt={av.label} />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}

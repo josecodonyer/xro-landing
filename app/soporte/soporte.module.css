@@ -407,3 +407,56 @@
   .header { flex-direction: column; }
   .ticketRow { flex-direction: column; align-items: flex-start; }
 }
+
+/* ── Paginación de respuestas ── */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0 4px;
+}
+
+.pageNumbers {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pageBtn,
+.pageNum {
+  font-size: 13px;
+  color: rgba(10,10,12,0.55);
+  background: #fff;
+  border: 1px solid rgba(10,10,12,0.12);
+  border-radius: var(--r-md);
+  padding: 6px 11px;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.pageNum {
+  min-width: 32px;
+  text-align: center;
+  padding: 6px 8px;
+}
+
+.pageBtn:hover:not(:disabled),
+.pageNum:hover:not(.pageNumActive) {
+  color: #0a0a0c;
+  border-color: rgba(10,10,12,0.28);
+}
+
+.pageBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pageNumActive {
+  color: #fff;
+  background: #0a0a0c;
+  border-color: #0a0a0c;
+  font-weight: 600;
+}

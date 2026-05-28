@@ -1,17 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CharAvatar from './CharAvatar';
+import { avatarSrc } from '@/lib/preset-avatars';
 import styles from './Topbar.module.css';
 
-type Me = {
-  loggedIn: boolean;
-  userid?: string;
-  avatar?: {
-    spriteUrl: string; hairColor: string;
-    charClass: number; charSex: string; charName: string;
-  } | null;
-};
+type Me = { loggedIn: boolean; userid?: string; avatarImage?: string | null };
 
 export default function UserAvatar() {
   const [me, setMe] = useState<Me | null>(null);
@@ -20,25 +13,26 @@ export default function UserAvatar() {
     fetch('/api/me').then(r => r.json()).then(setMe).catch(() => setMe({ loggedIn: false }));
   }, []);
 
-  // Mientras carga el estado de sesión no mostramos nada (evita parpadeo).
   if (me === null) return null;
-
-  // Sin sesión → CTA de registro.
   if (!me.loggedIn) {
     return <a href="/cuenta/registro" className="btn-header-cta">Register</a>;
   }
 
+  const src = avatarSrc(me.avatarImage);
+
   return (
     <a href="/cuenta" className={styles.userAvatarBtn} aria-label="Mi cuenta">
-      <CharAvatar
-        size={28}
-        spriteUrl={me.avatar?.spriteUrl ?? null}
-        charClass={me.avatar?.charClass ?? null}
-        hairColor={me.avatar?.hairColor ?? null}
-        fallback={(me.userid ?? '?')[0].toUpperCase()}
-        bg="rgba(10,10,12,0.12)"
-        alt="Mi cuenta"
-      />
+      {src ? (
+        <img
+          src={src}
+          alt=""
+          style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover', objectPosition: 'center 8%', display: 'block', flexShrink: 0 }}
+        />
+      ) : (
+        <div className={styles.avatarFallback} style={{ width: 28, height: 28 }}>
+          <span style={{ fontSize: 11, fontWeight: 700 }}>{(me.userid ?? '?')[0].toUpperCase()}</span>
+        </div>
+      )}
       <span className={styles.userAvatarName}>Mi cuenta</span>
     </a>
   );

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getSession } from '@/lib/session';
 import { charactersGet } from '@/lib/api';
 import { isAdmin } from '@/lib/admin';
-import { getUserAvatar } from '@/lib/avatar';
+import { getUserAvatarImage } from '@/lib/avatar';
 import { logoutAction } from './actions';
 import XroLogo from '../components/XroLogo';
 import CharCard from './CharCard';
@@ -14,10 +14,10 @@ export default async function CuentaPage() {
   const session = await getSession();
   if (!session.accountId) redirect('/cuenta/login');
 
-  const [res, admin, avatar] = await Promise.all([
+  const [res, admin, avatarImage] = await Promise.all([
     charactersGet({ account_id: session.accountId }),
     isAdmin(session.userid!).catch(() => false),
-    getUserAvatar(session.userid!).catch(() => null),
+    getUserAvatarImage(session.userid!).catch(() => null),
   ]);
   const chars = res.ok ? res.data.characters : [];
 
@@ -34,10 +34,7 @@ export default async function CuentaPage() {
           </div>
 
           <div className={styles.profileHeader}>
-            <AvatarPicker
-              chars={chars}
-              currentCharName={avatar?.charName ?? null}
-            />
+            <AvatarPicker currentImage={avatarImage} />
             <div className={styles.heading} style={{ marginTop: 0 }}>
               <h1 className={styles.title}>
                 Hola, <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>{session.userid}</em>.
