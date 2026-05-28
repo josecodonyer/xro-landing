@@ -5,6 +5,7 @@ import * as api from '@/lib/api';
 import { getSession } from '@/lib/session';
 import { md5 } from '@/lib/password';
 import { generateCode, sendVerificationCode, sendPasswordResetCode, sendEmailChangeCode } from '@/lib/email';
+import { verifyCaptcha } from '@/lib/captcha';
 
 function expiry(minutes: number) {
   return new Date(Date.now() + minutes * 60 * 1000)
@@ -18,6 +19,10 @@ export async function registerAction(_: unknown, fd: FormData) {
   const email  = (fd.get('email')  as string).trim().toLowerCase();
   const pass   = fd.get('password') as string;
   const sex    = (fd.get('sex') as string) === 'F' ? 'F' : 'M';
+
+  const captchaToken = fd.get('h-captcha-response') as string | null;
+  const captchaOk = await verifyCaptcha(captchaToken);
+  if (!captchaOk) return { error: 'Verificación CAPTCHA fallida. Inténtalo de nuevo.' };
 
   if (!userid || !email || !pass) return { error: 'Rellena todos los campos.' };
   if (userid.length < 4 || userid.length > 23) return { error: 'El usuario debe tener entre 4 y 23 caracteres.' };

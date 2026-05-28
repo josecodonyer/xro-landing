@@ -37,3 +37,14 @@ next-env.d.ts
 
 # Documentacion local de sesiones Claude Code (no versionar)
 .claude/
+
+/lib/generated/prisma
+
+# Prisma database
+/prisma/dev.db
+/prisma/dev.db-journal
+/prisma/*.db
+/prisma/*.db-journal
+
+# File uploads
+/uploads/

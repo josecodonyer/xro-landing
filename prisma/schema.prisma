@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Ticket {
+  id          Int                @id @default(autoincrement())
+  title       String
+  category    String
+  message     String
+  status      String             @default("OPEN")
+  userId      String
+  userEmail   String
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  replies     TicketReply[]
+  attachments TicketAttachment[]
+}
+
+model TicketReply {
+  id        Int      @id @default(autoincrement())
+  ticketId  Int
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  userId    String
+  isAdmin   Boolean  @default(false)
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model TicketAttachment {
+  id        Int      @id @default(autoincrement())
+  ticketId  Int
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  filename  String
+  storedAs  String
+  mimeType  String
+  size      Int
+  createdAt DateTime @default(now())
+}
+
+model AdminUser {
+  id        Int      @id @default(autoincrement())
+  userId    String   @unique
+  createdAt DateTime @default(now())
+}

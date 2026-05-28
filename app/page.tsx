@@ -57,6 +57,7 @@ export default function Home() {
               { href: '/novedades', label: 'Novedades' },
               { href: '/exp', label: 'EXP Scaler' },
               { href: '/wiki', label: 'Wiki' },
+              { href: '/soporte', label: 'Soporte' },
             ]}
             cta={{ href: '#descargar', label: '▶ Descargar' }}
           />
@@ -83,6 +84,7 @@ export default function Home() {
           <a href="/novedades">Novedades</a>
           <a href="/exp">EXP Scaler</a>
           <a href="/wiki">Wiki</a>
+          <a href="/soporte">Soporte</a>
           <a href="#descargar" className="btn-header-cta">▶ Descargar</a>
         </nav>
       </header>
