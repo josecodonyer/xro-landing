@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import XroLogo from '../../components/XroLogo';
 import MessageAvatar from '../../components/MessageAvatar';
 import ReplyForm from './ReplyForm';
+import RepliesList from './RepliesList';
 import styles from '../soporte.module.css';
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -101,30 +102,11 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
               )}
             </div>
 
-            {ticket.replies.map(reply => (
-              <div
-                key={reply.id}
-                className={`${styles.messageCard} ${reply.isAdmin ? styles.messageCardAdmin : ''}`}
-              >
-                <div className={styles.messageAuthor}>
-                  <MessageAvatar
-                    userId={reply.userId}
-                    isAdmin={reply.isAdmin}
-                    charClass={reply.isAdmin ? null : ownerClass}
-                    hairColor={reply.isAdmin ? null : ownerHairColor}
-                    size={34}
-                  />
-                  <span className={styles.messageAuthorName}>
-                    {reply.isAdmin ? 'Soporte' : reply.userId}
-                  </span>
-                  {reply.isAdmin && <span className={styles.adminBadge}>Staff</span>}
-                  <span className={styles.messageDate}>
-                    {new Date(reply.createdAt).toLocaleString('es-ES')}
-                  </span>
-                </div>
-                <p className={styles.messageBody}>{reply.message}</p>
-              </div>
-            ))}
+            <RepliesList
+              replies={ticket.replies}
+              ownerClass={ownerClass}
+              ownerHairColor={ownerHairColor}
+            />
 
             {canReply && (
               <div className={styles.replySection}>
