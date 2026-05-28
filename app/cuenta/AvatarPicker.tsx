@@ -99,9 +99,15 @@ export function SpriteAvatar({
         <img
           src={src}
           alt={job.label}
-          width={size}
-          height={size}
-          style={{ objectFit: 'contain', imageRendering: 'pixelated' }}
+          style={{
+            position: 'absolute',
+            width: '175%',
+            height: 'auto',
+            top: '-5%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            imageRendering: 'pixelated',
+          }}
           onError={() => setImgFailed(true)}
         />
       ) : (
