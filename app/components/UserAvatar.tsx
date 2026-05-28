@@ -32,8 +32,6 @@ export default function UserAvatar() {
     <a href="/cuenta" className={styles.userAvatarBtn} aria-label="Mi cuenta">
       <CharAvatar
         size={28}
-        spriteUrl={me.avatar?.spriteUrl ?? null}
-        charClass={me.avatar?.charClass ?? null}
         hairColor={me.avatar?.hairColor ?? null}
         fallback={(me.userid ?? '?')[0].toUpperCase()}
         bg="rgba(10,10,12,0.12)"

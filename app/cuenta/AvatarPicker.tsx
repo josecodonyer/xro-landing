@@ -116,7 +116,7 @@ export default function AvatarPicker({
         aria-label="Cambiar avatar"
       >
         {selectedChar ? (
-          <CharAvatar charClass={selectedChar.class} hairColor={selectedChar.hair_color} size={72} />
+          <CharAvatar charClass={selectedChar.class} hairColor={selectedChar.hair_color} size={72} fallback={getJob(selectedChar.class).abbr} />
         ) : (
           <div className={styles.avatarEmpty}>
             <span className={styles.avatarPlus}>+</span>
@@ -145,13 +145,13 @@ export default function AvatarPicker({
                   const isSelected = char.name === selected;
                   return (
                     <button
-                      key={char.char_id}
+                      key={char.name}
                       type="button"
                       className={`${styles.charPickerCard} ${isSelected ? styles.charPickerCardActive : ''}`}
                       onClick={() => handleSelect(char)}
                       disabled={isPending}
                     >
-                      <CharAvatar charClass={char.class} hairColor={char.hair_color} size={52} />
+                      <CharAvatar charClass={char.class} hairColor={char.hair_color} size={52} fallback={job.abbr} />
                       <div className={styles.charPickerInfo}>
                         <span className={styles.charPickerName}>{char.name}</span>
                         <span className={styles.charPickerJob} style={{ color: job.color }}>{job.label}</span>

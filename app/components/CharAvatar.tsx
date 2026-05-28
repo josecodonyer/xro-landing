@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { hairColorHex, jobSpriteUrl } from '@/lib/avatar-shared';
+import { hairColorHex } from '@/lib/avatar-shared';
 
 // Color de fondo del círculo según la clase del personaje.
 const JOB_COLORS: Record<number, string> = {
@@ -46,8 +46,11 @@ export default function CharAvatar({
 }) {
   const [failed, setFailed] = useState(false);
 
-  const src = spriteUrl ?? (charClass != null ? jobSpriteUrl(charClass) : null);
-  const background = bg ?? jobColor(charClass);
+  // Solo usamos imagen si nos pasan una URL real de sprite (p. ej. un futuro
+  // /chargen). divine-pride no tiene iconos de 4th jobs (devuelve un placeholder
+  // rojo), así que sin spriteUrl mostramos la abreviatura/inicial sobre fondo neutro.
+  const src = spriteUrl ?? null;
+  const background = bg ?? 'rgba(10,10,12,0.06)';
   const hair = hairColor == null
     ? null
     : (typeof hairColor === 'string' ? hairColor : hairColorHex(hairColor));
