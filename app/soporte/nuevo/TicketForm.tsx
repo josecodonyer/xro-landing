@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useState, useEffect } from 'react';
 import Script from 'next/script';
 import { createTicketAction } from '../actions';
 import { executeRecaptcha, RECAPTCHA_SITE_KEY } from '@/lib/recaptcha';
@@ -10,6 +10,12 @@ import styles from '../soporte.module.css';
 export default function TicketForm() {
   const [state, action, pending] = useActionState(createTicketAction, null);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+
+  // "submitting" cubre desde el clic (incluido el tiempo del reCAPTCHA) hasta el
+  // redirect o el error, para que el botón muestre carga de inmediato.
+  useEffect(() => { if (state) setSubmitting(false); }, [state]);
+  const busy = submitting || pending;
 
   function handleFiles(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
@@ -17,6 +23,7 @@ export default function TicketForm() {
   }
 
   async function handleSubmit(fd: FormData) {
+    setSubmitting(true);
     const token = await executeRecaptcha('ticket');
     if (token) fd.set('captcha-token', token);
     action(fd);
@@ -86,7 +93,7 @@ export default function TicketForm() {
 
       <FormError>{state?.error}</FormError>
 
-      <SubmitButton pending={pending} pendingLabel="Enviando…">Abrir ticket</SubmitButton>
+      <SubmitButton pending={busy} pendingLabel="Enviando…">Abrir ticket</SubmitButton>
 
       <CaptchaNote>
         Protegido por reCAPTCHA. Se aplican la{' '}
