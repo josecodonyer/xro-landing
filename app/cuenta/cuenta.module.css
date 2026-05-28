@@ -323,18 +323,18 @@
   gap: 5px;
   margin-top: 6px;
   padding: 3px 10px;
-  background: rgba(230,197,116,0.12);
-  color: var(--amber-400, #f3d68c);
-  border: 1px solid rgba(230,197,116,0.25);
+  background: #14161a;
+  color: var(--amber-300, #f6e0a8);
+  border: 1px solid #14161a;
   border-radius: var(--r-pill);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   transition: background var(--dur-fast) var(--ease-out);
 }
-.adminBadge:hover { background: rgba(230,197,116,0.22); color: var(--amber-400, #f3d68c); }
+.adminBadge:hover { background: #23262e; color: var(--amber-300, #f6e0a8); }
 
 /* ── Profile header ── */
 
