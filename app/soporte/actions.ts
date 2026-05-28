@@ -6,6 +6,7 @@ import { put } from '@vercel/blob';
 import { getSession } from '@/lib/session';
 import { db } from '@/lib/db';
 import { verifyCaptcha } from '@/lib/captcha';
+import { moderateImage } from '@/lib/moderation';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
@@ -28,6 +29,19 @@ export async function createTicketAction(_: unknown, fd: FormData) {
   if (!VALID_CATEGORIES.includes(category)) return { error: 'Categoría inválida.' };
   if (!message || message.length < 20) return { error: 'El mensaje debe tener al menos 20 caracteres.' };
 
+  // Adjuntos válidos (tipo/tamaño). Se moderan ANTES de crear el ticket.
+  const files = (fd.getAll('attachments') as File[]).filter(
+    f => f instanceof File && f.size > 0 && f.size <= MAX_FILE_SIZE && ALLOWED_TYPES.includes(f.type),
+  );
+
+  // Moderación de contenido (nudez/gore). Si una imagen no pasa, se rechaza el ticket entero.
+  for (const file of files) {
+    const verdict = await moderateImage(file);
+    if (!verdict.ok) {
+      return { error: `Una imagen fue rechazada por moderación (${verdict.reason}). Quítala e inténtalo de nuevo.` };
+    }
+  }
+
   const ticket = await db.ticket.create({
     data: {
       title,
@@ -38,30 +52,25 @@ export async function createTicketAction(_: unknown, fd: FormData) {
     },
   });
 
-  // Adjuntos → Vercel Blob. Si no hay store configurado, se omiten sin romper el ticket.
-  const canUpload = !!process.env.BLOB_READ_WRITE_TOKEN;
-  const files = fd.getAll('attachments') as File[];
-  for (const file of files) {
-    if (!(file instanceof File) || file.size === 0) continue;
-    if (file.size > MAX_FILE_SIZE) continue;
-    if (!ALLOWED_TYPES.includes(file.type)) continue;
-    if (!canUpload) continue;
+  // Subir adjuntos (ya moderados) a Vercel Blob. Si no hay store, se omiten sin romper el ticket.
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    for (const file of files) {
+      const ext = file.name.split('.').pop() ?? 'bin';
+      const blob = await put(`tickets/${ticket.id}/${crypto.randomUUID()}.${ext}`, file, {
+        access: 'public',
+        contentType: file.type,
+      });
 
-    const ext = file.name.split('.').pop() ?? 'bin';
-    const blob = await put(`tickets/${ticket.id}/${crypto.randomUUID()}.${ext}`, file, {
-      access: 'public',
-      contentType: file.type,
-    });
-
-    await db.ticketAttachment.create({
-      data: {
-        ticketId: ticket.id,
-        filename: file.name,
-        storedAs: blob.url, // URL pública (sufijo aleatorio no adivinable)
-        mimeType: file.type,
-        size: file.size,
-      },
-    });
+      await db.ticketAttachment.create({
+        data: {
+          ticketId: ticket.id,
+          filename: file.name,
+          storedAs: blob.url, // URL pública (sufijo aleatorio no adivinable)
+          mimeType: file.type,
+          size: file.size,
+        },
+      });
+    }
   }
 
   redirect(`/soporte/${ticket.id}`);
