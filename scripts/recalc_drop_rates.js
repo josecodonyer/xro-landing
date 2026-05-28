@@ -2,10 +2,10 @@
  * Recalculates pct values in public/mob_detail.json with current xRO server rates.
  *
  * Server rates (drops.conf):
- *   item_rate_equip:      800  (x8  — weapons & armor)
- *   item_rate_card:      1330  (x13.3 — cards on normal mobs, ~750 kills)
- *   item_rate_card_boss: 6650  (x66.5 — cards on boss/MVP mobs, x5 of normal)
- *   Everything else:      800  (x8  — common items, no change)
+ *   item_rate_equip:      800  (x8 — weapons & armor)
+ *   item_rate_card:       900  (x9 — cards on normal mobs)
+ *   item_rate_card_boss:  500  (x5 — cards on boss/MVP mobs)
+ *   Everything else:      800  (x8 — common items, no change)
  *
  * Usage: node scripts/recalc_drop_rates.js
  */
@@ -14,8 +14,8 @@ const fs   = require('fs');
 const path = require('path');
 
 const EQUIP_MULT      = 800  / 100;   // 8
-const CARD_MULT       = 1000 / 100;   // 10
-const CARD_BOSS_MULT  = 1000 / 100;   // 10
+const CARD_MULT       = 900  / 100;   // 9
+const CARD_BOSS_MULT  = 500  / 100;   // 5
 const COMMON_MULT     = 800  / 100;   // 8 (unchanged, just for clarity)
 
 const EQUIP_TYPES = new Set(['Weapon', 'Armor', 'Ammo']);
