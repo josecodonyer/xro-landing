@@ -45,28 +45,27 @@
   max-width: 640px;
 }
 
-.backLink {
+.cardTop {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.backLink {
+  display: inline-flex;
   align-items: center;
   gap: 5px;
   color: rgba(10,10,12,0.4);
   font-size: 13px;
   text-decoration: none;
-  align-self: flex-start;
   transition: color var(--dur-fast) var(--ease-out);
-  margin-bottom: -8px;
 }
 
 .backLink:hover { color: #0a0a0c; }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #0a0a0c;
-  text-decoration: none;
-  margin-bottom: 4px;
-}
+/* El logo vive en el Topbar; dentro de la tarjeta sería redundante. */
+.logo { display: none; }
 
 .logoRo {
   font-weight: 900;
@@ -254,6 +253,16 @@
 }
 
 .footerNote a:hover { color: #0a0a0c; }
+
+.captchaNote {
+  font-size: 11px;
+  color: rgba(10,10,12,0.35);
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+.captchaNote a { color: rgba(10,10,12,0.55); text-decoration: underline; text-underline-offset: 2px; }
+.captchaNote a:hover { color: #0a0a0c; }
 
 /* ── Dashboard ── */
 

@@ -6,22 +6,40 @@ import NavDrawer from './NavDrawer';
 import XroLogo from './XroLogo';
 import UserAvatar from './UserAvatar';
 
-type Page = 'home' | 'exp' | 'wiki' | 'account' | 'novedades' | 'soporte';
+type Page = 'home' | 'exp' | 'wiki' | 'novedades' | 'soporte';
 
-export default function Topbar({ active, subtitle }: { active?: Page; subtitle?: string }) {
+export interface NavItem { href: string; label: string; }
+
+const DEFAULT_ITEMS: NavItem[] = [
+  { href: '/', label: 'Inicio' },
+  { href: '/novedades', label: 'Novedades' },
+  { href: '/exp', label: 'EXP Scaler' },
+  { href: '/wiki', label: 'Wiki' },
+  { href: '/soporte', label: 'Soporte' },
+];
+
+export default function Topbar({
+  active,
+  subtitle,
+  items = DEFAULT_ITEMS,
+  statusPill,
+  cta,
+}: {
+  active?: Page;
+  subtitle?: string;
+  /** Enlaces de navegación (desktop + drawer). Por defecto, las páginas internas. */
+  items?: NavItem[];
+  /** Pill de estado del servidor (solo la home lo pasa). */
+  statusPill?: React.ReactNode;
+  /** CTA adicional antes del avatar (p. ej. "▶ Descargar" en la home). */
+  cta?: NavItem;
+}) {
+  const activeHref = active === 'home' ? '/' : active ? `/${active}` : null;
+
   return (
     <header className="topbar">
       <div className="topbar-left">
-        <NavDrawer
-          items={[
-            { href: '/', label: 'Inicio' },
-            { href: '/novedades', label: 'Novedades' },
-            { href: '/exp', label: 'EXP Scaler' },
-            { href: '/wiki', label: 'Wiki' },
-            { href: '/soporte', label: 'Soporte' },
-          ]}
-          cta={{ href: '/cuenta/registro', label: 'Crear cuenta' }}
-        />
+        <NavDrawer items={items} />
         <a href="/" className={styles.brand} aria-label="xRO">
           <XroLogo size={22} />
           <span className={styles.brandRo}>RO</span>
@@ -32,6 +50,7 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
             <span className="mono-sub">{subtitle}</span>
           </>
         )}
+        {statusPill}
       </div>
       {active === 'wiki' && (
         <div className={styles.searchCenter}>
@@ -39,13 +58,17 @@ export default function Topbar({ active, subtitle }: { active?: Page; subtitle?:
         </div>
       )}
       <nav className="topbar-right nav">
-        <a href="/" className={active === 'home' ? styles.navActive : ''}>Inicio</a>
-        <a href="/novedades" className={active === 'novedades' ? styles.navActive : ''}>Novedades</a>
-        <a href="/exp" className={active === 'exp' ? styles.navActive : ''}>EXP Scaler</a>
-        <a href="/wiki" className={active === 'wiki' ? styles.navActive : ''}>Wiki</a>
-        <a href="/soporte" className={active === 'soporte' ? styles.navActive : ''}>Soporte</a>
+        {items.map(item => (
+          <a
+            key={item.href}
+            href={item.href}
+            className={item.href === activeHref ? styles.navActive : ''}
+          >
+            {item.label}
+          </a>
+        ))}
+        {cta && <a href={cta.href} className="btn-header-cta">{cta.label}</a>}
         <UserAvatar />
-        <a href="/cuenta/registro" className="btn-header-cta">Crear cuenta</a>
       </nav>
     </header>
   );

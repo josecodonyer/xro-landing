@@ -2,6 +2,7 @@
 
 import { useActionState, useRef } from 'react';
 import { addReplyAction } from '../actions';
+import { TextArea, SubmitButton, FormError, FormSuccess } from '../../components/FormControls';
 import styles from '../soporte.module.css';
 
 export default function ReplyForm({ ticketId }: { ticketId: number }) {
@@ -16,19 +17,16 @@ export default function ReplyForm({ ticketId }: { ticketId: number }) {
   return (
     <form ref={formRef} action={handleAction} className={styles.replyForm}>
       <input type="hidden" name="ticketId" value={ticketId} />
-      <textarea
+      <TextArea
         name="message"
-        className={`${styles.input} ${styles.textarea}`}
         placeholder="Escribe tu respuesta…"
         required
         minLength={2}
         rows={4}
       />
-      {state?.error && <div className={styles.error}>{state.error}</div>}
-      {state?.success && <div className={styles.success}>Respuesta enviada.</div>}
-      <button type="submit" className={styles.btnPrimary} disabled={pending}>
-        {pending ? 'Enviando…' : 'Responder'}
-      </button>
+      <FormError>{state?.error}</FormError>
+      <FormSuccess>{state?.success && 'Respuesta enviada.'}</FormSuccess>
+      <SubmitButton pending={pending} pendingLabel="Enviando…">Responder</SubmitButton>
     </form>
   );
 }

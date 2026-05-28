@@ -1,0 +1,151 @@
+/* xRO — Controles de formulario reutilizables.
+   Extraído de app/cuenta/cuenta.module.css para compartir el mismo aspecto
+   entre login, registro, tickets y cambio de email/contraseña. */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(10,10,12,0.4);
+  font-weight: 500;
+}
+
+.input {
+  background: rgba(10,10,12,0.04);
+  border: 1px solid rgba(10,10,12,0.14);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  color: #0a0a0c;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease-out);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus { border-color: rgba(10,10,12,0.4); }
+.input::placeholder { color: rgba(10,10,12,0.25); }
+
+.textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+
+/* ── Code input ── */
+
+.codeInput {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-align: center;
+  font-family: var(--font-mono);
+  padding: 16px;
+}
+
+/* ── Sex selector ── */
+
+.sexRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sexBtn {
+  padding: 10px;
+  background: rgba(10,10,12,0.04);
+  border: 1px solid rgba(10,10,12,0.14);
+  border-radius: var(--r-md);
+  color: rgba(10,10,12,0.5);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--dur-fast) var(--ease-out);
+  letter-spacing: 0.04em;
+}
+
+.sexBtn:hover { border-color: var(--line-heavy); color: var(--fg); }
+.sexBtnActive { border-color: var(--accent) !important; color: var(--accent) !important; background: rgba(230,197,116,0.06) !important; }
+
+/* ── Buttons ── */
+
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  background: #14161a;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+  width: 100%;
+}
+
+.btnPrimary:hover { background: #23262e; }
+.btnPrimary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btnGhost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: transparent;
+  color: rgba(10,10,12,0.5);
+  border: 1px solid rgba(10,10,12,0.14);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+  width: 100%;
+  text-decoration: none;
+}
+
+.btnGhost:hover { color: #0a0a0c; border-color: rgba(10,10,12,0.3); }
+
+/* ── Error / success ── */
+
+.error {
+  background: rgba(243,123,106,0.1);
+  border: 1px solid rgba(243,123,106,0.25);
+  color: var(--crimson-500);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.success {
+  background: rgba(127,217,169,0.1);
+  border: 1px solid rgba(127,217,169,0.2);
+  color: var(--jade-400);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ── Captcha note ── */
+
+.captchaNote {
+  font-size: 11px;
+  color: rgba(10,10,12,0.35);
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+.captchaNote a { color: rgba(10,10,12,0.55); text-decoration: underline; text-underline-offset: 2px; }
+.captchaNote a:hover { color: #0a0a0c; }

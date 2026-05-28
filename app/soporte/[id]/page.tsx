@@ -2,7 +2,7 @@ import { redirect, notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getSession } from '@/lib/session';
 import { db } from '@/lib/db';
-import Topbar from '../../components/Topbar';
+import XroLogo from '../../components/XroLogo';
 import MessageAvatar from '../../components/MessageAvatar';
 import ReplyForm from './ReplyForm';
 import styles from '../soporte.module.css';
@@ -47,13 +47,14 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
   const canReply = ticket.status !== 'CLOSED';
 
   return (
-    <>
-      <Topbar active="soporte" />
-      <main className={styles.shell}>
-        <div className={styles.containerNarrow}>
+    <main className={styles.shell}>
+      <div className={styles.card}>
+        <div className={styles.cardTop}>
           <Link href="/soporte" className={styles.backLink}>← Mis tickets</Link>
+          <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
+        </div>
 
-          <div className={styles.ticketDetail}>
+        <div className={styles.ticketDetail}>
             <div className={styles.ticketDetailHeader}>
               <div className={styles.ticketDetailMeta}>
                 <span className={`${styles.categoryBadge} ${styles[`cat${ticket.category}`]}`}>
@@ -77,7 +78,7 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
                   {new Date(ticket.createdAt).toLocaleString('es-ES')}
                 </span>
               </div>
-              <p className={styles.messageBody}>{ticket.message}</p>
+              <p className={`${styles.messageBody} scroll-y`}>{ticket.message}</p>
 
               {ticket.attachments.length > 0 && (
                 <div className={styles.attachmentGrid}>
@@ -140,6 +141,5 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
           </div>
         </div>
       </main>
-    </>
   );
 }

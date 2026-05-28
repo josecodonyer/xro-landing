@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import CharAvatar from './CharAvatar';
 import styles from './Topbar.module.css';
 
 type Me = {
@@ -12,56 +13,33 @@ type Me = {
   } | null;
 };
 
-function AvatarCircle({ spriteUrl, hairColor, size = 28 }: { spriteUrl: string; hairColor: string; size?: number }) {
-  const [failed, setFailed] = useState(false);
-  return (
-    <div style={{ position: 'relative', width: size, height: size, flexShrink: 0 }}>
-      {!failed ? (
-        <img
-          src={spriteUrl}
-          alt="avatar"
-          width={size}
-          height={size}
-          className={styles.avatarImg}
-          style={{ imageRendering: 'pixelated' }}
-          onError={() => setFailed(true)}
-        />
-      ) : (
-        <div className={styles.avatarFallback} style={{ width: size, height: size }}>
-          <span style={{ fontSize: size * 0.38, fontWeight: 700 }}>✦</span>
-        </div>
-      )}
-      <span style={{
-        position: 'absolute', bottom: 0, right: 0,
-        width: size * 0.3, height: size * 0.3,
-        borderRadius: '50%', background: hairColor,
-        border: '1.5px solid rgba(250,250,247,0.9)',
-      }} />
-    </div>
-  );
-}
-
 export default function UserAvatar() {
   const [me, setMe] = useState<Me | null>(null);
 
   useEffect(() => {
-    fetch('/api/me').then(r => r.json()).then(setMe).catch(() => {});
+    fetch('/api/me').then(r => r.json()).then(setMe).catch(() => setMe({ loggedIn: false }));
   }, []);
 
-  if (!me?.loggedIn) return null;
+  // Mientras carga el estado de sesión no mostramos nada (evita parpadeo).
+  if (me === null) return null;
+
+  // Sin sesión → CTA de registro.
+  if (!me.loggedIn) {
+    return <a href="/cuenta/registro" className="btn-header-cta">Register</a>;
+  }
 
   return (
     <a href="/cuenta" className={styles.userAvatarBtn} aria-label="Mi cuenta">
-      {me.avatar ? (
-        <AvatarCircle spriteUrl={me.avatar.spriteUrl} hairColor={me.avatar.hairColor} size={28} />
-      ) : (
-        <div className={styles.avatarFallback} style={{ width: 28, height: 28 }}>
-          <span style={{ fontSize: 11, fontWeight: 700 }}>
-            {(me.userid ?? '?')[0].toUpperCase()}
-          </span>
-        </div>
-      )}
-      <span className={styles.userAvatarName}>{me.userid}</span>
+      <CharAvatar
+        size={28}
+        spriteUrl={me.avatar?.spriteUrl ?? null}
+        charClass={me.avatar?.charClass ?? null}
+        hairColor={me.avatar?.hairColor ?? null}
+        fallback={(me.userid ?? '?')[0].toUpperCase()}
+        bg="rgba(10,10,12,0.12)"
+        alt="Mi cuenta"
+      />
+      <span className={styles.userAvatarName}>Mi cuenta</span>
     </a>
   );
 }

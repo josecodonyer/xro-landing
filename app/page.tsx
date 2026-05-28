@@ -1,9 +1,18 @@
 'use client';
 
 import { useServerStatus } from './components/ServerStatus';
-import NavDrawer from './components/NavDrawer';
+import Topbar from './components/Topbar';
 import XroLogo from './components/XroLogo';
 import styles from "./landing.module.css";
+
+const HOME_NAV = [
+  { href: '#rates', label: 'Rates' },
+  { href: '#features', label: 'Servidor' },
+  { href: '/novedades', label: 'Novedades' },
+  { href: '/exp', label: 'EXP Scaler' },
+  { href: '/wiki', label: 'Wiki' },
+  { href: '/soporte', label: 'Soporte' },
+];
 
 const LAUNCHER_URL = 'https://pub-b154b0d855ee4f81847a01ba870dcc90.r2.dev/xro-launcher.exe';
 
@@ -47,26 +56,13 @@ export default function Home() {
 
   return (
     <>
-      {/* ── Top bar flotante ── */}
-      <header className="topbar">
-        <div className="topbar-left">
-          <NavDrawer
-            items={[
-              { href: '#rates', label: 'Rates' },
-              { href: '#features', label: 'Servidor' },
-              { href: '/novedades', label: 'Novedades' },
-              { href: '/exp', label: 'EXP Scaler' },
-              { href: '/wiki', label: 'Wiki' },
-              { href: '/soporte', label: 'Soporte' },
-            ]}
-            cta={{ href: '#descargar', label: '▶ Descargar' }}
-          />
-          <a href="/" className={styles.brandLogo} aria-label="xRO">
-            <XroLogo size={22} />
-            <span className={styles.brandRo}>RO</span>
-          </a>
-          <span className="divider-v" />
-          <span className="mono-sub">Renewal · x10 · 4th Jobs</span>
+      {/* ── Top bar (componente unificado) ── */}
+      <Topbar
+        active="home"
+        items={HOME_NAV}
+        subtitle="Renewal · x10 · 4th Jobs"
+        cta={{ href: '#descargar', label: '▶ Descargar' }}
+        statusPill={
           <span className="status-pill">
             <span className="dot" />
             <span className="strong">{status.online ? 'Online' : 'Offline'}</span>
@@ -77,17 +73,8 @@ export default function Home() {
               </>
             )}
           </span>
-        </div>
-        <nav className="topbar-right nav">
-          <a href="#rates">Rates</a>
-          <a href="#features">Servidor</a>
-          <a href="/novedades">Novedades</a>
-          <a href="/exp">EXP Scaler</a>
-          <a href="/wiki">Wiki</a>
-          <a href="/soporte">Soporte</a>
-          <a href="#descargar" className="btn-header-cta">▶ Descargar</a>
-        </nav>
-      </header>
+        }
+      />
 
       {/* ── HERO — full viewport, vídeo de fondo ── */}
       <section className={styles.heroFull}>

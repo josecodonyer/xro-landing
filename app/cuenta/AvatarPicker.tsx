@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { selectAvatarAction } from './actions';
-import { hairColorHex } from '@/lib/avatar-shared';
+import CharAvatar from '../components/CharAvatar';
 import styles from './cuenta.module.css';
 
 type Char = {
@@ -74,53 +74,6 @@ function getJob(cls: number) {
   return JOB[cls] ?? { label: `Class ${cls}`, color: '#6b7280', abbr: '???' };
 }
 
-export function SpriteAvatar({
-  charClass, hairColor, size = 56, charPreview,
-}: {
-  charClass: number; hairColor: number; size?: number; charPreview?: string | null;
-}) {
-  const job = getJob(charClass);
-  const hair = hairColorHex(hairColor);
-  const [imgFailed, setImgFailed] = useState(false);
-
-  // If server exposes a preview image, use it
-  const src = (!imgFailed && charPreview) ? charPreview
-    : !imgFailed ? `https://static.divine-pride.net/images/jobs/png/${charClass}.png`
-    : null;
-
-  return (
-    <div style={{
-      width: size, height: size, borderRadius: '50%',
-      background: job.color, overflow: 'hidden', position: 'relative',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      flexShrink: 0,
-    }}>
-      {src ? (
-        <img
-          src={src}
-          alt={job.label}
-          width={size}
-          height={size}
-          style={{ objectFit: 'contain', imageRendering: 'pixelated' }}
-          onError={() => setImgFailed(true)}
-        />
-      ) : (
-        <span style={{ fontFamily: 'monospace', fontSize: size * 0.25, fontWeight: 700, color: '#fff', letterSpacing: '0.04em' }}>
-          {job.abbr}
-        </span>
-      )}
-      {/* Hair color accent dot */}
-      <span style={{
-        position: 'absolute', bottom: 1, right: 1,
-        width: size * 0.22, height: size * 0.22,
-        borderRadius: '50%',
-        background: hair,
-        border: '1.5px solid rgba(255,255,255,0.8)',
-      }} />
-    </div>
-  );
-}
-
 export default function AvatarPicker({
   chars,
   currentCharName,
@@ -163,7 +116,7 @@ export default function AvatarPicker({
         aria-label="Cambiar avatar"
       >
         {selectedChar ? (
-          <SpriteAvatar charClass={selectedChar.class} hairColor={selectedChar.hair_color} size={72} />
+          <CharAvatar charClass={selectedChar.class} hairColor={selectedChar.hair_color} size={72} />
         ) : (
           <div className={styles.avatarEmpty}>
             <span className={styles.avatarPlus}>+</span>
@@ -198,7 +151,7 @@ export default function AvatarPicker({
                       onClick={() => handleSelect(char)}
                       disabled={isPending}
                     >
-                      <SpriteAvatar charClass={char.class} hairColor={char.hair_color} size={52} />
+                      <CharAvatar charClass={char.class} hairColor={char.hair_color} size={52} />
                       <div className={styles.charPickerInfo}>
                         <span className={styles.charPickerName}>{char.name}</span>
                         <span className={styles.charPickerJob} style={{ color: job.color }}>{job.label}</span>

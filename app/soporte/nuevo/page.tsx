@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getSession } from '@/lib/session';
-import Topbar from '../../components/Topbar';
+import XroLogo from '../../components/XroLogo';
 import TicketForm from './TicketForm';
 import styles from '../soporte.module.css';
 
@@ -10,18 +10,18 @@ export default async function NuevoTicketPage() {
   if (!session.accountId || !session.userid) redirect('/cuenta/login');
 
   return (
-    <>
-      <Topbar active="soporte" />
-      <main className={styles.shell}>
-        <div className={styles.containerNarrow}>
+    <main className={styles.shell}>
+      <div className={styles.card}>
+        <div className={styles.cardTop}>
           <Link href="/soporte" className={styles.backLink}>← Mis tickets</Link>
-          <div className={styles.pageHeader}>
-            <h1 className={styles.title}>Nuevo ticket</h1>
-            <p className={styles.subtitle}>Rellena el formulario para abrir un ticket de soporte.</p>
-          </div>
-          <TicketForm />
+          <Link href="/" className={styles.logo}><XroLogo size={18} /><span className={styles.logoRo}>RO</span></Link>
         </div>
-      </main>
-    </>
+        <div className={styles.pageHeader}>
+          <h1 className={styles.title}>Nuevo ticket</h1>
+          <p className={styles.subtitle}>Rellena el formulario para abrir un ticket de soporte.</p>
+        </div>
+        <TicketForm />
+      </div>
+    </main>
   );
 }

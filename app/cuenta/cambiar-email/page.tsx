@@ -3,6 +3,7 @@
 import { useActionState, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { requestEmailChangeAction, confirmEmailChangeAction } from '../actions';
+import { Field, TextInput, SubmitButton, FormError } from '../../components/FormControls';
 import styles from '../cuenta.module.css';
 
 export default function CambiarEmailPage() {
@@ -38,15 +39,12 @@ export default function CambiarEmailPage() {
             <p className={styles.subtitle}>Hemos enviado un código al nuevo email para confirmar el cambio.</p>
           </div>
           <form action={confAction} className={styles.form}>
-            <div className={styles.field}>
-              <label className={styles.label}>Código de verificación</label>
-              <input name="code" type="text" inputMode="numeric" maxLength={6} placeholder="000000"
-                className={`${styles.input} ${styles.codeInput}`} autoFocus required />
-            </div>
-            {confState?.error && <div className={styles.error}>{confState.error}</div>}
-            <button type="submit" className={styles.btnPrimary} disabled={confPending}>
-              {confPending ? 'Confirmando…' : 'Confirmar cambio'}
-            </button>
+            <Field label="Código de verificación">
+              <TextInput name="code" type="text" inputMode="numeric" maxLength={6} placeholder="000000"
+                className={styles.codeInput} autoFocus required />
+            </Field>
+            <FormError>{confState?.error}</FormError>
+            <SubmitButton pending={confPending} pendingLabel="Confirmando…">Confirmar cambio</SubmitButton>
           </form>
         </div>
       </div>
@@ -61,14 +59,11 @@ export default function CambiarEmailPage() {
           <p className={styles.subtitle}>Enviaremos un código al nuevo email para confirmar.</p>
         </div>
         <form action={reqAction} className={styles.form}>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="new_email">Nuevo email</label>
-            <input id="new_email" name="new_email" type="email" className={styles.input} placeholder="nuevo@email.com" required autoFocus />
-          </div>
-          {reqState?.error && <div className={styles.error}>{reqState.error}</div>}
-          <button type="submit" className={styles.btnPrimary} disabled={reqPending}>
-            {reqPending ? 'Enviando código…' : 'Continuar'}
-          </button>
+          <Field label="Nuevo email" htmlFor="new_email">
+            <TextInput id="new_email" name="new_email" type="email" placeholder="nuevo@email.com" required autoFocus />
+          </Field>
+          <FormError>{reqState?.error}</FormError>
+          <SubmitButton pending={reqPending} pendingLabel="Enviando código…">Continuar</SubmitButton>
         </form>
         <Link href="/cuenta" className={styles.btnGhost}>Cancelar</Link>
       </div>

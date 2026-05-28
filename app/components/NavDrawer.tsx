@@ -7,11 +7,20 @@ import XroLogo from './XroLogo';
 
 interface NavItem { href: string; label: string; }
 
-export default function NavDrawer({ items, cta }: { items: NavItem[]; cta: NavItem }) {
+export default function NavDrawer({ items }: { items: NavItem[] }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => { setMounted(true); }, []);
+
+  useEffect(() => {
+    fetch('/api/me').then(r => r.json()).then(d => setLoggedIn(!!d.loggedIn)).catch(() => setLoggedIn(false));
+  }, []);
+
+  const account: NavItem = loggedIn
+    ? { href: '/cuenta', label: 'Mi cuenta' }
+    : { href: '/cuenta/registro', label: 'Register' };
 
   useEffect(() => {
     if (!open) return;
@@ -61,8 +70,8 @@ export default function NavDrawer({ items, cta }: { items: NavItem[]; cta: NavIt
             </nav>
 
             <div className={styles.drawerFooter}>
-              <a href={cta.href} className={styles.drawerCta} onClick={() => setOpen(false)}>
-                {cta.label}
+              <a href={account.href} className={styles.drawerCta} onClick={() => setOpen(false)}>
+                {account.label}
               </a>
             </div>
           </div>
