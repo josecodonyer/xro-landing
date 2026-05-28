@@ -7,6 +7,7 @@ import { md5 } from '@/lib/password';
 import { generateCode, sendVerificationCode, sendPasswordResetCode, sendEmailChangeCode } from '@/lib/email';
 import { verifyCaptcha } from '@/lib/captcha';
 import { db } from '@/lib/db';
+import { PRESET_AVATAR_IDS } from '@/lib/preset-avatars';
 import { revalidatePath } from 'next/cache';
 
 function expiry(minutes: number) {
@@ -194,35 +195,15 @@ export async function confirmEmailChangeAction(_: unknown, fd: FormData) {
 
 // ── Avatar de perfil ──────────────────────────────────────────────────────────
 
-type CharSnapshot = {
-  charName: string; charClass: number; charSex: string;
-  hair: number; hairColor: number; clothesColor: number;
-  headTop: number; headMid: number; headBottom: number;
-  weapon: number; shield: number;
-};
-
-export async function selectAvatarAction(char: CharSnapshot) {
+export async function selectAvatarImageAction(id: string) {
   const session = await getSession();
   if (!session.accountId || !session.userid) return { error: 'No autenticado.' };
-
-  const data = {
-    avatarCharName:    char.charName,
-    avatarCharClass:   char.charClass,
-    avatarCharSex:     char.charSex,
-    avatarHair:        char.hair,
-    avatarHairColor:   char.hairColor,
-    avatarClothesColor: char.clothesColor,
-    avatarHeadTop:     char.headTop,
-    avatarHeadMid:     char.headMid,
-    avatarHeadBottom:  char.headBottom,
-    avatarWeapon:      char.weapon,
-    avatarShield:      char.shield,
-  };
+  if (!PRESET_AVATAR_IDS.includes(id)) return { error: 'Avatar inválido.' };
 
   await db.userProfile.upsert({
     where:  { userId: session.userid },
-    create: { userId: session.userid, ...data },
-    update: data,
+    create: { userId: session.userid, avatarImage: id },
+    update: { avatarImage: id },
   });
 
   revalidatePath('/cuenta');

@@ -1,6 +1,5 @@
 'use server';
 
-import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { put } from '@vercel/blob';
 import { getSession } from '@/lib/session';
@@ -73,7 +72,7 @@ export async function createTicketAction(_: unknown, fd: FormData) {
     }
   }
 
-  redirect(`/soporte/${ticket.id}`);
+  return { success: true, ticketId: ticket.id };
 }
 
 export async function addReplyAction(_: unknown, fd: FormData) {
