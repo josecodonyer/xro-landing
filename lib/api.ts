@@ -62,6 +62,15 @@ export const passwordRequest = (b: {
 export const passwordConfirm = (b: { account_id: number; code: string; new_pass: string }) =>
   call<{ ok: true }>('/password/confirm', b);
 
+// ── Password reset (sin sesión: "he olvidado mi contraseña") ────────────────────
+// El backend localiza la cuenta por userid, guarda el código y devuelve el email
+// registrado para que el server pueda enviarlo (y mostrarlo enmascarado al cliente).
+export const passwordResetRequest = (b: { userid: string; code: string; expires_at: string }) =>
+  call<{ ok: true; email: string }>('/password/reset/request', b);
+
+export const passwordResetConfirm = (b: { userid: string; code: string; new_pass: string }) =>
+  call<{ ok: true }>('/password/reset/confirm', b);
+
 // ── Email change ──────────────────────────────────────────────────────────────
 export const emailRequest = (b: {
   account_id: number; new_email: string; code: string; expires_at: string;

@@ -38,6 +38,7 @@ export default function LoginPage() {
           <FormError>{state?.error}</FormError>
           <SubmitButton pending={pending} pendingLabel="Entrando…">Entrar</SubmitButton>
         </form>
+        <p className={styles.footerNote}><Link href="/cuenta/recuperar">¿Has olvidado tu contraseña o tu email?</Link></p>
         <p className={styles.footerNote}>¿No tienes cuenta? <Link href="/cuenta/registro">Regístrate</Link></p>
       </div>
     </div>
