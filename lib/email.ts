@@ -90,6 +90,15 @@ export async function sendPasswordResetCode(to: string, code: string) {
   }, code);
 }
 
+export async function sendPasswordRecoveryCode(to: string, code: string) {
+  await send(to, {
+    subject: `[xRO] Código para recuperar tu contraseña: ${code}`,
+    heading: 'Recuperar contraseña — xRO',
+    intro: 'Has solicitado restablecer tu contraseña. Introduce este código en la web para elegir una nueva:',
+    footer: 'Caduca en 15 minutos. Si no fuiste tú, ignora este email: tu contraseña no cambiará.',
+  }, code);
+}
+
 export async function sendEmailChangeCode(to: string, code: string) {
   await send(to, {
     subject: `[xRO] Código para cambiar email: ${code}`,

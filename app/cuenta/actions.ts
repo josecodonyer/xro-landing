@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import * as api from '@/lib/api';
 import { getSession } from '@/lib/session';
 import { md5 } from '@/lib/password';
-import { generateCode, sendVerificationCode, sendPasswordResetCode, sendEmailChangeCode } from '@/lib/email';
+import { generateCode, sendVerificationCode, sendPasswordResetCode, sendPasswordRecoveryCode, sendEmailChangeCode } from '@/lib/email';
 import { verifyCaptcha } from '@/lib/captcha';
 import { db } from '@/lib/db';
 import { PRESET_AVATAR_IDS } from '@/lib/preset-avatars';
@@ -13,6 +13,16 @@ import { revalidatePath } from 'next/cache';
 function expiry(minutes: number) {
   return new Date(Date.now() + minutes * 60 * 1000)
     .toISOString().slice(0, 19).replace('T', ' ');
+}
+
+// Enmascara un email para mostrarlo sin revelarlo entero: jose@gmail.com → jo***@gmail.com
+function maskEmail(email: string): string {
+  const at = email.lastIndexOf('@');
+  if (at <= 0) return email;
+  const local  = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  const head   = local.length <= 2 ? local.slice(0, 1) : local.slice(0, 2);
+  return `${head}***@${domain}`;
 }
 
 // ── Registro ──────────────────────────────────────────────────────────────────
@@ -88,6 +98,50 @@ export async function logoutAction() {
   const session = await getSession();
   session.destroy();
   redirect('/cuenta/login');
+}
+
+// ── Recuperar contraseña (sin sesión: "he olvidado mi contraseña") ─────────────
+// También resuelve "¿con qué email me registré?": devuelve el email enmascarado.
+
+export async function requestPasswordResetAction(_: unknown, fd: FormData) {
+  const userid = (fd.get('userid') as string).trim();
+
+  const captchaToken = fd.get('captcha-token') as string | null;
+  const captchaOk = await verifyCaptcha(captchaToken);
+  if (!captchaOk) return { error: 'Verificación CAPTCHA fallida. Inténtalo de nuevo.' };
+
+  if (!userid) return { error: 'Escribe tu usuario.' };
+
+  const code = generateCode();
+  const res = await api.passwordResetRequest({ userid, code, expires_at: expiry(15) });
+  if (!res.ok) {
+    if (res.error === 'not_found') return { error: 'No encontramos ninguna cuenta con ese usuario.' };
+    return { error: 'No se pudo iniciar la recuperación. Inténtalo de nuevo.' };
+  }
+
+  try {
+    await sendPasswordRecoveryCode(res.data.email, code);
+  } catch {
+    return { error: 'No se pudo enviar el email. Inténtalo de nuevo.' };
+  }
+
+  return { success: true, userid, emailHint: maskEmail(res.data.email) };
+}
+
+export async function confirmPasswordResetAction(_: unknown, fd: FormData) {
+  const userid  = (fd.get('userid') as string).trim();
+  const code    = (fd.get('code') as string).trim();
+  const newPass = fd.get('new_password') as string;
+
+  if (newPass.length < 6) return { error: 'La nueva contraseña debe tener al menos 6 caracteres.' };
+
+  const res = await api.passwordResetConfirm({ userid, code, new_pass: md5(newPass) });
+  if (!res.ok) {
+    if (res.error === 'expired') return { error: 'El código ha caducado. Solicítalo de nuevo.' };
+    return { error: 'Código incorrecto.' };
+  }
+
+  return { success: true };
 }
 
 // ── Cambio de contraseña (solicitar código) ───────────────────────────────────
