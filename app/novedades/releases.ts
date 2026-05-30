@@ -34,6 +34,47 @@ export const KIND_META: Record<EntryKind, { label: string; color: string }> = {
 
 export const RELEASES: Release[] = [
   {
+    slug: 'quests-4th-job',
+    version: 'Contenido 4th Job',
+    date: '2026-05-30',
+    title: 'Quests oficiales de cambio a 4th Job para las 18 clases',
+    summary:
+      'Todos los quests de cambio a 4th job están ya en el servidor, basados en las guías oficiales de iRO. Cada clase tiene su propia cadena de NPCs, pruebas y recompensa (Hourglass Necklace). El jobmaster sigue disponible como atajo.',
+    entries: [
+      {
+        kind: 'novedad',
+        title: 'Quests de 4th job implementados para todas las clases',
+        lead:
+          'Cada clase 3rd job transcendente ahora tiene su quest oficial de cambio a 4th job con historia, NPCs y mecánicas propias. Basados en las guías de iRO Wiki.',
+        bullets: [
+          'Dragon Knight: 4 trials en Abyss Lake (Oscar en Geffen Field).',
+          'Arch Mage: ritual de 3 esencias en Mansión Barmund.',
+          'Cardinal: 3 Libros de Ilusión + derrotar a Dark Illusion en Glast Heim.',
+          'Shadow Cross / Abyss Chaser: investigación de la sombra en Veins + items de cristal oscuro.',
+          'Windhawk: prueba de supervivencia en Luluka Forest.',
+          'Meister: trial en el Núcleo de Juperos + evaluación de Maura en Verus.',
+          'Imperial Guard: torneo de caballeros en el Palacio de Prontera.',
+          'Biolo: investigación y síntesis en los laboratorios de Verus.',
+          'Elemental Master: caza de criaturas de maná + batalla de esencias.',
+          'Inquisitor: 3 rondas de sellado demoniaco bajo el Monasterio de Prontera.',
+          'Trouvere / Troubadour: misiones de caza y diálogo + ritual en Odin Temple.',
+          'Sky Emperor: recolección de materiales naturales + prueba final en Mjolnir.',
+          'Shinkiro / Shiranui: purificación de Amatsu + duelo con Yeongwi.',
+          'Hyper Novice: resolver el enigma de los 8 novices en la Sala de Memorias.',
+          'Night Watch: prueba de tiro y oleadas de combate (ya disponible desde antes).',
+        ],
+      },
+      {
+        kind: 'calidad-de-vida',
+        title: 'El jobmaster sigue como atajo',
+        bullets: [
+          'Si prefieres cambiar de clase directamente sin hacer el quest, el Job Master en Prontera sigue funcionando.',
+          'Los quests oficiales son opcionales pero dan contexto de historia y la Hourglass Necklace como recompensa.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'pets-homunculos-gramps',
     version: 'Rates y contenido',
     date: '2026-05-30',
