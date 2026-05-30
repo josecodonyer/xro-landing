@@ -66,10 +66,10 @@ export const RELEASES: Release[] = [
       },
       {
         kind: 'calidad-de-vida',
-        title: 'El jobmaster sigue como atajo',
+        title: 'Recompensa: Hourglass Necklace',
         bullets: [
-          'Si prefieres cambiar de clase directamente sin hacer el quest, el Job Master en Prontera sigue funcionando.',
-          'Los quests oficiales son opcionales pero dan contexto de historia y la Hourglass Necklace como recompensa.',
+          'Todos los quests de 4th job recompensan con la Hourglass Necklace (POW, SPL, STA, WIS, CRT y CON +6).',
+          'El quest es la única vía para cambiar a 4th job — no hay atajos.',
         ],
       },
     ],
