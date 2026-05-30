@@ -34,6 +34,93 @@ export const KIND_META: Record<EntryKind, { label: string; color: string }> = {
 
 export const RELEASES: Release[] = [
   {
+    slug: 'pets-homunculos-gramps',
+    version: 'Rates y contenido',
+    date: '2026-05-30',
+    title: 'Intimidad x10, Gramps hasta nivel 275 y nuevos NPCs',
+    summary:
+      'Los rates de intimidad de pets y homúnculos ya van a la par del servidor x10, el homúnculo se queda despierto 5 horas, el Monster Hunter llega hasta nivel 275 y hay nuevos NPCs de utilidad en Lasagna y Midgard Camp.',
+    entries: [
+      {
+        kind: 'mejora',
+        title: 'Intimidad de pets y homúnculos x10',
+        lead:
+          'Alimentar a tu compañero ahora da diez veces más intimidad, proporcional al ritmo del servidor.',
+        bullets: [
+          'La intimidad sube x10 con cada comida, tanto para pets como para homúnculos.',
+          'El homúnculo permanece invocado 5 horas antes de vaporizarse (antes se limitaba a 30 minutos por un tope de Renewal).',
+        ],
+      },
+      {
+        kind: 'novedad',
+        title: 'Monster Hunter activo hasta nivel 275',
+        lead:
+          'El sistema de misiones de caza (Gramps) ya cubre todo el rango de niveles del servidor.',
+        bullets: [
+          'Tramo de entrada: nivel 140 en Eclage (Menblatt).',
+          'Tramos intermedios a nivel 150 y 160.',
+          'Misiones de alto nivel de 175 a 275 con monstruos acordes.',
+        ],
+      },
+      {
+        kind: 'novedad',
+        title: 'NPC Eat Gear Mimic',
+        lead:
+          'Un Mimic peculiar dispuesto a comerse el equipo que llevas puesto a cambio de una recompensa.',
+        bullets: [
+          'Destruye un equipo equipado (arma, armadura, accesorio…) y te da materiales y Cash Points a cambio.',
+          'Estilo iRO, para quienes quieran convertir equipo viejo en algo de valor.',
+        ],
+      },
+      {
+        kind: 'calidad-de-vida',
+        title: 'Nuevos NPCs en Lasagna y Midgard Camp',
+        bullets: [
+          'Kafra de viaje y curandera disponibles en Lasagna: parte y recupérate sin salir del mapa.',
+          'Midgard Camp accesible directamente desde la Kafra de Prontera.',
+        ],
+      },
+      {
+        kind: 'mejora',
+        title: 'Combate más fluido',
+        bullets: [
+          'Reducido el retardo de movimiento tras recibir daño: el personaje reacciona más ágil.',
+          'Eliminado el delay acumulado de skills multihit (Lord of Vermillion, Jupitel Thunder y similares).',
+        ],
+      },
+      {
+        kind: 'correccion',
+        title: 'Fix quest Illusion of Underwater',
+        bullets: [
+          'El NPC Jerimon aparece ahora en su ubicación correcta (Biblioteca Este de Prontera) en lugar de un mapa inaccesible.',
+        ],
+      },
+      {
+        kind: 'novedad',
+        title: 'Recuperación de contraseña y email desde la web',
+        bullets: [
+          'Si olvidaste tu contraseña o no recuerdas con qué email te registraste, recupéralo desde /cuenta/recuperar.',
+          'Flujo en dos pasos: introduce tu usuario, recibe un código en el email y establece contraseña nueva.',
+        ],
+      },
+      {
+        kind: 'mejora',
+        title: 'Avatares de personaje en el perfil',
+        bullets: [
+          'Elige un retrato de personaje de RO para tu perfil desde el selector de avatares en /cuenta.',
+        ],
+      },
+      {
+        kind: 'novedad',
+        title: 'Sistema de soporte',
+        bullets: [
+          'Abre incidencias o reportes directamente desde la web en /soporte.',
+          'El equipo de administración gestiona los tickets en un panel interno.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'homunculos-ia',
     version: 'Homúnculos',
     date: '2026-05-27',
